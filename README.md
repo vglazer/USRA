@@ -1,4 +1,4 @@
-# ASUB_SEARCH.C
+# ASUB_SEARCH.C REPORT
 
 ## PURPOSE
 asub_search.c, like sub_search.c, uses randomised restricted local search to 
@@ -25,31 +25,26 @@ optimal move would have also improved the global minimum. This was a conscious
 design decision intended to magnify the effects of the aspiration, such as they
 are.
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The data structures used are largely the same as in sub_search (see 
 sub_search_report.txt for details). The only two additions are the integer 
 arrays sub_asp and rest_asp, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
 
-========
-EXAMPLES
-========
+## EXAMPLES
 See sub_search_report.txt.
-                             EREG_SEARCH.C REPORT
 
-=======
-PURPOSE
-=======
+---
+
+# EREG_SEARCH.C REPORT
+
+## PURPOSE
 ereg_search.c, like reg_search.c, uses randomised restricted local search to 
 find regular vertex-induced subgraphs with a prescribed valency in undirected,
 unweighted graphs.
 
-======
-METHOD
-======
+## METHOD
 The input parameters and output are identical to those of reg_search (see 
 reg_search_report.txt for details). This time, however, each experiment is 
 divided into two phases. First, we find a subgraph with the desired number 
@@ -67,21 +62,18 @@ be regular. Though not terribly useful from a practical perspective, the
 stratification of objective functions, important in some applications, makes it
 interesting theoretically.
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The data structures are an amalgamation of those used in sub_search and 
 reg_search (see sub_search_report.txt and reg_search_report.txt for details).
 
-========
-EXAMPLES
-========
+## EXAMPLES
 See reg_search_report.txt.
-                                 GGEN.C REPORT
 
-=======
-PURPOSE
-=======
+---
+
+# GGEN.C REPORT
+
+## PURPOSE
 ggen.c grew out of the need to generate and manipulate unweighted, undirected
 graphs of various types in order to gauge the performance sub_search, 
 reg_search and their derivatives (not including wsub_search, which has its own
@@ -96,12 +88,11 @@ generalisation of adjacency lists), so facilities for inputting such lists
 were added. Finally, since switchings in strongly regular graphs constitute an
 important application, a graph switching option was included.
 
-======
-METHOD
-======
+## METHOD
 Like the *search programs, ggen reads from standard input and writes to 
 standard output. The input parameters are:
 
+```
    graph_type | one of five graph types, see below
    v          | number vertices (adjacency lists) or symbols (incidence lists) 
    num_sets   | number of sets (incidence lists only)
@@ -110,6 +101,7 @@ standard output. The input parameters are:
    num_fixed  | number of fixed vertices, if any
    fixed_type | one of five fixed types, see below
    compl      | complementation flag
+```
 
 ggen is capable of generating three different types of random graphs with a
 prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-
@@ -154,9 +146,7 @@ set to 1, on the other hand, the complement is output instead. This option
 particularly handy when the graph is dense: the complement is sparse and thus 
 consumes far less space.
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The only data structure of note is adj, a standard 0-1 adjacency matrix. When 
 an existing adjacency or incidence list is input it is converted to an 
 adjacency matrix internally, and when a new graph is generated it is the 
@@ -165,9 +155,7 @@ the matrix in a uniform fashion, which streamlines the code significantly. The
 adjacency list is never formed explicitly; instead, it is extracted from the 
 adjacency matrix as needed, saving considerable storage.
 
-========
-EXAMPLES
-========
+## EXAMPLES
 I.    2 100 0 600 2  0 0  0
 
       Generate and output a 100-vertex exponential random graph of density
