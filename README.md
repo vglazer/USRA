@@ -1,18 +1,13 @@
-# USRA
-                              ASUB_SEARCH.C REPORT
+# ASUB_SEARCH.C
 
-=======
-PURPOSE
-=======
+## PURPOSE
 asub_search.c, like sub_search.c, uses randomised restricted local search to 
 find vertex-induced subgraphs with a prescribed edge count in undirected, 
 unweighted graphs. It introduces limited aspiration, i.e. some of the 
 restricted moves that improve the global objective function minimum are 
 considered.
 
-======
-METHOD
-======
+## METHOD
 The input parameters and output are identical to those of sub_search, and the 
 overall approach is very similar (see sub_search_report.txt for details). The 
 difference is that moves involving one or both of the two vertices most 
