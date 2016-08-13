@@ -178,7 +178,7 @@ IV.   `0 100 0 0 0  3 -2  0`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      `25 0 7`
+      25 0 7
 
       Input a graph on 100 vertices and output the subgraph induced on the 
       common non-neighbourhood of the 3 fixed vertices indicated. Since 
@@ -189,7 +189,7 @@ V.    `0 1500 0 0 0  5 1  1`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      `1200 105 14 21 25`
+      1200 105 14 21 25
 
       Input a graph on 1500 vertices and output the complement of the subgraph 
       induced on the 5 fixed vertices indicated.
@@ -198,7 +198,7 @@ VI.   `0 30 0 0 0  4 3  0`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      `17 5 28 9`
+      17 5 28 9
 
       Input a graph on 30 vertices and output the same graph switched with
       respect to the 4 fixed vertices indicated.
@@ -207,7 +207,7 @@ VII.  `1 1000 20 2 0  10 -1  1`
 
       [ '-1' terminated incidence list omitted to save space ] 
 
-      `260 150 37 8 22 13 4 66 2 9`
+      260 150 37 8 22 13 4 66 2 9
 
       Input a 20-set incidence list on 1000 symbols and make every pair of
       vertices that appear together in 2 sets adjacent. Output the complement
@@ -218,7 +218,7 @@ VIII. `1 50 -5000 10 0  1 2  0`
 
       [ `'-1'` terminated incidence list omitted to save space ]
 
-      `4200`
+      4200
 
       Input a 5000 set incidence list on 50 symbols and consider its dual, i.e.
       let the sets be the vertices and make every pair of sets that intersect 
@@ -228,31 +228,31 @@ VIII. `1 50 -5000 10 0  1 2  0`
 
 ---
 
-# REG_SEARCH.C REPORT
+# REG\_SEARCH.C REPORT
 
 ## PURPOSE
 `reg_search.c` uses randomised restricted local search to find regular vertex-
 induced subgraphs with a prescribed valency in undirected, unweighted graphs.
 
 ## METHOD
-The input parameters are nearly identical to those of sub_search, except that 
-e_sub, the desired edge count, is now replaced by d_sub, the desired valency; 
-the output is exactly the same as in sub_search (see `sub_search_report.txt` for
+The input parameters are nearly identical to those of sub\_search, except that 
+e\_sub, the desired edge count, is now replaced by d\_sub, the desired valency; 
+the output is exactly the same as in sub\_search (see `sub_search_report.txt` for
 details). This time, however, the objective function being minimised is 
-f(V_sub) = Sum(| sub_degree(v) - d_sub |), where V_sub stands for subgraph
-vertices and sub_degree stands for inner degree, or degree with respect to 
-subgraph vertices only. Although reg_search, like sub_search, can be used to 
+f(V\_sub) = Sum(| sub\_degree(v) - d\_sub |), where V\_sub stands for subgraph
+vertices and sub\_degree stands for inner degree, or degree with respect to 
+subgraph vertices only. Although reg\_search, like sub\_search, can be used to 
 find cliques and cocliques (which have valency v - 1 and 0 respectively), it is
 ill-suited for that purpose due to the considerable speed penalty imposed by 
-the more complicated objective function. The intended use of reg_search is to 
+the more complicated objective function. The intended use of reg\_search is to 
 find regular subgraphs in strongly regular graphs. The strongly regular graph 
 can then be "switched" with respect to the subgraph in question, creating
 a new, larger strongly regular graph.
 
 ## DATA STRUCTURES
-The data structures used are largely the same as in sub_search (see 
+The data structures used are largely the same as in sub\_search (see 
 `sub_search_report.txt` for details). However, the adjacency matrix, adj, and 
-adjacency list, adj_list, were both modified in order to speed up the 
+adjacency list, adj\_list, were both modified in order to speed up the 
 computation of the objective function. Adjacencies are now partitioned into
 inner vertices, appearing first, and outer vertices, which follow (both in no
 particular order). This enables one to efficiently go through all subgraph 
@@ -266,7 +266,7 @@ Naturally, the adjacency matrix itself must also be updated to reflect the
 changes in the adjacencies.
 
 ## EXAMPLES
-I.  100 4 2 1  100 500 150 2 7  0
+I.  `100 4 2 1  100 500 150 2 7  0`
 
     [ '-1' terminated adjacency list omitted to save space ]
 
@@ -277,7 +277,7 @@ I.  100 4 2 1  100 500 150 2 7  0
     make 2 random moves. Use 7 as the random seed. For each experiment, display
     only the global objective function minimum attained.
 
-II. 5000 150 82 0  30 1000 250 2 3  1
+II. `5000 150 82 0  30 1000 250 2 3  1`
 
     [ '-1' terminated adjacency list omitted to save space ]    
 
