@@ -163,7 +163,7 @@ II.  `67 4 6 2  2000 500 1 0 26  5`
      Search for 4-cliques through two fixed vertices, 61 and 63, in a graph on
      67 vertices. Perform 2000 experiments, at most 500 moves each. Do not make
      any random moves (note that to turn diversification off, one sets the
-     duration, and not the frequency, to 0; the frequency _must_ be non-zero). 
+     duration, and not the frequency, to 0; the frequency *must* be non-zero). 
      Use 26 as the random seed. For each experiment, display the global 
      objective function minimum attained. Additionally, for every experiment 
      where the above minimum was 4 or below, display the vertices of the 
