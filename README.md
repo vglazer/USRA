@@ -26,7 +26,7 @@ design decision intended to magnify the effects of the aspiration, such as they
 are.
 
 ## DATA STRUCTURES
-The data structures used are largely the same as in sub\_search (see 
+The data structures used are largely the same as in `sub_search` (see 
 `sub_search_report.txt` for details). The only two additions are the integer 
 arrays sub\_asp and rest\_asp, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
@@ -45,26 +45,26 @@ find regular vertex-induced subgraphs with a prescribed valency in undirected,
 unweighted graphs.
 
 ## METHOD
-The input parameters and output are identical to those of reg\_search (see 
+The input parameters and output are identical to those of `reg_search` (see 
 `reg_search_report.txt` for details). This time, however, each experiment is 
 divided into two phases. First, we find a subgraph with the desired number 
-of edges (i.e. v\_sub * d\_sub / 2) using the objective function from sub\_search.
+of edges (i.e. v\_sub * d\_sub / 2) using the objective function from `sub_search`.
 This phase is usually quite fast, since the objective function is relatively 
 simple and there is no need to partition the adjacencies. If no such subgraph 
 is found, the experiment fails; otherwise, we move on to phase two. In this 
 phase, we attempt to find a "nearby" regular subgraph with the desired valency
-using the objective function from reg\_search. This phase typically lasts 
+using the objective function from `reg_search`. This phase typically lasts 
 longer, since the objective function is more cumbersome to work with and the
 partitioning of the adjacencies must be updated each move. As one might expect,
-ereg\_search performs no better (and sometimes even worse) than reg\_search, 
+`ereg_search` performs no better (and sometimes even worse) than `reg_search`, 
 since a large portion of the subgraphs found in phase one may turn out not to 
 be regular. Though not terribly useful from a practical perspective, the 
 stratification of objective functions, important in some applications, makes it
 interesting theoretically.
 
 ## DATA STRUCTURES
-The data structures are an amalgamation of those used in sub\_search and 
-reg\_search (see `sub_search_report.txt` and `reg_search_report.txt` for details).
+The data structures are an amalgamation of those used in `sub_search` and 
+`reg_search` (see `sub_search_report.txt` and `reg_search_report.txt` for details).
 
 ## EXAMPLES
 See `reg_search_report.txt`.
@@ -75,9 +75,9 @@ See `reg_search_report.txt`.
 
 ## PURPOSE
 `ggen.c` grew out of the need to generate and manipulate unweighted, undirected
-graphs of various types in order to gauge the performance sub\_search, 
-reg\_search and their derivatives (not including wsub\_search, which has its own
-graph generator, called wggen). When working with the \*search family of 
+graphs of various types in order to gauge the performance `sub_search`, 
+`reg_search` and their derivatives (not including `wsub_search`, which has its own
+graph generator, called `wggen`). When working with the \*search family of 
 programs, it is often helpful to isolate a particular subgraph. Features for 
 inducing subgraphs on fixed vertices, their complement, common neighbourhood 
 and non-neighbourhood were therefore added. Also, it is sometimes beneficial to
