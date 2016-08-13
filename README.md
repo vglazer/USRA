@@ -493,9 +493,7 @@ wsub_search_report.txt for details). However, wggen has none of ggen's advanced
 features. It is only capable of generating random graphs of one type (the 
 simplest kind, in fact), and cannot manipulate existing ones.
 
-======
-METHOD
-======
+## METHOD
 Unlike in ggen, command line arguments are used for input; the output is written
 to standard output as before, however. The input parameters are the number of 
 vertices, the desired density and the random seed to be used. 
@@ -511,39 +509,34 @@ with a total weight of v * (v - 1) / 2 is extremely unlikely to be complete
 greater than 1). A graph with density 100 * n will essentially have n times the
 total weight of the unit weight complete graph on the same number of vertices.
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The only data structure of note is the adjacency matrix, adj. It is identical
 in format to the one used in wsub_search (see wsub_search_report.txt for 
 details). As in ggen, the adjacency list is never formed explicitly. 
  
-========
-EXAMPLES
-========
-I.  200 65 1
+## EXAMPLES
+I.  `200 65 1`
  
     Generate a 200-vertex exponential random graph with density 65. Use 1 as 
     the random seed.
 
-II. 1500 300 72
+II. `1500 300 72`
 
     Generate a 1500-vertex exponential random graph with density 300. Use 72 
     as the random seed.
-                              WSUB_SEARCH.C REPORT
 
-=======
-PURPOSE
-=======
-wsub_search.c uses randomised restricted local search to find vertex-induced 
+---
+
+# WSUB_SEARCH.C REPORT
+
+## PURPOSE
+`wsub_search.c` uses randomised restricted local search to find vertex-induced 
 subgraphs with a prescribed edge count in undirected, weighted graphs (where
 the weights are assumed to be small integers)
 
-======
-METHOD
-======
+## METHOD
 The input parameters and output are identical to those of sub_search, and the
-overall approach is very similar (see sub_search_report.txt for details). 
+overall approach is very similar (see `sub_search_report.txt` for details). 
 However, the format of the adjacency list has been modified somewhat to allow
 for the encoding of edge weights: if the ith row of the adjacency list 
 contains entry x, then {i, (x % v)} is an edge with weight (x / v) + 1. In 
@@ -555,11 +548,9 @@ additional changes to sub_search were required, most concerning the
 computation of the objective function and inner degree (i.e. the degree with
 respect to subgraph vertices only).
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The data structures used are largely the same as in sub_search (see 
-sub_search_report.txt for details). However, the format of the adjacency 
+`sub_search_report.txt` for details). However, the format of the adjacency 
 matrix, adj, is a bit different. The entries are no longer restricted to being
 either 0 or 1, but rather represent the weight of the corresponding edge (non-
 edges being understood to have weight 0). Internally, the format of the 
@@ -567,9 +558,7 @@ adjacency list, adj_list, remains unchanged for reasons of efficiency. Whenever
 subgraph adjacencies are output (i.e. if the output format flag is negative), 
 they are modified on the fly to conform to the new format.
 
-========
-EXAMPLES
-========
+## EXAMPLES
 The examples provided in sub_search_report.txt are largely still valid, though 
 their interpretation is slightly different. For one, a 4-vertex graph with a 
 single edge of weight 6 is still a "4-clique", as far as our implementation is 
