@@ -45,26 +45,26 @@ find regular vertex-induced subgraphs with a prescribed valency in undirected,
 unweighted graphs.
 
 ## METHOD
-The input parameters and output are identical to those of reg_search (see 
+The input parameters and output are identical to those of reg\_search (see 
 `reg_search_report.txt` for details). This time, however, each experiment is 
 divided into two phases. First, we find a subgraph with the desired number 
-of edges (i.e. v_sub * d_sub / 2) using the objective function from sub_search.
+of edges (i.e. v\_sub * d\_sub / 2) using the objective function from sub\_search.
 This phase is usually quite fast, since the objective function is relatively 
 simple and there is no need to partition the adjacencies. If no such subgraph 
 is found, the experiment fails; otherwise, we move on to phase two. In this 
 phase, we attempt to find a "nearby" regular subgraph with the desired valency
-using the objective function from reg_search. This phase typically lasts 
+using the objective function from reg\_search. This phase typically lasts 
 longer, since the objective function is more cumbersome to work with and the
 partitioning of the adjacencies must be updated each move. As one might expect,
-ereg_search performs no better (and sometimes even worse) than reg_search, 
+ereg\_search performs no better (and sometimes even worse) than reg\_search, 
 since a large portion of the subgraphs found in phase one may turn out not to 
 be regular. Though not terribly useful from a practical perspective, the 
 stratification of objective functions, important in some applications, makes it
 interesting theoretically.
 
 ## DATA STRUCTURES
-The data structures are an amalgamation of those used in sub_search and 
-reg_search (see `sub_search_report.txt` and `reg_search_report.txt` for details).
+The data structures are an amalgamation of those used in sub\_search and 
+reg\_search (see `sub_search_report.txt` and `reg_search_report.txt` for details).
 
 ## EXAMPLES
 See `reg_search_report.txt`.
@@ -75,8 +75,8 @@ See `reg_search_report.txt`.
 
 ## PURPOSE
 `ggen.c` grew out of the need to generate and manipulate unweighted, undirected
-graphs of various types in order to gauge the performance sub_search, 
-reg_search and their derivatives (not including wsub_search, which has its own
+graphs of various types in order to gauge the performance sub\_search, 
+reg\_search and their derivatives (not including wsub\_search, which has its own
 graph generator, called wggen). When working with the \*search family of 
 programs, it is often helpful to isolate a particular subgraph. Features for 
 inducing subgraphs on fixed vertices, their complement, common neighbourhood 
@@ -106,19 +106,19 @@ standard output. The input parameters are:
 ggen is capable of generating three different types of random graphs with a
 prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-
 free) and geometric (in the plane, with no wrap-around). To select the 
-first set graph_type to 2, for the second set it to 3 and for the last set it
+first set graph\_type to 2, for the second set it to 3 and for the last set it
 to 4. In general, density can be set to any non-negative integer between 0 and
 1000; a graph of density d has approximately d * v * (v - 1) / 2000 edges. 
 Realistically however, both power and geometric graphs can only attain 
 densities below 500. 
 
-Alternatively, ggen can work with existing graphs, input as either '-1' 
-terminated adjacency lists or as '-1' terminated incidence lists. graph_type
+Alternatively, ggen can work with existing graphs, input as either `'-1'` 
+terminated adjacency lists or as `'-1'` terminated incidence lists. graph\_type
 should be set to 0 for the former and 1 for the latter. When working with 
-incidence lists, v is interpreted as the number of symbols. |num_sets| must
-equal the number of sets; when num_sets is negative the dual of the list is
+incidence lists, v is interpreted as the number of symbols. |num\_sets| must
+equal the number of sets; when num\_sets is negative the dual of the list is
 considered (i.e. the sets become the vertices). density, which is ignored when 
-graph_type is 0, indicates either the number of sets a pair of vertices must 
+graph\_type is 0, indicates either the number of sets a pair of vertices must 
 appear in together to be adjacent (primal), or the number of vertices two sets
 must intersect in to be adjacent (dual). 
 
@@ -156,7 +156,7 @@ adjacency list is never formed explicitly; instead, it is extracted from the
 adjacency matrix as needed, saving considerable storage.
 
 ## EXAMPLES
-I.    2 100 0 600 2  0 0  0
+I.    `2 100 0 600 2  0 0  0`
 
       Generate and output a 100-vertex exponential random graph of density
       600 (or 60%). Use 2 as the random seed. Since we are not inputting an
@@ -164,61 +164,61 @@ I.    2 100 0 600 2  0 0  0
       to 0 to suggest that). No fixed vertices are specified, so we set 
       num_fixed to 0 (fixed_type, set to 0 here, is ignored).
 
-II.   3 2500 0 200 52  0 0  1
+II.   `3 2500 0 200 52  0 0  1`
 
       Generate a 2500-vertex power random graph of density 200 and output its 
       complement. Use 52 as the random seed. 
 
-III.  4 790 0 150 1  0 0  0
+III.  `4 790 0 150 1  0 0  0`
 
       Generate and output a 790-vertex geometric random graph of density
       150. Use 1 as the random seed.
 
-IV.   0 100 0 0 0  3 -2  0
+IV.   `0 100 0 0 0  3 -2  0`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      25 0 7
+      `25 0 7`
 
       Input a graph on 100 vertices and output the subgraph induced on the 
       common non-neighbourhood of the 3 fixed vertices indicated. Since 
       graph_type is 0, density and seed are both ignored (we set them to 0 to 
       suggest that).
 
-V.    0 1500 0 0 0  5 1  1
+V.    `0 1500 0 0 0  5 1  1`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      1200 105 14 21 25
+      `1200 105 14 21 25`
 
       Input a graph on 1500 vertices and output the complement of the subgraph 
       induced on the 5 fixed vertices indicated.
 
-VI.   0 30 0 0 0  4 3  0
+VI.   `0 30 0 0 0  4 3  0`
 
       [ '-1' terminated adjacency list omitted to save space ]
 
-      17 5 28 9
+      `17 5 28 9`
 
       Input a graph on 30 vertices and output the same graph switched with
       respect to the 4 fixed vertices indicated.
 
-VII.  1 1000 20 2 0  10 -1  1 
+VII.  `1 1000 20 2 0  10 -1  1` 
 
       [ '-1' terminated incidence list omitted to save space ] 
 
-      260 150 37 8 22 13 4 66 2 9
+      `260 150 37 8 22 13 4 66 2 9`
 
       Input a 20-set incidence list on 1000 symbols and make every pair of
       vertices that appear together in 2 sets adjacent. Output the complement
       of the subgraph induced on V \ Fixed, where Fixed consists of the 10
       fixed vertices indicated.
 
-VIII. 1 50 -5000 10 0  1 2  0
+VIII. `1 50 -5000 10 0  1 2  0`
 
-      [ '-1' terminated incidence list omitted to save space ]
+      [ `'-1'` terminated incidence list omitted to save space ]
 
-      4200
+      `4200`
 
       Input a 5000 set incidence list on 50 symbols and consider its dual, i.e.
       let the sets be the vertices and make every pair of sets that intersect 
