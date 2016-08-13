@@ -3,13 +3,11 @@
 ## PURPOSE
 `sub_search.c` uses randomised restricted local search to find vertex-induced 
 subgraphs with a prescribed edge count in undirected, unweighted graphs. The
-importance of sub\_search is that it is subsequently used as a basic framework
-for a number of other programs, including asub\_search, wsub\_search, reg\_search and ereg\_search.
+importance of `sub_search` is that it is subsequently used as a basic framework
+for a number of other programs, including `asub_search`, `wsub_search`, `reg_search` and `ereg_search`.
 
 ## METHOD
-Similarly to UNIX 'filters', sub\_search reads from standard input and writes to
-standard output, both of which can be redirected as needed using standard shell
-facilities. The input parameters are:
+Similarly to UNIX 'filters', `sub_search` reads from standard input and writes to standard output, both of which can be redirected as needed using standard shell facilities. The input parameters are:
 
 ```
    v         | number of graph vertices
@@ -59,7 +57,7 @@ set to n, n > 0, the vertices of the subgraph that attained the global minimum
 are output whenever the minimum is < n; if the flag is set to n, n < 0, both 
 the vertices and the adjacencies of the subgraph that attained the global 
 minimum (as well as its vertex and edge counts) are output whenever the minimum
-is < |n|. One can use sub\_search as an approximation algorithm by setting the
+is < |n|. One can use `sub_search` as an approximation algorithm by setting the
 output format flag to n, where |n| > 1. Whenever the global minimum attained 
 during an experiment is less than |n|, information about the subgraph which 
 attained that minimum will be output. This includes not only exact solutions, 
