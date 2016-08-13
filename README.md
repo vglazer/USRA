@@ -1,7 +1,7 @@
 # ASUB_SEARCH.C REPORT
 
 ## PURPOSE
-asub_search.c, like sub_search.c, uses randomised restricted local search to 
+`asub_search.c`, like `sub_search.c`, uses randomised restricted local search to 
 find vertex-induced subgraphs with a prescribed edge count in undirected, 
 unweighted graphs. It introduces limited aspiration, i.e. some of the 
 restricted moves that improve the global objective function minimum are 
@@ -9,7 +9,7 @@ considered.
 
 ## METHOD
 The input parameters and output are identical to those of sub_search, and the 
-overall approach is very similar (see sub_search_report.txt for details). The 
+overall approach is very similar (see `sub_search_report.txt` for details). The 
 difference is that moves involving one or both of the two vertices most 
 recently swapped are not ruled out completely. Instead, such moves are appended
 to a separate list whenever they improve the global objective function minimum,
@@ -27,26 +27,26 @@ are.
 
 ## DATA STRUCTURES
 The data structures used are largely the same as in sub_search (see 
-sub_search_report.txt for details). The only two additions are the integer 
+`sub_search_report.txt` for details). The only two additions are the integer 
 arrays sub_asp and rest_asp, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
 
 ## EXAMPLES
-See sub_search_report.txt.
+See `sub_search_report.txt`.
 
 ---
 
 # EREG_SEARCH.C REPORT
 
 ## PURPOSE
-ereg_search.c, like reg_search.c, uses randomised restricted local search to 
+`ereg_search.c`, like `reg_search.c`, uses randomised restricted local search to 
 find regular vertex-induced subgraphs with a prescribed valency in undirected,
 unweighted graphs.
 
 ## METHOD
 The input parameters and output are identical to those of reg_search (see 
-reg_search_report.txt for details). This time, however, each experiment is 
+`reg_search_report.txt` for details). This time, however, each experiment is 
 divided into two phases. First, we find a subgraph with the desired number 
 of edges (i.e. v_sub * d_sub / 2) using the objective function from sub_search.
 This phase is usually quite fast, since the objective function is relatively 
@@ -64,20 +64,20 @@ interesting theoretically.
 
 ## DATA STRUCTURES
 The data structures are an amalgamation of those used in sub_search and 
-reg_search (see sub_search_report.txt and reg_search_report.txt for details).
+reg_search (see `sub_search_report.txt` and `reg_search_report.txt` for details).
 
 ## EXAMPLES
-See reg_search_report.txt.
+See `reg_search_report.txt`.
 
 ---
 
 # GGEN.C REPORT
 
 ## PURPOSE
-ggen.c grew out of the need to generate and manipulate unweighted, undirected
+`ggen.c` grew out of the need to generate and manipulate unweighted, undirected
 graphs of various types in order to gauge the performance sub_search, 
 reg_search and their derivatives (not including wsub_search, which has its own
-graph generator, called wggen). When working with the *search family of 
+graph generator, called wggen). When working with the \*search family of 
 programs, it is often helpful to isolate a particular subgraph. Features for 
 inducing subgraphs on fixed vertices, their complement, common neighbourhood 
 and non-neighbourhood were therefore added. Also, it is sometimes beneficial to
@@ -89,7 +89,7 @@ were added. Finally, since switchings in strongly regular graphs constitute an
 important application, a graph switching option was included.
 
 ## METHOD
-Like the *search programs, ggen reads from standard input and writes to 
+Like the \*search programs, ggen reads from standard input and writes to 
 standard output. The input parameters are:
 
 ```
@@ -225,6 +225,8 @@ VIII. 1 50 -5000 10 0  1 2  0
       in 10 elements adjacent. Output the subgraph induced on the common 
       neighbourhood of the single fixed vertex indicated, i.e. its first 
       neighbourhood.
+
+---
                               REG_SEARCH.C REPORT
 
 =======
