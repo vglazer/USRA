@@ -1,4 +1,4 @@
-# ASUB_SEARCH.C REPORT
+# ASUB\_SEARCH.C REPORT
 
 ## PURPOSE
 `asub_search.c`, like `sub_search.c`, uses randomised restricted local search to 
@@ -8,7 +8,7 @@ restricted moves that improve the global objective function minimum are
 considered.
 
 ## METHOD
-The input parameters and output are identical to those of sub_search, and the 
+The input parameters and output are identical to those of sub\_search, and the 
 overall approach is very similar (see `sub_search_report.txt` for details). The 
 difference is that moves involving one or both of the two vertices most 
 recently swapped are not ruled out completely. Instead, such moves are appended
@@ -26,9 +26,9 @@ design decision intended to magnify the effects of the aspiration, such as they
 are.
 
 ## DATA STRUCTURES
-The data structures used are largely the same as in sub_search (see 
+The data structures used are largely the same as in sub\_search (see 
 `sub_search_report.txt` for details). The only two additions are the integer 
-arrays sub_asp and rest_asp, which store the inner and outer vertices of 
+arrays sub\_asp and rest\_asp, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
 
@@ -37,7 +37,7 @@ See `sub_search_report.txt`.
 
 ---
 
-# EREG_SEARCH.C REPORT
+# EREG\_SEARCH.C REPORT
 
 ## PURPOSE
 `ereg_search.c`, like `reg_search.c`, uses randomised restricted local search to 
@@ -124,19 +124,19 @@ must intersect in to be adjacent (dual).
 
 Once a graph is input, four types of subgraphs can be induced and a switching 
 can be performed with respect to some specified vertex subset Fixed. Set 
-num_fixed to |Fixed| and list the vertices (in no particular order) after the 
+num\_fixed to |Fixed| and list the vertices (in no particular order) after the 
 adjacency or incidence list is input. If one does not wish to fix any vertices,
-num_fixed should be set to 0.The fixed_type parameter determines how the fixed
+num\_fixed should be set to 0.The fixed\_type parameter determines how the fixed
 vertices will be used. Set it to 1 to induce a subgraph on Fixed, -1 to induce
 it on V \ Fixed, 2 to induce it on the common neighbourhood of Fixed (i.e. 
 vertices of V adjacent to each and every vertex of Fixed), -2 to do so on the 
 common non-neighbourhood of Fixed (i.e. vertices of V not adjacent to any 
 vertex in Fixed) and finally 3 in order to switch the graph with respect to 
 Fixed (i.e. turn the appropriate edges into non-edges and vice versa). Note 
-that the vertices of the induced subgraph are renumbered from 0 to v_sub; 
+that the vertices of the induced subgraph are renumbered from 0 to v\_sub; 
 their original labels are listed above the adjacencies.
 
-The output consists of a '-1' terminated adjacency list followed by the vertex
+The output consists of a `'-1'` terminated adjacency list followed by the vertex
 and edge counts of the graph and its degree spectrum, where by degree spectrum 
 we mean the number of times each of the vertex degrees that appears in the 
 graph occurs in it.
