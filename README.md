@@ -103,7 +103,7 @@ standard output. The input parameters are:
    compl      | complementation flag
 ```
 
-ggen is capable of generating three different types of random graphs with a
+`ggen` is capable of generating three different types of random graphs with a
 prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-
 free) and geometric (in the plane, with no wrap-around). To select the 
 first set graph\_type to 2, for the second set it to 3 and for the last set it
@@ -112,7 +112,7 @@ to 4. In general, density can be set to any non-negative integer between 0 and
 Realistically however, both power and geometric graphs can only attain 
 densities below 500. 
 
-Alternatively, ggen can work with existing graphs, input as either `'-1'` 
+Alternatively, `ggen` can work with existing graphs, input as either `'-1'` 
 terminated adjacency lists or as `'-1'` terminated incidence lists. graph\_type
 should be set to 0 for the former and 1 for the latter. When working with 
 incidence lists, v is interpreted as the number of symbols. |num\_sets| must
@@ -235,7 +235,7 @@ VIII. `1 50 -5000 10 0  1 2  0`
 induced subgraphs with a prescribed valency in undirected, unweighted graphs.
 
 ## METHOD
-The input parameters are nearly identical to those of sub\_search, except that 
+The input parameters are nearly identical to those of `sub_search`, except that 
 e\_sub, the desired edge count, is now replaced by d\_sub, the desired valency; 
 the output is exactly the same as in sub\_search (see `sub_search_report.txt` for
 details). This time, however, the objective function being minimised is 
