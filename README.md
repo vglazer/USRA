@@ -8,7 +8,7 @@ restricted moves that improve the global objective function minimum are
 considered.
 
 ## METHOD
-The input parameters and output are identical to those of sub\_search, and the 
+The input parameters and output are identical to those of `sub_search`, and the 
 overall approach is very similar (see `sub_search_report.txt` for details). The 
 difference is that moves involving one or both of the two vertices most 
 recently swapped are not ruled out completely. Instead, such moves are appended
