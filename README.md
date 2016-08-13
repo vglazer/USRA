@@ -227,20 +227,17 @@ VIII. 1 50 -5000 10 0  1 2  0
       neighbourhood.
 
 ---
-                              REG_SEARCH.C REPORT
 
-=======
-PURPOSE
-=======
-reg_search.c uses randomised restricted local search to find regular vertex-
+# REG_SEARCH.C REPORT
+
+## PURPOSE
+`reg_search.c` uses randomised restricted local search to find regular vertex-
 induced subgraphs with a prescribed valency in undirected, unweighted graphs.
 
-======
-METHOD
-======
+## METHOD
 The input parameters are nearly identical to those of sub_search, except that 
 e_sub, the desired edge count, is now replaced by d_sub, the desired valency; 
-the output is exactly the same as in sub_search (see sub_search_report.txt for
+the output is exactly the same as in sub_search (see `sub_search_report.txt` for
 details). This time, however, the objective function being minimised is 
 f(V_sub) = Sum(| sub_degree(v) - d_sub |), where V_sub stands for subgraph
 vertices and sub_degree stands for inner degree, or degree with respect to 
@@ -252,11 +249,9 @@ find regular subgraphs in strongly regular graphs. The strongly regular graph
 can then be "switched" with respect to the subgraph in question, creating
 a new, larger strongly regular graph.
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 The data structures used are largely the same as in sub_search (see 
-sub_search_report.txt for details). However, the adjacency matrix, adj, and 
+`sub_search_report.txt` for details). However, the adjacency matrix, adj, and 
 adjacency list, adj_list, were both modified in order to speed up the 
 computation of the objective function. Adjacencies are now partitioned into
 inner vertices, appearing first, and outer vertices, which follow (both in no
@@ -270,9 +265,7 @@ is in fact still symmetric with respect to negative and non-negative entries.
 Naturally, the adjacency matrix itself must also be updated to reflect the 
 changes in the adjacencies.
 
-========
-EXAMPLES
-========
+## EXAMPLES
 I.  100 4 2 1  100 500 150 2 7  0
 
     [ '-1' terminated adjacency list omitted to save space ]
@@ -294,24 +287,24 @@ II. 5000 150 82 0  30 1000 250 2 3  1
     random seed. For each experiment, display the global objective function 
     minimum attained. Additionally, for every successful experiment, display 
     the vertices of the solution.
-                              SUB_SEARCH.C REPORT
 
-=======
-PURPOSE
-=======
-sub_search.c uses randomised restricted local search to find vertex-induced 
+---
+
+# SUB_SEARCH.C REPORT
+
+## PURPOSE
+`sub_search.c` uses randomised restricted local search to find vertex-induced 
 subgraphs with a prescribed edge count in undirected, unweighted graphs. The
 importance of sub_search is that it is subsequently used as a basic framework
 for a number of other programs, including asub_search, wsub_search, reg_search
 and ereg_search.
 
-======
-METHOD
-======
+## METHOD
 Similarly to UNIX 'filters', sub_search reads from standard input and writes to
 standard output, both of which can be redirected as needed using standard shell
 facilities. The input parameters are:
 
+```
    v         | number of graph vertices
    v_sub     | number of subgraph vertices 
    e_sub     | number of subgraph edges 
@@ -322,6 +315,7 @@ facilities. The input parameters are:
    div_dur   | diversification duration, in moves (how long to shake for)
    seed      | random seed, a non-negative integer
    show_sols | output format
+```
 
 The graph to be searched is input as a '-1' terminated adjacency list (in fact,
 there is no need to supply the entire list; only the upper or only the lower 
@@ -387,9 +381,7 @@ attained, averaged over all experiments. It is 0 when all experiments are
 successful, and is used to evaluate parameter settings (the goal being getting 
 it as close to 0 as possible).
 
-===============
-DATA STRUCTURES
-===============
+## DATA STRUCTURES
 Since the subgraph problem is NP-complete, the algorithm cannot be expected 
 to perform well asymptotically. However, every effort was made to improve 
 performance for practical input sizes, sometimes at the expense of using 
@@ -445,9 +437,7 @@ as v_sub * v_rest (which is O(v^2)) optimal moves, both sub_opt and rest_opt
 are declared to be of size v. This does not seem to affect search quality 
 adversely, and it saves a considerable amount of space.
 
-========
-EXAMPLES
-========
+## EXAMPLES
 I.   100 31 0 0  50 1000 250 4 1  0 
 
      [ '-1' terminated adjacency list omitted to save space ]
@@ -488,11 +478,12 @@ III. 1000 47 153 1  25 5000 1000 250 3782  -1
      where the aforementioned minimum is 0), display the vertices and 
      adjacencies of the subgraph that attained it, along with a vertex and 
      edge count (note the use of the negative output format flag).
-                                WGGEN.C REPORT
 
-=======
-PURPOSE
-=======
+---
+
+# WGGEN.C REPORT
+
+## PURPOSE
 wggen.c generates undirected, weighted exponential (Erdos-Szekeres) random 
 graphs with a prescribed density (where the density is defined to be d = 
 (200 * e) / (v * (v - 1))). As in ggen, the input parameters are read in from 
