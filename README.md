@@ -367,9 +367,7 @@ graphs of various types in order to gauge the performance `sub_search`,
 When working with the \*search family of 
 programs, it is often helpful to isolate a particular subgraph. Features for 
 inducing subgraphs on fixed vertices, their complement, common neighbourhood 
-and non-neighbourhood were therefore added. 
-
-Also, it is sometimes beneficial to
+and non-neighbourhood were therefore added. Also, it is sometimes beneficial to
 work with a graph's complement rather than searching for a solution directly. A
 complementation option was added to facilitate this. Furthermore, many 
 interesting graphs can be obtained from incidence lists (which are a 
