@@ -31,11 +31,8 @@ At the start of a new experiment, `v_sub` subgraph vertices are selected at
 random. Each move, a neighbourhood of the current subgraph, defined by a 
 single interchange between a subgraph vertex and an outside vertex, is examined
 in order to generate a list of swaps that minimise the linear objective 
-function `f(e) = | e - e_sub |`, where `e` and `e_sub` are the actual and desired 
-edge counts respectively. A locally optimal move is then randomly selected from
-that list and the subgraph updated to reflect it. Once in every diver\_freq 
-moves, diver\_freq random moves are made in order to perturb the graph a little.
-Empirical evidence suggests that such perturbations can considerably improve 
+function `f(e) = | e - e_sub |`, where `e` and `e_sub` are the actual and desired edge counts respectively. A locally optimal move is then randomly selected from that list and the subgraph updated to reflect it. Once in every `diver_freq` 
+moves, `diver_freq` random moves are made in order to perturb the graph a little. Empirical evidence suggests that such perturbations can considerably improve 
 search quality. For large, dense graphs examining the entire neighbourhood can
 be prohibitively expensive. It has been experimentally determined that, when 
 the objective function value remains unchanged for two consecutive moves, it is
