@@ -327,9 +327,7 @@ unweighted graphs.
 The input parameters and output are identical to those of `reg_search` (see 
 `reg_search_report.txt` for details). This time, however, each experiment is 
 divided into two phases. First, we find a subgraph with the desired number 
-of edges (i.e. v\_sub * d\_sub / 2) using the objective function from `sub_search`.
-This phase is usually quite fast, since the objective function is relatively 
-simple and there is no need to partition the adjacencies. If no such subgraph 
+of edges (i.e. v\_sub * d\_sub / 2) using the objective function from `sub_search`. This phase is usually quite fast, since the objective function is relatively simple and there is no need to partition the adjacencies. If no such subgraph 
 is found, the experiment fails; otherwise, we move on to phase two. In this 
 phase, we attempt to find a "nearby" regular subgraph with the desired valency
 using the objective function from `reg_search`. This phase typically lasts 
