@@ -365,7 +365,7 @@ were added. Finally, since switchings in strongly regular graphs constitute an
 important application, a graph switching option was included.
 
 ## METHOD
-Like the \*search programs, ggen reads from standard input and writes to 
+Like the \*search programs, `ggen` reads from standard input and writes to 
 standard output. The input parameters are:
 
 ```
