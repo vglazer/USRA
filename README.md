@@ -401,8 +401,7 @@ Once a graph is input, four types of subgraphs can be induced and a switching
 can be performed with respect to some specified vertex subset Fixed. Set 
 num\_fixed to |Fixed| and list the vertices (in no particular order) after the 
 adjacency or incidence list is input. If one does not wish to fix any vertices,
-num\_fixed should be set to 0.The fixed\_type parameter determines how the fixed
-vertices will be used. Set it to 1 to induce a subgraph on Fixed, -1 to induce
+num\_fixed should be set to 0. The fixed\_type parameter determines how the fixed vertices will be used. Set it to 1 to induce a subgraph on Fixed, -1 to induce
 it on V \ Fixed, 2 to induce it on the common neighbourhood of Fixed (i.e. 
 vertices of V adjacent to each and every vertex of Fixed), -2 to do so on the 
 common non-neighbourhood of Fixed (i.e. vertices of V not adjacent to any 
