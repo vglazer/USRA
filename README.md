@@ -27,11 +27,11 @@ portion will both do, since the adjacency matrix is symmetric by definition).
 In order to improve performance, both the adjacency matrix and the adjacency 
 list are stored. 
 
-At the start of a new experiment, v\_sub subgraph vertices are selected at 
+At the start of a new experiment, `v_sub` subgraph vertices are selected at 
 random. Each move, a neighbourhood of the current subgraph, defined by a 
 single interchange between a subgraph vertex and an outside vertex, is examined
 in order to generate a list of swaps that minimise the linear objective 
-function f(e) = | e - e\_sub |, where e and e\_sub are the actual and desired 
+function `f(e) = | e - e_sub |`, where `e` and `e_sub` are the actual and desired 
 edge counts respectively. A locally optimal move is then randomly selected from
 that list and the subgraph updated to reflect it. Once in every diver\_freq 
 moves, diver\_freq random moves are made in order to perturb the graph a little.
