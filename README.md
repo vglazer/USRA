@@ -246,10 +246,9 @@ The data structures used are largely the same as in `sub_search` (see
 `sub_search_report.txt` for details). However, the format of the adjacency 
 matrix, adj, is a bit different. The entries are no longer restricted to being
 either 0 or 1, but rather represent the weight of the corresponding edge (non-
-edges being understood to have weight 0). Internally, the format of the 
-adjacency list, adj\_list, remains unchanged for reasons of efficiency. Whenever
-subgraph adjacencies are output (i.e. if the output format flag is negative), 
-they are modified on the fly to conform to the new format.
+edges being understood to have weight 0). 
+
+Internally, the format of the adjacency list, `adj_list`, remains unchanged for reasons of efficiency. Whenever subgraph adjacencies are output (i.e. if the output format flag is negative), they are modified on the fly to conform to the new format.
 
 ## EXAMPLES
 The examples provided in `sub_search_report.txt` are largely still valid, though their interpretation is slightly different. For one, a 4-vertex graph with a 
