@@ -372,9 +372,7 @@ work with a graph's complement rather than searching for a solution directly. A
 complementation option was added to facilitate this. Furthermore, many 
 interesting graphs can be obtained from incidence lists (which are a 
 generalisation of adjacency lists), so facilities for inputting such lists 
-were added. 
-
-Finally, since switchings in strongly regular graphs constitute an
+were added. Finally, since switchings in strongly regular graphs constitute an
 important application, a graph switching option was included.
 
 ## METHOD
