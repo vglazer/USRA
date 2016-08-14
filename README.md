@@ -505,13 +505,12 @@ VIII. `1 50 -5000 10 0  1 2  0`
 # WGGEN.C REPORT
 
 ## PURPOSE
-wggen.c generates undirected, weighted exponential (Erdos-Szekeres) random 
+`wggen.c` generates undirected, weighted exponential (Erdos-Szekeres) random 
 graphs with a prescribed density (where the density is defined to be d = 
-(200 * e) / (v * (v - 1))). As in ggen, the input parameters are read in from 
+(200 * e) / (v * (v - 1))). As in `ggen`, the input parameters are read in from 
 standard input, and the resulting graphs are then written to standard output 
-as `'-1'` terminated adjacency lists in the format used by wsub\_search (see 
-wsub\_search\_report.txt for details). However, wggen has none of ggen's advanced
-features. It is only capable of generating random graphs of one type (the 
+as `'-1'` terminated adjacency lists in the format used by `wsub_search` (see 
+`wsub_search_report.txt` for details). However, `wggen` has none of `ggen`'s advanced features. It is only capable of generating random graphs of one type (the 
 simplest kind, in fact), and cannot manipulate existing ones.
 
 ## METHOD
