@@ -64,7 +64,9 @@ but also approximate solutions with up to |n - 1| "conflicts".
 After the specified number of experiments is performed, the following is 
 output: the total number of successful experiments, a "box distribution", 
 three statistical indicators, CPU time used (in seconds) and the name of the 
-host machine. The "box distribution", used as a guide when adjusting the 
+host machine. 
+
+The "box distribution", used as a guide when adjusting the 
 num\_moves parameter, is obtained as follows: the interval [1, num\_moves] is 
 partitioned into NUM\_BOXES subintervals of equal length, or "boxes"; every 
 successful experiment then contributes 1 to the appropriate box (e.g. if 
