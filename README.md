@@ -380,8 +380,7 @@ standard output. The input parameters are:
 ```
 
 `ggen` is capable of generating three different types of random graphs with a
-prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-
-free) and geometric (in the plane, with no wrap-around). To select the 
+prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-free) and geometric (in the plane, with no wrap-around). To select the 
 first set graph\_type to 2, for the second set it to 3 and for the last set it
 to 4. In general, density can be set to any non-negative integer between 0 and
 1000; a graph of density d has approximately d * v * (v - 1) / 2000 edges. 
