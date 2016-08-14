@@ -362,7 +362,9 @@ See `reg_search_report.txt`.
 ## PURPOSE
 `ggen.c` grew out of the need to generate and manipulate unweighted, undirected
 graphs of various types in order to gauge the performance `sub_search`, 
-`reg_search` and their derivatives (not including `wsub_search`, which has its own graph generator, called `wggen`). When working with the \*search family of 
+`reg_search` and their derivatives (not including `wsub_search`, which has its own graph generator, called `wggen`). 
+
+When working with the \*search family of 
 programs, it is often helpful to isolate a particular subgraph. Features for 
 inducing subgraphs on fixed vertices, their complement, common neighbourhood 
 and non-neighbourhood were therefore added. Also, it is sometimes beneficial to
@@ -370,7 +372,9 @@ work with a graph's complement rather than searching for a solution directly. A
 complementation option was added to facilitate this. Furthermore, many 
 interesting graphs can be obtained from incidence lists (which are a 
 generalisation of adjacency lists), so facilities for inputting such lists 
-were added. Finally, since switchings in strongly regular graphs constitute an
+were added. 
+
+Finally, since switchings in strongly regular graphs constitute an
 important application, a graph switching option was included.
 
 ## METHOD
