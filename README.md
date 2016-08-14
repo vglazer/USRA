@@ -265,11 +265,12 @@ using the format outlined above.
 ## METHOD
 The input parameters are nearly identical to those of `sub_search`, except that 
 e\_sub, the desired edge count, is now replaced by d\_sub, the desired valency; 
-the output is exactly the same as in `sub_search` (see `sub_search_report.txt` for
-details). This time, however, the objective function being minimised is 
+the output is exactly the same as in `sub_search` (see `sub_search_report.txt` for details). This time, however, the objective function being minimised is 
 f(V\_sub) = Sum(| sub\_degree(v) - d\_sub |), where V\_sub stands for subgraph
 vertices and sub\_degree stands for inner degree, or degree with respect to 
-subgraph vertices only. Although `reg_search`, like `sub_search`, can be used to find cliques and cocliques (which have valency v - 1 and 0 respectively), it is
+subgraph vertices only. 
+
+Although `reg_search`, like `sub_search`, can be used to find cliques and cocliques (which have valency v - 1 and 0 respectively), it is
 ill-suited for that purpose due to the considerable speed penalty imposed by 
 the more complicated objective function. The intended use of `reg_search` is to 
 find regular subgraphs in strongly regular graphs. The strongly regular graph 
