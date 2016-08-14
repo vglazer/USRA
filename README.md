@@ -515,9 +515,7 @@ features. It is only capable of generating random graphs of one type (the
 simplest kind, in fact), and cannot manipulate existing ones.
 
 ## METHOD
-Unlike in ggen, command line arguments are used for input; the output is written
-to standard output as before, however. The input parameters are the number of 
-vertices, the desired density and the random seed to be used. 
+Unlike in `ggen`, command line arguments are used for input; the output is written to standard output as before, however. The input parameters are the number of vertices, the desired density and the random seed to be used. 
 
 First, the total number of edges corresponding to the desired density is 
 computed from the definition (i.e. e = v * (v - 1) * d / 200). Then, the 
@@ -532,8 +530,8 @@ total weight of the unit weight complete graph on the same number of vertices.
 
 ## DATA STRUCTURES
 The only data structure of note is the adjacency matrix, adj. It is identical
-in format to the one used in wsub\_search (see `wsub_search_report.txt` for 
-details). As in ggen, the adjacency list is never formed explicitly. 
+in format to the one used in `wsub_search` (see `wsub_search_report.txt` for 
+details). As in `ggen`, the adjacency list is never formed explicitly. 
  
 ## EXAMPLES
 I.  `200 65 1`
@@ -545,3 +543,4 @@ II. `1500 300 72`
 
     Generate a 1500-vertex exponential random graph with density 300. Use 72 
     as the random seed.
+
