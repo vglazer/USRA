@@ -209,7 +209,7 @@ are.
 ## DATA STRUCTURES
 The data structures used are largely the same as in `sub_search` (see 
 `sub_search_report.txt` for details). The only two additions are the integer 
-arrays sub\_asp and rest\_asp, which store the inner and outer vertices of 
+arrays `sub_asp` and `rest_asp`, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
 
