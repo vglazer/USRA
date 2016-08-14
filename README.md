@@ -22,8 +22,7 @@ Similarly to UNIX 'filters', `sub_search` reads from standard input and writes t
    show_sols | output format
 ```
 
-The graph to be searched is input as a `'-1'` terminated adjacency list (in fact,
-there is no need to supply the entire list; only the upper or only the lower 
+The graph to be searched is input as a `'-1'` terminated adjacency list (in fact, there is no need to supply the entire list; only the upper or only the lower 
 portion will both do, since the adjacency matrix is symmetric by definition). 
 In order to improve performance, both the adjacency matrix and the adjacency 
 list are stored. 
@@ -92,7 +91,7 @@ to perform well asymptotically. However, every effort was made to improve
 performance for practical input sizes, sometimes at the expense of using 
 additional storage. The main data structures are:
 
-adj, adj\_list: the adjacency matrix, represented as a rectangular character 
+`adj`, `adj_list`: the adjacency matrix, represented as a rectangular character 
 array, and adjacency list, represented as a double array of integers (which 
 generally isn't rectangular). The rationale behind the somewhat extravagant 
 decision to store the matrix as well as the list (after all, any graph of 
@@ -100,46 +99,41 @@ density greater than 50% can be made sparser through complementation) is that
 the O(1) access provided by the former and the performance boost it translates
 into trumps space considerations.
 
-degs, sub\_degs: integer arrays containing the overall degree and the degree 
+`degs`, `sub_degs`: integer arrays containing the overall degree and the degree 
 with respect to the current subgraph of every vertex. The former is required
 to properly traverse the adjacency list, while the latter is used in computing
 the objective function value.
 
-sub\_ch, opt\_ch, sub\_verts, rest\_verts, vert\_inds: sub\_ch is a character array
+`sub_ch`, `opt_ch`, `sub_verts`, `rest_verts`, `vert_inds`: `sub_ch` is a character array
 used as a characteristic vector for subgraph vertices, allowing one to
 determine subgraph membership in O(1) time. Each time a subgraph that improves
 the global objective function minimum is found, its characteristic vector is 
-copied into opt\_ch. sub\_verts and rest\_verts are integer arrays which list, in
-no particular order, the vertices inside and outside the current subgraph, 
+copied into `opt_ch`. `sub_verts` and `rest_verts` are integer arrays which list, in no particular order, the vertices inside and outside the current subgraph, 
 respectively. The two are used to efficiently process subgraph and non-subgraph
 vertices; both v\_sub and v\_rest are guaranteed to be smaller than v (since 
-v = v\_sub + v\_rest), so this is preferable to using sub\_ch. vert\_inds is an 
-integer array that stores the position (or index) of every vertex in its 
-corresponding list (sub\_verts if the vertex is inside the subgraph, rest\_verts
-otherwise). This allows vertices to be interchanged in O(1) time, eliminating
+v = v\_sub + v\_rest), so this is preferable to using `sub_ch`. `vert_inds` is an integer array that stores the position (or index) of every vertex in its 
+corresponding list (`sub_verts` if the vertex is inside the subgraph, `rest_verts` otherwise). This allows vertices to be interchanged in O(1) time, eliminating
 the need for costly linear searching (which would have been necessary, since
 the lists are unsorted).
 
-u\_ch, u\_list: when selecting optimal moves, a v\_sub by v\_rest matrix whose 
-entries are objective function values (i.e. the ijth entry is the value
+`u_ch`, `u_list`: when selecting optimal moves, a v\_sub by v\_rest matrix whose entries are objective function values (i.e. the ijth entry is the value
 of the subgraph obtained by swapping the ith subgraph vertex with the jth non-
 subgraph vertex) representing the entire neighbourhood is formed implicitly.
 Instead of examining the entire matrix however, we restrict our attention to
 selected rows and columns, referred to as "active rows" and "active columns"
 respectively. Since each vertex is either inside the subgraph or outside it,
-a single character array of length v, u\_ch, can serve as a characteristic 
+a single character array of length v, `u_ch`, can serve as a characteristic 
 vector for both active rows and columns. In an active row, only the active 
 columns in it are examined; in an inactive one all columns are (the row and 
 column corresponding to the two vertices just swapped are never active). The 
-integer array u\_list lists all columns, inactive ones first. In an active row,
+integer array `u_list` lists all columns, inactive ones first. In an active row,
 we process the latter part of the list only; otherwise, the entire list
 is processed.
 
-sub\_opt, rest\_opt: these integer arrays are used to store the inner and 
+`sub_opt`, `rest_opt`: these integer arrays are used to store the inner and 
 outer vertices of optimal moves (i.e those that belong to the subgraph and 
 those that do not, respectively). Although there could potentially be as many
-as v\_sub * v\_rest (which is O(v^2)) optimal moves, both sub\_opt and rest\_opt 
-are declared to be of size v. This does not seem to affect search quality 
+as v\_sub * v\_rest (which is O(v^2)) optimal moves, both `sub_opt` and `rest_opt` are declared to be of size v. This does not seem to affect search quality 
 adversely, and it saves a considerable amount of space.
 
 ## EXAMPLES
