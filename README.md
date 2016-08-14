@@ -67,16 +67,16 @@ three statistical indicators, CPU time used (in seconds) and the name of the
 host machine. 
 
 The "box distribution", used as a guide when adjusting the 
-num\_moves parameter, is obtained as follows: the interval [1, num\_moves] is 
-partitioned into NUM\_BOXES subintervals of equal length, or "boxes"; every 
+`num_moves` parameter, is obtained as follows: the interval `[1, num_moves]` is 
+partitioned into `NUM_BOXES` subintervals of equal length, or "boxes"; every 
 successful experiment then contributes 1 to the appropriate box (e.g. if 
-num\_moves is 1000 and NUM\_BOXES is 10, a successful experiment where the 
+`num_moves` is 1000 and `NUM_BOXES` is 10, a successful experiment where the 
 solution was found in 220 moves will go into box 3). If the majority of the 
-experiments gravitate towards the first few boxes, num\_moves can be lowered. 
-Conversely, if they are mostly huddled in the last few, num\_moves can be 
-increased. Ideally, we'd like to see a normal (bell-shaped) distribution. The 
-three statistical indicators are referred to as "relative cost", "true cost" 
-and "average conflict", respectively. The first two are intended to measure how
+experiments gravitate towards the first few boxes, `num_moves` can be lowered. 
+Conversely, if they are mostly huddled in the last few, `num_moves` can be 
+increased. Ideally, we'd like to see a normal (bell-shaped) distribution. 
+
+The three statistical indicators are referred to as "relative cost", "true cost" and "average conflict", respectively. The first two are intended to measure how
 "difficult to find" a particular subgraph is. The relative cost represents the
 number of moves required to find a solution, averaged over successful 
 experiments. The true cost also represents the number of moves required to find
