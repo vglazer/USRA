@@ -196,10 +196,9 @@ difference is that moves involving one or both of the two vertices most
 recently swapped are not ruled out completely. Instead, such moves are appended
 to a separate list whenever they improve the global objective function minimum,
 and a single move is then randomly selected from it. This process, known as 
-"aspiration", can sometimes improve the quality of the search. Note that only a
-very small portion of all restricted moves, which are given by the symmetric 
-difference of the first neighbourhoods of the two vertices most recently 
-swapped, are considered for aspiration. This what makes the aspiration 
+"aspiration", can sometimes improve the quality of the search. 
+
+Note that only a very small portion of all restricted moves, which are given by the symmetric difference of the first neighbourhoods of the two vertices most recently swapped, are considered for aspiration. This what makes the aspiration 
 "limited". Also note that in our implementation, aspiration moves take 
 precedence over locally optimal moves. This means that an aspiration move will
 be made whenever the corresponding list is non-empty, even if the locally 
