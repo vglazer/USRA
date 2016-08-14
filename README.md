@@ -432,7 +432,7 @@ particularly handy when the graph is dense: the complement is sparse and thus
 consumes far less space.
 
 ## DATA STRUCTURES
-The only data structure of note is adj, a standard 0-1 adjacency matrix. When 
+The only data structure of note is `adj`, a standard 0-1 adjacency matrix. When 
 an existing adjacency or incidence list is input it is converted to an 
 adjacency matrix internally, and when a new graph is generated it is the 
 adjacency matrix that is filled in. All subsequent manipulations (if any) use 
