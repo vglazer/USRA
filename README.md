@@ -279,8 +279,10 @@ a new, larger strongly regular graph.
 
 ## DATA STRUCTURES
 The data structures used are largely the same as in `sub_search` (see 
-`sub_search_report.txt` for details). However, the adjacency matrix, adj, and 
-adjacency list, adj\_list, were both modified in order to speed up the 
+`sub_search_report.txt` for details). 
+
+However, the adjacency matrix, `adj`, and 
+adjacency list, `adj_list`, were both modified in order to speed up the 
 computation of the objective function. Adjacencies are now partitioned into
 inner vertices, appearing first, and outer vertices, which follow (both in no
 particular order). This enables one to efficiently go through all subgraph 
@@ -288,7 +290,9 @@ vertices adjacent to a particular vertex. Unfortunately, it also means that the
 partitioning must be updated every time vertices are interchanged (i.e. every
 move). In order to accomplish this in O(1) time, entry ij of the adjacency 
 matrix now holds the position of j in the adjacencies of i (or -1 if i and j
-are not adjacent). While this appears to destroy the symmetry of the matrix, it
+are not adjacent). 
+
+While this appears to destroy the symmetry of the matrix, it
 is in fact still symmetric with respect to negative and non-negative entries.
 Naturally, the adjacency matrix itself must also be updated to reflect the 
 changes in the adjacencies.
