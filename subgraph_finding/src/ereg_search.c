@@ -285,8 +285,10 @@ int main(void) {
                 /* extract a list of active columns */
                 for (k = 0; k < degs[sub_vert]; k++) 
                     u_ch[adj_list[sub_vert][k]] = 1;
-                for (k = 0; k < degs[rest_vert]; k++) 
-                    u_ch[vert = adj_list[rest_vert][k]] = 1 - u_ch[vert];
+                for (k = 0; k < degs[rest_vert]; k++) {
+                    vert = adj_list[rest_vert][k];
+                    u_ch[vert] = 1 - u_ch[vert];
+                }
 
                 u_cols = u_ch[sub_vert] = 0; temp = m = v_rest - 1;
                 for (k = 0; k < v_rest; k++) {

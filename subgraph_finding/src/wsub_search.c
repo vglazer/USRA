@@ -182,8 +182,10 @@ int main(void) {
         /* compute initial vertex degrees in induced subgraph */
         for (j = l = 0; j < v; j++) 
             if (sub_ch[j])
-                for (k = 0; k < degs[j]; k++) 
-                    sub_degs[vert = adj_list[j][k]] += adj[j][vert];
+                for (k = 0; k < degs[j]; k++) {
+                    vert = adj_list[j][k];
+                    sub_degs[vert] += adj[j][vert];
+                }
             else { vert_inds[j] = l; rest_verts[l++] = j; }
 
         /* count subgraph edges */

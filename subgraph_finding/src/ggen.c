@@ -255,13 +255,17 @@ int main(void) {
             /* for fixed vertices, switch rest, and vice versa */
             for (i = 0; i < num_fixed; i++) {
                 vert = fixed_verts[i];
-                for (j = 0; j < num_rest; j++)
-                    adj[vert][temp = rest_verts[j]] = 1 - adj[vert][temp];
+                for (j = 0; j < num_rest; j++) {
+                    temp = rest_verts[j];
+                    adj[vert][temp] = 1 - adj[vert][temp];
+                }
             }
             for (i = 0; i < num_rest; i++) {
                 vert = rest_verts[i];
-                for (j = 0; j < num_fixed; j++)
-                    adj[vert][temp = fixed_verts[j]] = 1 - adj[vert][temp];
+                for (j = 0; j < num_fixed; j++) {
+                    temp = fixed_verts[j];
+                    adj[vert][temp] = 1 - adj[vert][temp];
+                }
             }
 
             temp = num_fixed; sub_verts = fixed_verts;
