@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-ansi -pedantic -Wall -O3 -march=native
+CFLAGS=-ansi -pedantic -Wall -Werror -O3 -march=native
 APPS=sub_search asub_search wsub_search reg_search ereg_search ggen wggen
 
 all: $(APPS)
