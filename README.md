@@ -2,7 +2,7 @@
 The Natural Science and Engineering Research Council (NSERC) has an 
 Undergraduate Student Research Award Program (USRA) that pays a 
 student to do four months of research with a professor over the summer. This 
-is a competitive process: the computer science department gives out about 
+is a competitive process: the Computer Science department gives out about 
 a dozen awards each year. See 
 [this page](http://www.cs.toronto.edu/~campbell/usra/usra.html) for more
 details.
