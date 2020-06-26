@@ -3,7 +3,7 @@ The Natural Science and Engineering Research Council (NSERC) has an
 Undergraduate Student Research Award Program (USRA) that pays a 
 student to do 16 weeks of research with a professor over the summer. This 
 is a competitive process: the computer science department has approximately 
-_15 awards_ to give each year. See 
+**15 awards** to give each year. See 
 [this page](http://www.cs.toronto.edu/~campbell/usra/usra.html) for more
 background.
 
