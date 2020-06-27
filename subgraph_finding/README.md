@@ -11,3 +11,19 @@ algorithms for doing so, based on
 [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) 
 and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
+
+# Building Instructions
+Just run `make` in the top-level directory. This will create a `bin` 
+subdirectory containing the various graph search programs. There are no 
+external dependencies -- with a bit of luck, everything should build out of the 
+box on whatever architeture you are on.
+
+# Usage
+Note that the graph search programs read from standard input (`STDIN`) and 
+write to standard output (`STDOUT`), much like UNIX filters. While this can
+be confusing at first -- particularly given that no usage info is printed and
+no `man` page is available -- the examples furnished in the 
+[report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)  should hopefully 
+provide some clarity.
+
+The typical usage pattern is to generate 
