@@ -1,4 +1,6 @@
-# Overview
+# Stochastic Graph Search
+
+## Overview
 Some 
 [combinatorial designs](https://en.wikipedia.org/wiki/Combinatorial_design) 
 lack algebraic structure and require constructive proofs
@@ -12,13 +14,13 @@ algorithms for doing so, based on
 and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
-# Building Instructions
+## Building Instructions
 Just run GNU `make` in the top-level directory. This will create a `bin` 
 subdirectory containing the various graph search programs. Since there are 
 no external library dependencies, everything should build out of the box 
 with a bit of luck.
 
-# Usage
+## Usage
 Note that the graph search programs read from standard input (`STDIN`) and 
 write to standard output (`STDOUT`), much like 
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
@@ -27,5 +29,3 @@ info is printed to the console and no `man` pages are available -- the
 examples provided in the 
 [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
 should hopefully clear things up.
-
-The typical usage pattern is to generate 
