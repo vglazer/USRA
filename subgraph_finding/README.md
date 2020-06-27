@@ -13,17 +13,19 @@ and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_find
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
 # Building Instructions
-Just run `make` in the top-level directory. This will create a `bin` 
+Just run GNU `make` in the top-level directory. This will create a `bin` 
 subdirectory containing the various graph search programs. Since there are 
 no external dependencies, everything should build out of the box with a
 bit of luck.
 
 # Usage
 Note that the graph search programs read from standard input (`STDIN`) and 
-write to standard output (`STDOUT`), much like UNIX filters. While this can
-be confusing at first -- particularly given that no usage info is printed and
-no `man` page is available -- the examples furnished in the 
-[report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)  should hopefully 
-provide some clarity.
+write to standard output (`STDOUT`), much like 
+[UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
+While this can be confusing at first -- particularly given that no usage 
+info is printed to the console and no `man` pages are available -- the 
+examples furnished in the 
+[report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
+should hopefully provide some clarity.
 
 The typical usage pattern is to generate 
