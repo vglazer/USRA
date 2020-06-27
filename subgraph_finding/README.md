@@ -9,4 +9,5 @@ efficient
 [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) 
 algorithms for doing so, based on 
 [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) 
-and implemented in C. See report for details
+and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
+See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
