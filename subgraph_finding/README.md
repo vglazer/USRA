@@ -15,8 +15,8 @@ See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/RE
 # Building Instructions
 Just run GNU `make` in the top-level directory. This will create a `bin` 
 subdirectory containing the various graph search programs. Since there are 
-no external dependencies, everything should build out of the box with a
-bit of luck.
+no external library dependencies, everything should build out of the box 
+with a bit of luck.
 
 # Usage
 Note that the graph search programs read from standard input (`STDIN`) and 
