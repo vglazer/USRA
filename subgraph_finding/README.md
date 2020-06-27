@@ -24,8 +24,8 @@ write to standard output (`STDOUT`), much like
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
 While this can be confusing at first -- particularly given that no usage 
 info is printed to the console and no `man` pages are available -- the 
-examples furnished in the 
+examples provided in the 
 [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
-should hopefully provide some clarity.
+should hopefully clear things up.
 
 The typical usage pattern is to generate 
