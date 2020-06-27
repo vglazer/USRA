@@ -8,5 +8,5 @@ a dozen awards each year. See
 details.
 
 I was selected two years in a row:
-* 2002: [Finding vertex-induced subgraphs using Stochastic Local Search](https://github.com/vglazer/USRA/tree/master/subgraph_finding)
 * 2003: [Monotonicity-preserving Cubic and Quintic Splines](https://github.com/vglazer/USRA/tree/master/interpolation) 
+* 2002: [Finding vertex-induced subgraphs using Stochastic Local Search](https://github.com/vglazer/USRA/tree/master/subgraph_finding)
