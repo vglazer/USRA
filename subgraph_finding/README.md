@@ -30,8 +30,7 @@ everything should work out of the box.
 The graph search programs read from standard input (`STDIN`) and 
 write to standard output (`STDOUT`), much like 
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
-While this can be confusing at first -- particularly given that no usage 
-info is printed to the console and no `man` pages are available -- the 
-examples provided in the 
+There is no usage info printed to the console and no `man` pages, 
+but the examples provided in the 
 [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
 should hopefully clear things up.
