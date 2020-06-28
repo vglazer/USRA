@@ -26,7 +26,7 @@ There are no external library dependencies, so with a bit of luck
 everything should work out of the box.
 
 ## Usage
-Note that the graph search programs read from standard input (`STDIN`) and 
+The graph search programs read from standard input (`STDIN`) and 
 write to standard output (`STDOUT`), much like 
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
 While this can be confusing at first -- particularly given that no usage 
