@@ -16,10 +16,14 @@ and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_find
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
 ## Building Instructions
-Just run GNU `make` in the top-level directory. This will create a `bin` 
-subdirectory containing the various graph search programs. Since there are 
-no external library dependencies, everything should build out of the box 
-with a bit of luck.
+You will need `make` and `gcc`. To install these on Ubuntu, run
+`apt-get install build-essential`. If you are on MacOS, run 
+`xcode-select --install`.
+
+To build everything, just run `make` in the top-level directory. This will 
+create a `bin` subdirectory containing the various graph search programs. 
+There are no external library dependencies, so with a bit of luck 
+everything should work out of the box.
 
 ## Usage
 Note that the graph search programs read from standard input (`STDIN`) and 
