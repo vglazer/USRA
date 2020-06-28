@@ -10,12 +10,11 @@ prescribed edge count in various kinds of graphs.
 
 We provide a suite of efficient 
 [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) 
-algorithms [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src),
+algorithms [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src)
 for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search)
 [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) 
 (an alternative to simulated annealing). This work was superivised by 
 [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
-See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
 ## Build Instructions
 You will need `make` and `gcc`. To install these on Ubuntu, run
