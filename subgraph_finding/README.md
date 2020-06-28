@@ -10,7 +10,8 @@ prescribed edge count in various flavors of graphs. We provide a suite of
 efficient 
 [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) 
 algorithms for doing so, based on Fred Glover's
-[Tabu search](https://en.wikipedia.org/wiki/Tabu_search) "metaheuristic"
+[Tabu search](https://en.wikipedia.org/wiki/Tabu_search)
+[metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic)
 and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
