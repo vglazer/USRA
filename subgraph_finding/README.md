@@ -28,7 +28,7 @@ everything should work out of the box.
 
 ## Usage
 The graph search programs read from standard input (`STDIN`) and 
-write to standard output (`STDOUT`), much like 
+write to standard output (`STDOUT`), in the style of 
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
 There is no usage info printed to the console and no `man` pages, 
 but the examples provided in the 
