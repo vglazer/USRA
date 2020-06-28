@@ -13,6 +13,8 @@ algorithms for doing so, based on Fred Glover's
 [Tabu search](https://en.wikipedia.org/wiki/Tabu_search)
 [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to simulated annealing)
 and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
+under the supervision of 
+[Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html)
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
 ## Build Instructions
