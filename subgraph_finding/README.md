@@ -15,7 +15,7 @@ algorithms for doing so, based on Fred Glover's
 and [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src). 
 See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md) for details
 
-## Building Instructions
+## Build Instructions
 You will need `make` and `gcc`. To install these on Ubuntu, run
 `sudo apt-get install build-essential` in a terminal window. If you are on 
 MacOS, use `xcode-select --install` instead.
