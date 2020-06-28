@@ -6,10 +6,11 @@ Some
 lack algebraic structure and require constructive proofs
 to settle existence. The problem can be reduced to finding [induced
 subgraphs](https://en.wikipedia.org/wiki/Induced_subgraph) with a 
-prescribed edge count in various kinds of graphs. We provide a suite of 
-efficient 
+prescribed edge count in various kinds of graphs. 
+
+We provide a suite of efficient 
 [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) 
-algorithms, [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src),
+algorithms [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src),
 for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search)
 [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) 
 (an alternative to simulated annealing). This work was superivised by 
