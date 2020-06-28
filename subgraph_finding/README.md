@@ -17,8 +17,8 @@ See [report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/RE
 
 ## Building Instructions
 You will need `make` and `gcc`. To install these on Ubuntu, run
-`apt-get install build-essential`. If you are on MacOS, run 
-`xcode-select --install`.
+`sudo apt-get install build-essential` in a terminal window. If you are on 
+MacOS, use `xcode-select --install` instead.
 
 To build everything, just run `make` in the top-level directory. This will 
 create a `bin` subdirectory containing the various graph search programs. 
