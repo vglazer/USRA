@@ -1,6 +1,6 @@
 # Code Organization
 
-The code is organized into the three top-level directories below
+The code is organized into the top-level directories below
 
 ## `Lib` (Library subroutines)
 Function       | Description

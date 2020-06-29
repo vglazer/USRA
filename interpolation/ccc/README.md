@@ -1,5 +1,5 @@
 # Code Organization
-The code is organized into the tree top-level directories below
+The code is organized into the top-level directories below
 
 ## `1sc32` (Spline interpolant construction and evaluation routines)
 Function     | Description
