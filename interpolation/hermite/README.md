@@ -10,6 +10,7 @@ The code is organized into the following four top-level directories:
   pqhint - driver for quintic monotonicity-preserving interpolation
 
 ## test: functions used for testing purposes
+Routine     | Description
 ------------|----------------------------------------------------------------
 testpcqhint | tester for pchint and pqhint
 testphint | tester for phint
