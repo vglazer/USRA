@@ -11,8 +11,7 @@ rates across a variety of monotonicity constraints from the literature,
 demonstrating that Huynh's perform the best.
 
 The monotone spline functions themselves are [here](https://github.com/vglazer/USRA/tree/master/interpolation/hermite).
-Miscellaneous functions for computing interpolation errors and convergence 
-rates, used to construct the report, can be found
+Miscellaneous functions used to construct the report can be found
 [here](https://github.com/vglazer/USRA/tree/master/interpolation/ccc).
 
 This work was performed under the supervision of 
