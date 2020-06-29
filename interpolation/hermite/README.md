@@ -1,8 +1,8 @@
 # Code Organization
 
-The code is organized into the following four top-level directories: 
+The code is organized into the three top-level directories below
 
-## `Lib` (Library Subroutines)
+## `Lib` (Library subroutines)
 Function       | Description
 ---------------|------------
 `approxder`    | approximate derivative using finite difference formulas
@@ -15,13 +15,13 @@ Function       | Description
 `divdiffs`     | return matrix of divided differences
 `vecdiffs`     | return vectors of divided differences
 
-## `cubic` (Cubic Interpolants)
+## `cubic` (Cubic interpolants)
 Function | Description
 ---------|------------
 `pchint` | driver for cubic monotonicity-preserving interpolation
 `phint`  | self-contained, restrictive driver for cubic interpolation
 
-## `test` (Testing Functions)
+## `test` (Testing functions)
 Function      | Description
 --------------|------------
 `testpcqhint` | tester for `pchint` and `pqhint`
