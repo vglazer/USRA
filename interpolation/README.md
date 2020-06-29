@@ -7,9 +7,8 @@ based on a NASA
 [tech memo](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19910011517.pdf) by Hung T. Huynh.
 The following
 [report](https://github.com/vglazer/USRA/blob/master/interpolation/reports/report.pdf) compares errors and convergence 
-rates for cubic spline interpolants across a variety of monotonicity 
-constraints from the literature. Huynh's M3 (uniform third order) and M4 
-(uniform fourth order) is shown to perform the best.
+rates across a variety of monotonicity constraints from the literature,
+demonstrating that Huynh's perform the best.
 
 The monotone spline functions themselves are [here](https://github.com/vglazer/USRA/tree/master/interpolation/hermite).
 Miscellaneous functions for computing interpolation errors and convergence 
