@@ -2,15 +2,19 @@
 
 The code is organized into the following four top-level directories: 
 
-## cubic: cubic interpolants
-  pchint - driver for cubic monotonicity-preserving interpolation
-  phint - self-contained, restrictive driver for cubic interpolation
+## `cubic`: cubic interpolants
+Function | Description
+---------|------------
+pchint | driver for cubic monotonicity-preserving interpolation
+phint | self-contained, restrictive driver for cubic interpolation
 
-## quintic: quintic interpolants *
-  pqhint - driver for quintic monotonicity-preserving interpolation
+## `quintic`: quintic interpolants *
+Function | Description
+---------|------------
+`pqhint` | driver for quintic monotonicity-preserving interpolation
 
 ## `test`: functions used for testing purposes
-Routine | Description
+Function | Description
 --------|------------
 `testpcqhint` | tester for `pchint` and `pqhint`
 `testphint` | tester for `phint`
@@ -19,7 +23,7 @@ Routine | Description
 `testfdsec` | similar tester for the formulas in `approxsecder`
 
 ## `Lib`: library subroutines
-Routine | Description
+Function | Description
 --------|------------
 `approxder` | approximate derivative using finite difference formulas
 `approxsecder` | approximate second derivative using fd formulas
