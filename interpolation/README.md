@@ -1,7 +1,7 @@
 # Accurate Monotone Splines
 
 ## Overview
-MATLAB rountines for accurate 
+MATLAB functions for constructing accurate 
 [monotone cubic interpolants](https://en.wikipedia.org/wiki/Monotone_cubic_interpolation), 
 based on a
 [paper](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19910011517.pdf) by Hung T. Huynh.
