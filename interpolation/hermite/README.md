@@ -11,12 +11,12 @@ The code is organized into the following four top-level directories:
 
 ## test: functions used for testing purposes
 Routine     | Description
-------------|----------------------------------------------------------------
-testpcqhint | tester for pchint and pqhint
-testphint | tester for phint
-testdata | script to load testing data into the workspace
-testfd | tester for the finite difference approximation formulas in approxder
-testfdsec | similar tester for the formulas in approxsecder
+------------|------------
+`testpcqhint` | tester for `pchint` and `pqhint`
+`testphint` | tester for `phint`
+`testdata` | script to load testing data into the workspace
+`testfd` | tester for the finite difference approximation formulas in `approxder`
+`testfdsec` | similar tester for the formulas in `approxsecder`
 
 ## Lib: library subroutines 
   approxder - approximate derivative using finite difference formulas
