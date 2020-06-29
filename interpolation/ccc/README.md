@@ -11,7 +11,7 @@ Function     | Description
 Function | Description
 ---------|------------
 `bsplex` | Extend grid so that exactly k basis functions are active in each interval, where k is the B-spline order (i.e. four for cubic splines). Note that the additional gridpoints lie outside of Domain(S(x))
-`bsplvd` | Return the values of the (at most) k nonzero (order k) B-spline basis functions active at point p for S(x) and nderiv of its derivatives
+`bsplvd` | Return the values of the (at most) `k` nonzero (order `k`) B-spline basis functions active at point `p` for S(x) and `nderiv` of its derivatives
 `bsplvn` | Helper routine used by `bsplvd`
 `intrvl` | Locate and return the grid subinterval in which point `p` lies
 
