@@ -12,6 +12,6 @@ demonstrating that Huynh's perform the best. This work was performed under the s
 [Christina C. Christara](http://www.cs.toronto.edu/~ccc/).
 
 The monotone spline functions themselves are [here](https://github.com/vglazer/USRA/tree/master/interpolation/hermite).
-Miscellaneous functions used to construct the report can be found
+Miscellaneous functions used to construct the report are
 [here](https://github.com/vglazer/USRA/tree/master/interpolation/ccc).
 
