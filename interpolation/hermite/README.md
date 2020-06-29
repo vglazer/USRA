@@ -36,4 +36,4 @@ Function | Description
 `testfd` | tester for the finite difference approximation formulas in `approxder`
 `testfdsec` | similar tester for the formulas in `approxsecder`
 
-\* - doesn't work properly
+\* - Doesn't work properly
