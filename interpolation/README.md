@@ -10,9 +10,13 @@ Miscellaneous functions for computing convergence rates and the like are
 [here](https://github.com/vglazer/USRA/tree/master/interpolation/ccc).
 
 The following 
-[report](https://github.com/vglazer/USRA/blob/master/interpolation/reports/report.pdf) shows errors and convergence 
-rates for cubic spline interpolants across a variety of monotonicity 
-constraints. 
+[report](https://github.com/vglazer/USRA/blob/master/interpolation/reports/report.pdf) compares errors and convergence 
+rates for cubic spline interpolants across several monotonicity 
+constraints: 
+* M3 (Huynh's uniform third order)
+* M4 (Huynh's uniform fourth order) 
+* Fritsch and Carlson
+* Hyman 
 
 This work was performed under the supervision of 
 [Christina C. Christara](http://www.cs.toronto.edu/~ccc/).
