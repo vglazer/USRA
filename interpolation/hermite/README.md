@@ -2,7 +2,7 @@
 
 The code is organized into the following four top-level directories: 
 
-## `Lib`: library subroutines
+## `Lib` (Library Subroutines)
 Function | Description
 --------|------------
 `approxder` | approximate derivative using finite difference formulas
@@ -16,18 +16,18 @@ Function | Description
 `divdiffs` | return matrix of divided differences
 `vecdiffs` | return vectors of divided differences
 
-## `cubic`: cubic interpolants
+## `cubic` (Cubic Interpolants)
 Function | Description
 ---------|------------
 `pchint` | driver for cubic monotonicity-preserving interpolation
 `phint` | self-contained, restrictive driver for cubic interpolation
 
-## `quintic`: quintic interpolants \*
+## `quintic` (Quintic Interpolants) \*
 Function | Description
 ---------|------------
 `pqhint` | driver for quintic monotonicity-preserving interpolation
 
-## `test`: functions used for testing purposes
+## `test` (Testing Functions)
 Function | Description
 --------|------------
 `testpcqhint` | tester for `pchint` and `pqhint`
