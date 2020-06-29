@@ -8,6 +8,5 @@ spline interpolants, based on this
 Routines for constructing monotonicity-preserving splines are [here](https://github.com/vglazer/USRA/tree/master/interpolation/hermite).
 Routines for B-splines and rate of convergence computations are [here](https://github.com/vglazer/USRA/tree/master/interpolation/ccc).
 
-
 This work was performed under the supervision of 
 [Christina C. Christara](http://www.cs.toronto.edu/~ccc/).
