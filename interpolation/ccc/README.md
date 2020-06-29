@@ -10,7 +10,7 @@ Function     | Description
 ## `Bspl` (General B-spline construction and evaluation routines)
 Function | Description
 ---------|------------
-`bsplex` | Extend grid so that exactly k basis functions are active in each interval, where k is the B-spline order (i.e. four for cubic splines). Note that the additional gridpoints lie outside of Domain(S(x))
+`bsplex` | Extend grid so that exactly `k` basis functions are active in each interval, where `k` is the B-spline order (i.e. four for cubic splines). Note that the additional gridpoints lie outside of Domain(S(x))
 `bsplvd` | Return the values of the (at most) `k` nonzero (order `k`) B-spline basis functions active at point `p` for S(x) and `nderiv` of its derivatives
 `bsplvn` | Helper routine used by `bsplvd`
 `intrvl` | Locate and return the grid subinterval in which point `p` lies
@@ -21,5 +21,5 @@ Function    | Description
 `converge1` | Compute the rate of convergence (as `numgrid` -> Inf) at the gridpoints, midpoints and Gauss points
 `error1`    | Compute the error in interpolation at the gridpoints, midpoints and Gauss points
 `setgrid`   | Return the gridpoints, midpoints and Gauss points for the specified interval and grid size
-`sptrid`    | Construct the specified tridiagonal matrix. This routine is used by `si32()` to solve for dof
+`sptrid`    | Construct the specified tridiagonal matrix. This routine is used by `si32()` to solve for `dof`
 `truevd`    | Evaluate the (globally set) 'test function' (`Uname`), as well as its first and second derivatives, at the specified points
