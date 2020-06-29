@@ -8,11 +8,10 @@ based on a NASA
 The following
 [report](https://github.com/vglazer/USRA/blob/master/interpolation/reports/report.pdf) compares errors and convergence 
 rates across a variety of monotonicity constraints from the literature,
-demonstrating that Huynh's perform the best.
+demonstrating that Huynh's perform the best. This work was performed under the supervision of 
+[Christina C. Christara](http://www.cs.toronto.edu/~ccc/).
 
 The monotone spline functions themselves are [here](https://github.com/vglazer/USRA/tree/master/interpolation/hermite).
 Miscellaneous functions used to construct the report can be found
 [here](https://github.com/vglazer/USRA/tree/master/interpolation/ccc).
 
-This work was performed under the supervision of 
-[Christina C. Christara](http://www.cs.toronto.edu/~ccc/).
