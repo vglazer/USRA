@@ -4,6 +4,10 @@ APPS=sub_search asub_search wsub_search reg_search ereg_search ggen wggen
 
 all: $(APPS)
 
+.PHONY: graphs
+graphs:
+	etc/graphgen.sh
+
 sub_search: src/sub_search.c
 	mkdir -p bin
 	$(CC) $(CFLAGS) $< -o bin/$@
@@ -32,5 +36,7 @@ wggen: src/wggen.c
 	mkdir -p bin
 	$(CC) $(CCFLAGS) $< -o bin/$@
 
+.PHONY: clean
 clean:
-	rm -rf bin
+	rm -rf bin graphs
+
