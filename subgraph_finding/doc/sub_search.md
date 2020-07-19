@@ -1,4 +1,4 @@
-# SUB\_SEARCH.C REPORT
+# SUB\_SEARCH REPORT
 
 ## PURPOSE
 `sub_search.c` uses randomised restricted local search to find vertex-induced 

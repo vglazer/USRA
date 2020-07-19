@@ -1,4 +1,4 @@
-# ASUB\_SEARCH.C REPORT
+# ASUB\_SEARCH REPORT
 
 ## PURPOSE
 `asub_search.c`, like `sub_search.c`, uses randomised restricted local search to 
@@ -32,4 +32,4 @@ aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
 
 ## EXAMPLES
-See `sub_search_report.txt`.
+See the [sub_search report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md).
