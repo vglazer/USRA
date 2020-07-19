@@ -1,7 +1,7 @@
 # SUB\_SEARCH REPORT
 
 ## PURPOSE
-`sub_search.c` uses randomised restricted local search to find vertex-induced 
+[`sub_search.c`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/src/sub_search.c) uses randomised restricted local search to find vertex-induced 
 subgraphs with a prescribed edge count in undirected, unweighted graphs. The
 importance of `sub_search` is that it is subsequently used as a basic framework
 for a number of other programs, including `asub_search`, `wsub_search`, `reg_search` and `ereg_search`.
