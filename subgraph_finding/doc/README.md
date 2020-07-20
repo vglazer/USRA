@@ -1,5 +1,5 @@
 Program                                                                                          | Description
---------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------|------------
 [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md)   | Find induced subgraphs in undirected, unweighted graphs
 [`asub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/asub_search.md) | `sub_search` with "limited aspiration"
 [`wsub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) | `sub_search` with weights
