@@ -11,7 +11,7 @@ The input parameters and output are identical to those of `sub_search`, and the
 overall approach is very similar (see the [`sub_search` report.txt](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). 
 
 However, the format of the adjacency list has been modified somewhat to allow
-for the encoding of edge weights: if the ith row of the adjacency list 
+for the encoding of edge weights: if the `i`th row of the adjacency list 
 contains entry `x`, then `{i, (x % v)}` is an edge with weight `(x / v) + 1`. In 
 other words, if there is an edge of weight `w` between `i` and `j`, we add entry
 `j + (w - 1) * v` to the `i`th row of the adjacency list. We chose to use `w - 1` 
