@@ -3,17 +3,19 @@
 ## PURPOSE
 [`wggen.c`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/src/wggen.c) 
 generates undirected, weighted exponential (Erdos-Szekeres) random 
-graphs with a prescribed density (where the density is defined to be `d = (200 * e) / (v * (v - 1)))`. 
-As in `ggen`, the input parameters are read in from 
+graphs with a prescribed density (where the density is defined to be 
+`d = (200 * e) / (v * (v - 1)))`. As in `ggen`, the input parameters are read in from 
 standard input, and the resulting graphs are then written to standard output 
-as `'-1'` terminated adjacency lists in the format used by `wsub_search` (see 
-`wsub_search_report.txt` for details). 
+as `'-1'` terminated adjacency lists in the format used by `wsub_search` 
+(see [`wsub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) for details). 
 
 However, `wggen` has none of `ggen`'s advanced features. It is only capable of generating random graphs of one type (the 
 simplest kind, in fact), and cannot manipulate existing ones.
 
 ## METHOD
-Unlike in `ggen`, command line arguments are used for input; the output is written to standard output as before, however. The input parameters are the number of vertices, the desired density and the random seed to be used. 
+Unlike in `ggen`, command line arguments are used for input; the output 
+is written to standard output as before, however. The input parameters are 
+the number of vertices, the desired density and the random seed to be used. 
 
 First, the total number of edges corresponding to the desired density is 
 computed from the definition (i.e. `e = v * (v - 1) * d / 200`). Then, the 
