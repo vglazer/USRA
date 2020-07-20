@@ -9,7 +9,7 @@ considered.
 
 ## METHOD
 The input parameters and output are identical to those of `sub_search`, and the 
-overall approach is very similar (see [sub_search report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). The 
+overall approach is very similar (see the [`sub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). The 
 difference is that moves involving one or both of the two vertices most 
 recently swapped are not ruled out completely. Instead, such moves are appended
 to a separate list whenever they improve the global objective function minimum,
@@ -25,8 +25,8 @@ design decision intended to magnify the effects of the aspiration, such as they
 are.
 
 ## DATA STRUCTURES
-The data structures used are largely the same as in `sub_search` (see 
-[sub_search report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). The only two additions are the integer 
+The data structures used are largely the same as in `sub_search` (see the
+[`sub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). The only two additions are the integer 
 arrays `sub_asp` and `rest_asp`, which store the inner and outer vertices of 
 aspiration moves (i.e. those that belong to the subgraph and those that do not,
 respectively).
