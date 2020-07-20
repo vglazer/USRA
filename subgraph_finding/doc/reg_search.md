@@ -10,7 +10,7 @@ The input parameters are nearly identical to those of `sub_search`, except that
 `e_sub`, the desired edge count, is now replaced by `d_sub`, the desired valency; 
 the output is exactly the same as in `sub_search` 
 (see the [`sub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) for details). This time, however, the objective function being minimised is 
-`f(V_sub) = Sum( sub_degree(v) - d_sub )`, where `V_sub` stands for subgraph
+`f(V_sub) = Sum(sub_degree(v) - d_sub)`, where `V_sub` stands for subgraph
 vertices and `sub_degree` stands for inner degree, or degree with respect to 
 subgraph vertices only. 
 

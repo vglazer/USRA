@@ -27,8 +27,8 @@ interesting theoretically.
 
 ## DATA STRUCTURES
 The data structures are an amalgamation of those used in `sub_search` and 
-`reg_search` (see the [`sub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) and [`reg_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/reg_search.md) for details).
+`reg_search` (see the [`sub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) 
+and [the `reg_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/reg_search.md) for details).
 
 ## EXAMPLES
 See the [`reg_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/reg_search.md) report.
-
