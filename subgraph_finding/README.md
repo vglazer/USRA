@@ -32,5 +32,5 @@ write to standard output (`STDOUT`), in the style of
 [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
 There is no usage info printed to the console and no `man` pages, 
 but the examples provided in the 
-[report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
+[reports](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
 should hopefully clear things up.
