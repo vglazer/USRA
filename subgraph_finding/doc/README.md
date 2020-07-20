@@ -3,6 +3,9 @@ The following reports describe the purpose of each program as well as
 outlining the data structures and algorithms used. Sample usage is also
 provided.
 
+The two key programs are [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) 
+and [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md).
+
 Program                                                                                          | Description
 -------------------------------------------------------------------------------------------------|------------
 [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md)   | Find induced subgraphs with the specified edge count in undirected, unweighted graphs
