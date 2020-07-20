@@ -7,7 +7,7 @@ graphs with a prescribed density (where the density is defined to be
 `d = (200 * e) / (v * (v - 1)))`. As in `ggen`, the input parameters are read in from 
 standard input, and the resulting graphs are then written to standard output 
 as `'-1'` terminated adjacency lists in the format used by `wsub_search` 
-(see [`wsub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) for details). 
+(see the [`wsub_search` report](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) for details). 
 
 However, `wggen` has none of `ggen`'s advanced features. It is only capable of generating random graphs of one type (the 
 simplest kind, in fact), and cannot manipulate existing ones.
