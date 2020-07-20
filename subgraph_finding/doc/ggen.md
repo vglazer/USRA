@@ -1,4 +1,4 @@
-# GGEN.C REPORT
+# GGEN REPORT
 
 ## PURPOSE
 [`ggen.c`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/src/ggen.c) 
@@ -91,7 +91,7 @@ I.    `2 100 0 600 2  0 0  0`
       600 (or 60%). Use 2 as the random seed. Since we are not inputting an
       incidence list (i.e. graph_type is not 1), num_sets is ignored (we set it
       to 0 to suggest that). No fixed vertices are specified, so we set 
-      num_fixed to 0 (`fixed_type`, set to 0 here, is ignored).
+      num_fixed to 0 (fixed_type, set to 0 here, is ignored).
 
 II.   `3 2500 0 200 52  0 0  1`
 
@@ -111,7 +111,7 @@ IV.   `0 100 0 0 0  3 -2  0`
 
       Input a graph on 100 vertices and output the subgraph induced on the 
       common non-neighbourhood of the 3 fixed vertices indicated. Since 
-      `graph_type` is 0, density and seed are both ignored (we set them to 0 to 
+      graph_type is 0, density and seed are both ignored (we set them to 0 to 
       suggest that).
 
 V.    `0 1500 0 0 0  5 1  1`
@@ -140,7 +140,7 @@ VII.  `1 1000 20 2 0  10 -1  1`
 
       Input a 20-set incidence list on 1000 symbols and make every pair of
       vertices that appear together in 2 sets adjacent. Output the complement
-      of the subgraph induced on `V \ Fixed`, where `Fixed` consists of the 10
+      of the subgraph induced on V \ Fixed, where Fixed consists of the 10
       fixed vertices indicated.
 
 VIII. `1 50 -5000 10 0  1 2  0`
