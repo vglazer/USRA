@@ -2,8 +2,8 @@
 
 ## PURPOSE
 [`reg_search.c`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/src/reg_search.c) uses randomised restricted local search to find regular 
-vertex-induced subgraphs with a prescribed valency in undirected, 
-unweighted graphs.
+vertex-induced subgraphs with a prescribed valency (that is, degree) in 
+undirected, unweighted graphs.
 
 ## METHOD
 The input parameters are nearly identical to those of `sub_search`, except that 
