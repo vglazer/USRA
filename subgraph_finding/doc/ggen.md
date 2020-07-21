@@ -36,7 +36,13 @@ standard output. The input parameters are:
 prescribed density from scratch: exponential (Erdos-Szekeres), power (scale-free) and geometric (in the plane, with no wrap-around). To select the 
 first set `graph_type` to 2, for the second set it to 3 and for the last set it
 to 4. In general, density can be set to any non-negative integer between 0 and
-1000; a graph of density `d` has approximately `d * v * (v - 1) / 2000` edges (recall that the complete graph on `v` vertices has `v * (v - 1) / 2` edges). 
+1000; a graph of density `d` has approximately `d * v * (v - 1) / 2000` edges. Realistically however, 
+both power and geometric graphs can only attain densities below 500. 
+Recall that the complete graph on `v` vertices has `v * (v - 1) / 2` edges. 
+The density can thus be thoght of as the fraction of all possible edges
+scaled by a factor of 1000, or, equivalently, the percentage of edges 
+present multiplied by a factor of 10.
+
 Realistically however, both power and geometric graphs can only attain 
 densities below 500. 
 
