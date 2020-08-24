@@ -1,0 +1,2 @@
+200 65 1 exponential_200.txt
+1500 300 72 exponential_1500.txt
