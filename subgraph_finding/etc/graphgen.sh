@@ -8,13 +8,6 @@ bin_dir=$repo_dir/bin
 etc_dir=$repo_dir/etc
 base_graphs_dir=$repo_dir/graphs
 
-# awk should be there, but you never know
-awk_location=`/usr/bin/which awk`
-if [ "$awk_location" = "" ]; then
-    echo "$scriptname could not find awk; bailing..." >&2
-    exit 1
-fi
-
 # generate sample unweighted random graphs using ggen
 if [ -f $bin_dir/ggen ]; then 
     graphs_dir_unweighted=$base_graphs_dir/unweighted
@@ -26,7 +19,7 @@ if [ -f $bin_dir/ggen ]; then
         echo $inputs | $bin_dir/ggen > $graphs_dir_unweighted/$filename
     done <$etc_dir/ggen_inputs.txt 
 else
-    echo "$bin_dir/ggen does not exist. try running make ggen" >&2
+    echo "$scriptname: $bin_dir/ggen does not exist. try running make ggen" >&2
 fi
 
 # generate sample weighted random graphs using wggen
@@ -39,7 +32,7 @@ if [ -f $bin_dir/wggen ]; then
         $bin_dir/wggen $inputs > $graphs_dir_weighted/$filename
     done <$etc_dir/wggen_inputs.txt     
 else
-    echo "$bin_dir/wggen does not exist. try running make wggen" >&2
+    echo "$scriptname: $bin_dir/wggen does not exist. try running make wggen" >&2
 fi
 
 exit 0
