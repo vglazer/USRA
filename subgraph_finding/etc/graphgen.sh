@@ -8,6 +8,11 @@ bin_dir=$repo_dir/bin
 etc_dir=$repo_dir/etc
 base_graphs_dir=$repo_dir/graphs
 
+if [ $# -ne 0 ]; then
+    echo "$scriptname takes no arguments"
+    exit 1
+fi
+
 # generate sample unweighted random graphs using ggen
 if [ -f $bin_dir/ggen ]; then 
     graphs_dir_unweighted=$base_graphs_dir/unweighted
