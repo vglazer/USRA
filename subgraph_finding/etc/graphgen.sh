@@ -51,20 +51,12 @@ function generate_graphs {
 
 # Main driver
 function main {
-    local scriptname
     scriptname=$(basename "$0")
 
     # the top-level repo directory is two levels up from the etc subdirectory 
-    local repo_dir
     repo_dir=$(dirname "$(dirname "$(realpath "$0")")")
-
-    local bin_dir
     bin_dir="${repo_dir}/bin"
-
-    local etc_dir
     etc_dir="${repo_dir}/etc"
-
-    local base_graphs_dir
     base_graphs_dir="${repo_dir}/graphs"
 
     if [[ $# != 0 ]]; then
@@ -72,18 +64,15 @@ function main {
         exit 1
     fi
 
-    local ggen_res
     generate_graphs "${bin_dir}/ggen" "${etc_dir}/ggen_inputs.txt" \
         "${base_graphs_dir}" 'unweighted' 'true'
     ggen_res="$?"
 
-    local wggen_res
     generate_graphs "${bin_dir}/wggen" "${etc_dir}/wggen_inputs.txt" \
         "${base_graphs_dir}" 'weighted' 'false'
     wggen_res="$?"
 
     # return 0 if all generator commands succeeded, failure count otherwise
-    local retval
     retval=$((ggen_res + wggen_res))
     exit "${retval}"
 }
