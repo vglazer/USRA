@@ -8,7 +8,7 @@ bin_dir=$repo_dir/bin
 etc_dir=$repo_dir/etc
 base_graphs_dir=$repo_dir/graphs
 
-if [ $# -ne 0 ]; then
+if [[ $# -ne 0 ]]; then
     echo "$scriptname takes no arguments"
     exit 1
 fi
@@ -20,7 +20,7 @@ function generate_graphs {
     local kind=$4
     local pipe_args=$5
 
-    if [ -f "$generator" ]; then 
+    if [[ -f "$generator" ]]; then 
         graphs_dir=$base_graphs_dir/$kind
         mkdir -p "$graphs_dir"
 
@@ -28,7 +28,7 @@ function generate_graphs {
             # the last token is the output file. everything else is a generator argument
             args=$(echo "$line" | awk '{ $NF=""; print $0 }')
             output_file=$(echo "$line" | awk '{ print $NF }')
-            if [ "$pipe_args" = 'true' ]; then
+            if [[ "$pipe_args" = 'true' ]]; then
                 echo "$args" | $generator > "$graphs_dir/$output_file"
             else 
                 $generator "$args" > "$graphs_dir/$output_file"
