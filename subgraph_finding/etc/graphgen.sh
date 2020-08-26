@@ -1,18 +1,18 @@
 #! /usr/bin/env bash
 
-scriptname=$(basename "$0")
-
-# the top-level repo directory is two levels up from the etc subdirectory 
-repo_dir=$(dirname "$(dirname "$(realpath "$0")")")
-bin_dir="${repo_dir}/bin"
-etc_dir="${repo_dir}/etc"
-base_graphs_dir="${repo_dir}/graphs"
-
-if [[ $# -ne 0 ]]; then
-    echo "${scriptname} takes no arguments"
-    exit 1
-fi
-
+# Run the given generator utility to produce random graphs on disk in accordance with
+# the specified input file 
+# 
+# Arguments:
+#   generator       - path to the generator utility
+#   input_file      - arguments to pass to the generator; what to name each output file 
+#   base_graphs_dir - top-level directory for generated graphs, will contain several kinds
+#   kind            - a tag to diffentiate one kind of graphs from another, e.g. "weighted"
+#   pipe_args       - true if args should be piped into the generator, false if passed to it
+# 
+# Outputs:
+#   Returns 0 if generator succeeded, 1 otherwise (if the generator is missing, say). Writes
+#   graph files to the specified directory as a side-effect
 function generate_graphs {
     local generator="$1"
     local input_file="$2"
@@ -49,14 +49,44 @@ function generate_graphs {
     fi
 }
 
-generate_graphs "${bin_dir}/ggen" "${etc_dir}/ggen_inputs.txt" \
-    "${base_graphs_dir}" 'unweighted' 'true'
-ggen_res="$?"
+# Main driver
+function main {
+    local scriptname
+    scriptname=$(basename "$0")
 
-generate_graphs "${bin_dir}/wggen" "${etc_dir}/wggen_inputs.txt" \
-    "${base_graphs_dir}" 'weighted' 'false'
-wggen_res="$?"
+    # the top-level repo directory is two levels up from the etc subdirectory 
+    local repo_dir
+    repo_dir=$(dirname "$(dirname "$(realpath "$0")")")
+    
+    local bin_dir
+    bin_dir="${repo_dir}/bin"
+    
+    local etc_dir
+    etc_dir="${repo_dir}/etc"
+    
+    local base_graphs_dir
+    base_graphs_dir="${repo_dir}/graphs"
 
-# return 0 if all generator commands succeeded, failure count otherwise
-retval=$((ggen_res + wggen_res))
-exit "${retval}"
+    if [[ $# -ne 0 ]]; then
+        echo "${scriptname} takes no arguments"
+        exit 1
+    fi
+
+    generate_graphs "${bin_dir}/ggen" "${etc_dir}/ggen_inputs.txt" \
+        "${base_graphs_dir}" 'unweighted' 'true'
+    local ggen_res
+    ggen_res="$?"
+
+    generate_graphs "${bin_dir}/wggen" "${etc_dir}/wggen_inputs.txt" \
+        "${base_graphs_dir}" 'weighted' 'false'
+    local wggen_res
+    wggen_res="$?"
+
+    # return 0 if all generator commands succeeded, failure count otherwise
+    local retval
+    retval=$((ggen_res + wggen_res))
+
+    exit "${retval}"
+}
+
+main "$@"
