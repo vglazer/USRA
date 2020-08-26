@@ -14,11 +14,11 @@ if [[ $# -ne 0 ]]; then
 fi
 
 function generate_graphs {
-    local generator=$1
-    local input_file=$2
-    local base_graphs_dir=$3
-    local kind=$4
-    local pipe_args=$5
+    local generator="$1"
+    local input_file="$2"
+    local base_graphs_dir="$3"
+    local kind="$4"
+    local pipe_args="$5"
 
     if [[ -f "$generator" ]]; then 
         graphs_dir=$base_graphs_dir/$kind
