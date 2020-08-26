@@ -72,10 +72,12 @@ function main {
         exit 1
     fi
 
+    local ggen_res
     generate_graphs "${bin_dir}/ggen" "${etc_dir}/ggen_inputs.txt" \
         "${base_graphs_dir}" 'unweighted' 'true'
     ggen_res="$?"
 
+    local wggen_res
     generate_graphs "${bin_dir}/wggen" "${etc_dir}/wggen_inputs.txt" \
         "${base_graphs_dir}" 'weighted' 'false'
     wggen_res="$?"
