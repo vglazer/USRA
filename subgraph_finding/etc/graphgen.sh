@@ -29,7 +29,7 @@ function generate_graphs {
             args=$(echo "${line}" | awk '{ $NF=""; print $0 }')
             output_file=$(echo "${line}" | awk '{ print $NF }')
 
-            if [[ "${pipe_args}" = 'true' ]]; then
+            if [[ "${pipe_args}" == 'true' ]]; then
                 echo "${args}" | ${generator} > "${graphs_dir}/${output_file}"
             else 
                 ${generator} "${args}" > "${graphs_dir}/${output_file}"
@@ -59,7 +59,7 @@ function main {
     etc_dir="${repo_dir}/etc"
     base_graphs_dir="${repo_dir}/graphs"
 
-    if [[ $# -ne 0 ]]; then
+    if [[ $# != 0 ]]; then
         echo "${scriptname} takes no arguments"
         exit 1
     fi
