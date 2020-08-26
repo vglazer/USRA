@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 
-scriptname=$(basename $0)
+scriptname=$(basename "$0")
 
 # the top-level repo directory is two levels up from the etc subdirectory 
-repo_dir=$(dirname $(dirname $(realpath $0)))
+repo_dir=$(dirname $(dirname $(realpath "$0")))
 bin_dir=$repo_dir/bin
 etc_dir=$repo_dir/etc
 base_graphs_dir=$repo_dir/graphs
@@ -13,31 +13,44 @@ if [ $# -ne 0 ]; then
     exit 1
 fi
 
-# generate sample unweighted random graphs using ggen
-if [ -f $bin_dir/ggen ]; then 
-    graphs_dir_unweighted=$base_graphs_dir/unweighted
-    mkdir -p $graphs_dir_unweighted
+function generate_graphs {
+    local generator=$1
+    local input_file=$2
+    local base_graphs_dir=$3
+    local kind=$4
+    local pipe_args=$5
 
-    while read line; do
-        inputs=`echo "$line" | awk '{ $NF=""; print $0 }'`
-        filename=`echo "$line" | awk '{ print $NF }'`
-        echo $inputs | $bin_dir/ggen > $graphs_dir_unweighted/$filename
-    done <$etc_dir/ggen_inputs.txt 
-else
-    echo "$scriptname: $bin_dir/ggen does not exist. try running make ggen" >&2
-fi
+    if [ -f "$generator" ]; then 
+        graphs_dir=$base_graphs_dir/$kind
+        mkdir -p "$graphs_dir"
 
-# generate sample weighted random graphs using wggen
-if [ -f $bin_dir/wggen ]; then 
-    graphs_dir_weighted=$base_graphs_dir/weighted
-    mkdir -p $graphs_dir_weighted
-    while read line; do
-        inputs=`echo "$line" | awk '{ $NF=""; print $0 }'`
-        filename=`echo "$line" | awk '{ print $NF }'`
-        $bin_dir/wggen $inputs > $graphs_dir_weighted/$filename
-    done <$etc_dir/wggen_inputs.txt     
-else
-    echo "$scriptname: $bin_dir/wggen does not exist. try running make wggen" >&2
-fi
+        while read -r line; do
+            # the last token is the output file. everything else is a generator argument
+            args=$(echo "$line" | awk '{ $NF=""; print $0 }')
+            output_file=$(echo "$line" | awk '{ print $NF }')
+            if [ "$pipe_args" = true ]; then
+                echo "$args" | $generator > "$graphs_dir/$output_file"
+            else 
+                $generator "$args" > "$graphs_dir/$output_file"
+            fi
+        done <"$input_file"
 
-exit 0
+        return 0
+    else
+        local funcname=${FUNCNAME[0]}
+        local binary=$(basename "$generator")
+        echo "$funcname: $binary not found. try running make $binary" >&2
+
+        return 1
+    fi
+}
+
+generate_graphs "$bin_dir/ggen" "$etc_dir/ggen_inputs.txt" "$base_graphs_dir" unweighted true
+ggen_res=$?
+
+generate_graphs "$bin_dir/wggen" "$etc_dir/wggen_inputs.txt" "$base_graphs_dir" weighted false
+wggen_res=$?
+
+# return 0 if all generator commands succeeded, failure count otherwise
+retval=$((ggen_res + wggen_res))
+exit "$retval"
