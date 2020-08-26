@@ -28,7 +28,7 @@ function generate_graphs {
             # the last token is the output file. everything else is a generator argument
             args=$(echo "$line" | awk '{ $NF=""; print $0 }')
             output_file=$(echo "$line" | awk '{ print $NF }')
-            if [ "$pipe_args" = true ]; then
+            if [ "$pipe_args" = 'true' ]; then
                 echo "$args" | $generator > "$graphs_dir/$output_file"
             else 
                 $generator "$args" > "$graphs_dir/$output_file"
@@ -45,10 +45,10 @@ function generate_graphs {
     fi
 }
 
-generate_graphs "$bin_dir/ggen" "$etc_dir/ggen_inputs.txt" "$base_graphs_dir" unweighted true
+generate_graphs "$bin_dir/ggen" "$etc_dir/ggen_inputs.txt" "$base_graphs_dir" 'unweighted' 'true'
 ggen_res=$?
 
-generate_graphs "$bin_dir/wggen" "$etc_dir/wggen_inputs.txt" "$base_graphs_dir" weighted false
+generate_graphs "$bin_dir/wggen" "$etc_dir/wggen_inputs.txt" "$base_graphs_dir" 'weighted' 'false'
 wggen_res=$?
 
 # return 0 if all generator commands succeeded, failure count otherwise
