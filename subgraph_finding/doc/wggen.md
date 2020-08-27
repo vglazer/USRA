@@ -15,7 +15,7 @@ simplest kind, in fact), and cannot manipulate existing ones.
 ## METHOD
 Unlike in `ggen`, command line arguments are used for input; the output 
 is written to standard output as before, however. The input parameters are 
-the number of vertices, the desired density and the random seed to be used. 
+the number of vertices (`v`), the desired density (`density`) and the random seed to be used (`seed`). 
 
 First, the total number of edges corresponding to the desired density is 
 computed from the definition (i.e. `e = v * (v - 1) * d / 200`). Then, the 
