@@ -42,9 +42,10 @@ function generate_graphs {
             output_file=$(echo "${munged_line}" | awk '{ print $NF }')
 
             if [[ "${pipe_args}" == 'true' ]]; then
-                echo "${args}" | ${generator} > "${graphs_dir}/${output_file}"
-            else 
-                ${generator} ${args} > "${graphs_dir}/${output_file}"
+                echo "${args}" | "${generator}" > "${graphs_dir}/${output_file}"
+            else
+                # args is deliberately left unqouted, since expansion is what we want
+                "${generator}" ${args} > "${graphs_dir}/${output_file}"
             fi
         done <"${input_file}"
 
