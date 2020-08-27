@@ -20,11 +20,14 @@ function generate_graphs {
     local kind="$4"
     local pipe_args="$5"
 
+    local funcname="${FUNCNAME[0]}"
+
     if [[ -f "${generator}" ]]; then 
+        local graphs_dir
         graphs_dir="${base_graphs_dir}/${kind}"
         mkdir -p "${graphs_dir}"
 
-        counter='0'
+        local counter='0'
         while read -r line; do
             counter=$((counter + 1))
 
@@ -33,26 +36,35 @@ function generate_graphs {
                 continue
             fi
 
-            # collapse multiple spaces to a single space
+            # collapse multiple spaces to a single space; this too complex for 
+            # ${variable//search/replace}
             local munged_line
             munged_line=$(echo "${line}" | sed 's/ \+/ /gp')
 
             # the last token is the output file. everything else is a generator argument
+            local args
             args=$(echo "${munged_line}" | awk '{ $NF=""; print $0 }')
+            
+            local output_file
             output_file=$(echo "${munged_line}" | awk '{ print $NF }')
 
+            local generator_retval
             if [[ "${pipe_args}" == 'true' ]]; then
                 echo "${args}" | "${generator}" > "${graphs_dir}/${output_file}"
             else
                 # args is deliberately left unqouted, since expansion is what we want
                 "${generator}" ${args} > "${graphs_dir}/${output_file}"
             fi
+
+            generator_retval="$?"
+            if [[ "${generator_retval}" != '0' ]]; then
+                echo "${funcname}: ${generator} failed with error code ${generator_retval}" >&2 
+                return "${generator_retval}"
+            fi
         done <"${input_file}"
 
         return 0
     else
-        local funcname="${FUNCNAME[0]}"
-
         local binary
         binary=$(basename "${generator}")
 
