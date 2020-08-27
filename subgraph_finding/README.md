@@ -23,7 +23,7 @@ MacOS, use `xcode-select --install` instead.
 
 To build everything, just run `make` in the top-level directory. This will 
 create a `bin` subdirectory containing the various graph search programs. 
-There are no external library dependencies, so with a bit of luck 
+There are no external library dependencies, so with luck 
 everything should work out of the box.
 
 ## Usage
