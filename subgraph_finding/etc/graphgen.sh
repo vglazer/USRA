@@ -24,15 +24,27 @@ function generate_graphs {
         graphs_dir="${base_graphs_dir}/${kind}"
         mkdir -p "${graphs_dir}"
 
+        counter='0'
         while read -r line; do
+            counter=$((counter + 1))
+
+            # skip header
+            if [[ "${counter}" == '1' ]]; then
+                continue
+            fi
+
+            # collapse multiple spaces to a single space
+            local munged_line
+            munged_line=$(echo "${line}" | sed 's/ \+/ /gp')
+
             # the last token is the output file. everything else is a generator argument
-            args=$(echo "${line}" | awk '{ $NF=""; print $0 }')
-            output_file=$(echo "${line}" | awk '{ print $NF }')
+            args=$(echo "${munged_line}" | awk '{ $NF=""; print $0 }')
+            output_file=$(echo "${munged_line}" | awk '{ print $NF }')
 
             if [[ "${pipe_args}" == 'true' ]]; then
                 echo "${args}" | ${generator} > "${graphs_dir}/${output_file}"
             else 
-                ${generator} "${args}" > "${graphs_dir}/${output_file}"
+                ${generator} ${args} > "${graphs_dir}/${output_file}"
             fi
         done <"${input_file}"
 

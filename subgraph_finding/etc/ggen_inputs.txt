@@ -1,4 +1,5 @@
-2 100 0 600 2 0 0 0 exponential_100.txt
-3 2500 0 200 52 0 0 0 power_2500.txt
-3 2500 0 200 52 0 0 1 power_2500_complement.txt
-4 790 0 150 1 0 0 0 geometric_790.txt
+graph_type v    num_sets density seed num_fixed fixed_type compl output_file
+2          100  0        600     2    0         0          0     exponential_100.txt
+3          2500 0        200     52   0         0          0     power_2500.txt
+3          2500 0        200     52   0         0          1     power_2500_complement.txt
+4          790  0        150     1    0         0          0     geometric_790.txt
