@@ -22,6 +22,9 @@ function generate_graphs {
 
     local funcname="${FUNCNAME[0]}"
 
+    local binary
+    binary=$(basename "${generator}")
+
     if [[ -f "${generator}" ]]; then 
         local graphs_dir
         graphs_dir="${base_graphs_dir}/${kind}"
@@ -58,18 +61,14 @@ function generate_graphs {
 
             generator_retval="$?"
             if [[ "${generator_retval}" != '0' ]]; then
-                echo "${funcname}: ${generator} failed with error code ${generator_retval}" >&2 
+                echo "${funcname}: ${binary} failed with error code ${generator_retval}" >&2
                 return "${generator_retval}"
             fi
         done <"${input_file}"
 
         return 0
     else
-        local binary
-        binary=$(basename "${generator}")
-
         echo "${funcname}: ${binary} not found. try running make ${binary}" >&2
-
         return 1
     fi
 }
