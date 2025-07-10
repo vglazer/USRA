@@ -23,7 +23,7 @@ standard output. The input parameters are:
 
 ```
    graph_type | one of five graph types, see below
-   v          | number vertices (adjacency lists) or symbols (incidence lists) 
+   v          | number of vertices (adjacency lists) or symbols (incidence lists)
    num_sets   | number of sets (incidence lists only)
    density    | graph density (random graphs only)
    seed       | random seed, a non-negative integer
