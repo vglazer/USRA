@@ -6,7 +6,7 @@ The code is organized into the top-level directories below
 Function       | Description
 ---------------|------------
 `approxder`    | approximate derivative using finite difference formulas
-`approxsecder` | approximate second derivative using fd formulas
+`approxsecder` | approximate second derivative using finite difference formulas
 `perturbder`   | perturb derivative values to ensure monotonicity
 `ppvalnder`    | evaluate pp structure and its derivatives
 `pperror1`     | compute error and convergence rate 
