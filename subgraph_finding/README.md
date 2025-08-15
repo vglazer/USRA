@@ -59,3 +59,18 @@ Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **
 (echo 100 8 0 0  60 100 25 4 1  1; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search > details.txt
 ```
 One benefit of the 1-step approach is that you avoid having to store the graph that `ggen` generated, which may in general be large, until `sub_search` actually finds some interesting subgraphs. Once you have the vertices you will generally want the edges, too, which you can then obtain by re-running `ggen` with the same arguments as before and redirecting the output to a file. The generated graph won't change, since the output of `ggen` is deterministic for a fixed random seed.
+
+### Using sub_search as an approximation algorithm
+Finding an exact match for the specified edge count can be difficult. Depending on the use case, you may also be interested in subgraphs which are a few edges off. 
+
+To include matches which are at most n edges off in the `sub_search` output, set the `show_cols` flag (the last input argument) to n+1: 1 means an exact match, 2 means off by at most 1 edge, 3 means by at most 2 edges, and so on. 
+
+To see this in action, compare the output of the following commands:
+```
+echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
+(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search >
+summary.txt
+(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details_exact.txt
+(echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
+(echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
+```
