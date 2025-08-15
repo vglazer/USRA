@@ -76,7 +76,7 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 ### Some graphs to get your started
 If you run `etc/graphgen.sh` with no arguments, it will generate some (unweighted) random graphs using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md) as well as weighted random graphs using [`wggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wggen.md) and save them to `graphs/unweighted` and `graphs/weighted`, respectively. 
 
-You can then use these graphs in your `sub_search` and [`wsub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md), like so:
+You can then use these graphs in your `sub_search` and [`wsub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) experiments, like so:
 
 ```
 (echo 100 8 0 0  60 100 25 4 1  1; cat graphs/unweighted/exponential_100.txt) | ./bin/sub_search
