@@ -38,7 +38,9 @@ should hopefully clear things up.
 The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
 ## Quickstart
-The typical workflow is to generate a random graph of some type using `ggen` and then look for interesting induced subgraphs in it (like k-cliques, say) using `sub_search`. Assuming you are in the top-level directory and successfully followed the Build Instructions above, you can save both the graph and the experiment results to plain text files, like so:
+The typical workflow is to generate a random graph of some type using `ggen` and then look for interesting induced subgraphs in it (like k-cliques, say) using `sub_search`. 
+
+Assuming you are in the top-level directory and successfully followed the Build Instructions above, you can save both the graph and the experiment results to plain text files, like so:
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 (echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search >
