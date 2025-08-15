@@ -38,7 +38,7 @@ should hopefully clear things up.
 The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
 ## Quickstart
-The typical workflow is to generate a random graph of some type using `ggen` and then look for interesting induced subgraphs in it (like k-cliques, say) using `sub_search`. 
+The typical workflow is to generate a random graph of some type using `ggen` and then look for interesting induced subgraphs in it using `sub_search`. 
 
 Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 ```
@@ -47,7 +47,7 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 summary.txt
 (echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details.txt
 ```
-`summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, given that the subgraph is induced).
+`summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, since the subgraph is induced).
 
 Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **after filtering out everything but the adjacency matrix** - and either dump the results to standard output or redirect them to a file, like so (1-step approach):
 ```
@@ -56,4 +56,6 @@ Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **
 (echo 100 8 0 0  60 100 25 4 1  1; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search
 (echo 100 8 0 0  60 100 25 4 1  1; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search > details.txt
 ```
-One benefit of the 1-step approach is that you avoid having to store the graph `ggen` generated, which may in general be large, until `sub_search` actually finds some interesting subgraphs. If it does, you can just re-run `ggen` with the same arguments and redirect the output to a file, as in the earlier examples (the time-consuming part is the search, not the graph generation). The generated graph will be the same, since the output of `ggen` is deterministic for a fixed random seed.
+One benefit of the 1-step approach is that you avoid having to store the graph that `ggen` generated, which may in general be large, until `sub_search` actually finds some interesting subgraphs. The expensive part is usually the search, not the graph generation, so persisting the graph to disk doesn't buy you much anyway. 
+
+Once you have the vertices you will generally want the edges, too, which you can then obtain by re-running `ggen` with the same arguments as before and redirecting the output to a file. The generated graph won't change, since the output of `ggen` is deterministic for a fixed random seed.
