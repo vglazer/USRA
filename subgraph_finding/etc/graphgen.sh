@@ -51,13 +51,15 @@ function generate_graphs {
             local output_file
             output_file=$(echo "${munged_line}" | awk '{ print $NF }')
 
-            # keep only the adjacency matrix by filtering all but '-1'-terminated lines
+            # keep only the adjacency matrix by filtering all but '-1'-terminated lines; we need to escape '-' for grep
+            local adj_matrix_terminator='\-1'
             local generator_retval
             if [[ "${pipe_args}" == 'true' ]]; then
-                echo "${args}" | "${generator}" | grep '\-1$' > "${graphs_dir}/${output_file}"
+                echo "${args}" | "${generator}" | grep "${adj_matrix_terminator}$" > "${graphs_dir}/${output_file}"
             else
-                # args is deliberately left unqouted, since expansion is what we want
-                "${generator}" ${args} | grep '\-1$' > "${graphs_dir}/${output_file}"
+                # NB: args is deliberately left unqouted, since expansion is what we want in this case
+                # shellcheck disable=SC2086
+                "${generator}" ${args} | grep "${adj_matrix_terminator}$" > "${graphs_dir}/${output_file}"
             fi
 
             generator_retval="$?"
