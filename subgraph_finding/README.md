@@ -68,8 +68,7 @@ To include matches which are at most n edges off in the `sub_search` output (n >
 To see this in action, compare the output of the following commands:
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
-(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search >
-summary.txt
+(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search > summary.txt
 (echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details_exact.txt
 (echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
 (echo 100 8 0 0  60 100 25 4 1  3; cat graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
