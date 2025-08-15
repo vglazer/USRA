@@ -26,6 +26,10 @@ create a `bin` subdirectory containing the various graph search programs.
 There are no external library dependencies, so with luck 
 everything should work out of the box.
 
+This will also run `etc/graphgen.sh` and save some sample graphs to the `graphs` directory. More on this in the Some graphs to get you started section below.
+
+`make clean` will delete both `bin` and `graphs`.
+
 ## Usage
 The graph search programs read from standard input (`STDIN`) and 
 write to standard output (`STDOUT`), in the style of 
@@ -40,7 +44,7 @@ The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thi
 ## Quickstart
 The typical workflow is to generate a random graph of some type using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md#method).
 
-### Persisting ggen output to disk first
+### Persisting ggen output to disk
 Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
