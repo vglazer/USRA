@@ -47,7 +47,7 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 summary.txt
 (echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details.txt
 ```
-`summary.txt` only shows how close `sub_search` came to finding the desired induced subraph in each experiment, whereas `details.txt` also contains the subgraph vertices for experiments where it was actually found (the edges are implied, given that the subgraph is induced).
+`summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, given that the subgraph is induced).
 
 Alternatively, you can pipe the output of `ggen` directly into `sub_search` and dump the results to standard output (or redirect them to a file), like so:
 ```
