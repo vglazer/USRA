@@ -40,7 +40,7 @@ The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thi
 ## Quickstart
 The typical workflow is to generate a random graph of some type using `ggen` and then look for interesting induced subgraphs in it (like k-cliques, say) using `sub_search`. 
 
-Assuming you are in the top-level directory and successfully followed the Build Instructions above, you can save both the graph and the experiment results to plain text files, like so:
+Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so:
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 (echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search >
