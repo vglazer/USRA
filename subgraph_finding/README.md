@@ -56,4 +56,4 @@ Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **
 (echo 100 8 0 0  60 100 25 4 1  1; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search
 (echo 100 8 0 0  60 100 25 4 1  1; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search > details.txt
 ```
-One benefit of the 1-step approach is that you avoid having to store the graph, which may in general be large, until you actually find some interesting subgraphs. If you do, you can re-run `ggen` with the same arguments and redirect the output to a file, as in the earlier examples. The resulting random graph will be the same, as long as you use the same seed.
+One benefit of the 1-step approach is that you avoid having to store the graph, which may in general be large, until `sub_search` actually finds some interesting subgraphs. If it does, you can re-run `ggen` with the same arguments and redirect the output to a file, as in the earlier examples. The resulting random graph will be the same, as long as you use the same seed.
