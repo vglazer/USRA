@@ -63,13 +63,13 @@ One benefit of the 1-step approach is that you avoid having to store the graph t
 ### Using sub_search as an approximation algorithm
 Finding an exact match for the specified edge count can be difficult. Depending on the use case, you may also be interested in subgraphs which are a few edges off. 
 
-To include matches which are at most n edges off in the `sub_search` output (n >= 0), set the `show_cols` flag (the last input argument) to n+1: `1` means show exact matches only, `2` means include graphs off by at most 1 edge, `3` means include graphs off by at most 2 edges, and so on. Setting `show_cols` to `0` supresses vertex output altogether, as seen above.
+To include matches which are at most n edges off in the `sub_search` output (n >= 0), set the `show_cols` flag (the last input argument) to n+1: `1` means show exact matches only, `2` means include graphs off by at most 1 edge, `3` means include graphs off by at most 2 edges, and so on. Setting `show_cols` to `0` supresses vertex output altogether.
 
 To see this in action, compare the output of the following commands:
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 (echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search > summary.txt
-(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details_exact.txt
+(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details_exact_only.txt
 (echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
 (echo 100 8 0 0  60 100 25 4 1  3; cat graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
 ```
