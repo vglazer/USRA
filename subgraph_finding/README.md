@@ -44,8 +44,7 @@ The typical workflow is to generate a random graph of some type using [`ggen`](h
 Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
-(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search >
-summary.txt
+(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search > summary.txt
 (echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details.txt
 ```
 `summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, since the subgraph is induced).
@@ -73,3 +72,6 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
 (echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
 (echo 100 8 0 0  60 100 25 4 1  3; cat graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
 ```
+
+### Some graphs to get your started
+If you run `etc/graphgen.sh` (with no arguments) it will generate a bunch of random graphs using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md) as well as weighted random graphs using [`wggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wggen.md) and save them to the `graphs` directory.
