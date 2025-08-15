@@ -40,7 +40,7 @@ The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thi
 ## Quickstart
 The typical workflow is to generate a random graph of some type using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md#method).
 
-### Persisting ggen output to disk (2-step approach)
+### Persisting ggen output to disk first (2-step approach)
 Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
