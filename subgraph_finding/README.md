@@ -23,10 +23,7 @@ MacOS, use `xcode-select --install` instead.
 
 To build everything, just run `make` in the top-level directory. This will 
 create a `bin` subdirectory containing the various graph search programs. 
-There are no external library dependencies, so with luck 
-everything should work out of the box.
-
-This will also run `etc/graphgen.sh` and save some sample graphs to the `graphs` directory. More on this in the Some graphs to get you started section below.
+There are no external library dependencies, so with luck everything should work out of the box. It will also run `etc/graphgen.sh` and save some sample graphs to the `graphs` subdirectory.
 
 `make clean` will delete both `bin` and `graphs`.
 
