@@ -44,9 +44,9 @@ The typical workflow is to generate a random graph of some type using [`ggen`](h
 ### Persisting ggen output to disk
 Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 ```
-echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
-(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search > summary.txt
-(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details.txt
+echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
+(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt | grep '\-1$') | ./bin/sub_search > summary.txt
+(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt | grep '\-1$') | ./bin/sub_search > details.txt
 ```
 `summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, since the subgraph is induced).
 
@@ -67,11 +67,11 @@ To include matches which are at most n edges off in the `sub_search` output (n >
 
 To see this in action, compare the output of the following commands:
 ```
-echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$' > graph.txt
-(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt) | ./bin/sub_search > summary.txt
-(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt) | ./bin/sub_search > details_exact_only.txt
-(echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
-(echo 100 8 0 0  60 100 25 4 1  3; cat graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
+echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
+(echo 100 8 0 0  60 100 25 4 1  0; cat graph.txt | grep '\-1$') | ./bin/sub_search > summary.txt
+(echo 100 8 0 0  60 100 25 4 1  1; cat graph.txt | grep '\-1$') | ./bin/sub_search > details_exact_only.txt
+(echo 100 8 0 0  60 100 25 4 1  2; cat graph.txt | grep '\-1$') | ./bin/sub_search > details_max_1_edge_off.txt
+(echo 100 8 0 0  60 100 25 4 1  3; cat graph.txt | grep '\-1$') | ./bin/sub_search > details_max_2_edges_off.txt
 ```
 
 ### Some graphs to get your started
