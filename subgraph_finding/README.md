@@ -80,5 +80,7 @@ If you run `etc/graphgen.sh` with no arguments, it will generate some (unweighte
 You can then use these graphs in your `sub_search` and [`wsub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) experiments, like so:
 
 ```
-(echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/unweighted/exponential_100.txt) | ./bin/sub_search
+(echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/unweighted/exponential_100.\txt) | ./bin/sub_search
+
+(echo 200 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/weighted/exponential_200.txt) | ./bin/wsub_search
 ```
