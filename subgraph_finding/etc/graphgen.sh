@@ -39,9 +39,9 @@ function generate_graphs {
                 continue
             fi
 
-            # collapse multiple spaces to a single space; this too complex for 
-            # ${variable//search/replace}
+            # collapse multiple spaces to a single space; this too complex for ${variable//search/replace}
             local munged_line
+            # shellcheck disable=SC2001
             munged_line=$(echo "${line}" | sed 's/ \+/ /gp')
 
             # the last token is the output file. everything else is a generator argument
