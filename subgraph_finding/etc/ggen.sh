@@ -1,11 +1,5 @@
 #! /usr/bin/env bash
 
-GGEN_BINARY="ggen"
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
-REPO_DIR=$(realpath "$SCRIPT_DIR/..")
-BIN_DIR="$REPO_DIR/bin"
-BUILD_COMMAND="cd $REPO_DIR; make $GGEN_BINARY"
-
 function handle_error {
     local error_message
     if [[ $# -ge 1 ]]; then
@@ -31,6 +25,11 @@ function handle_error {
 }
 
 # main
+GGEN_BINARY="ggen"
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+REPO_DIR=$(realpath "$SCRIPT_DIR/..")
+BIN_DIR="$REPO_DIR/bin"
+BUILD_COMMAND="cd $REPO_DIR; make $GGEN_BINARY"
 
 if [[ ! -d "$BIN_DIR" ]]; then
     handle_error "$BIN_DIR not found" "$BUILD_COMMAND"
