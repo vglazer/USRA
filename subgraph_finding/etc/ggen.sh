@@ -1,45 +1,90 @@
 #! /usr/bin/env bash
 
+function log_message {
+    local malformed_args
+    local func_name
+    local message
+    if [[ $# -ne 2 ]]; then
+        malformed_args=1
+        func_name="${FUNCNAME[0]}"
+        message="Error: arguments are <function_name> <message>"        
+    else 
+        malformed_args=0
+        func_name="$1"
+        message="$2"
+    fi
+
+    local prompt='~'
+    echo "$func_name() $prompt $message"
+
+    if (( malformed_args )); then
+        exit 1
+    fi
+}
+
 function handle_error {
+    local func_name
     local error_message
-    if [[ $# -ge 1 ]]; then
-        error_message=$1
-    else
-        error_message="Someting went wrong"
-    fi
-
-    local have_fix=0
     local fix_message
-    if [[ $# -ge 2 ]]; then
-        have_fix=1
-        fix_message=$2
+    local have_fix=0
+    if [[ $# -eq 0 || $# -gt 3 ]]; then
+        func_name="${FUNCNAME[0]}"
+        error_message="arguments are <function_name> [error_message] [fix_message]"        
+    elif [[ $# -ge 1 ]]; then # 1 <= $# <= 3
+        func_name="$1"
+
+        error_message="Someting went wrong"
+        if [[ $# -ge 2 ]]; then
+            error_message="$2"
+        fi
+
+        if [[ $# -eq 3 ]]; then
+            have_fix=1
+            fix_message="$3"
+        fi
     fi
 
-    local func_name="${FUNCNAME[0]}() ~"
-    echo "$func_name Error: $error_message"
+    log_message "$func_name" "Error: $error_message"
     if (( have_fix )); then
-        echo "$func_name Fix: $fix_message"
+        log_message "$func_name" "Fix: $fix_message"
     fi
     
     exit 1
 }
 
-# main
-GGEN_BINARY="ggen"
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
-REPO_DIR=$(realpath "$SCRIPT_DIR/..")
-BIN_DIR="$REPO_DIR/bin"
-BUILD_COMMAND="cd $REPO_DIR; make $GGEN_BINARY"
+function main {
+    local ggen_binary="ggen"
+    local func_name="${FUNCNAME[0]}"
 
-if [[ ! -d "$BIN_DIR" ]]; then
-    handle_error "$BIN_DIR not found" "$BUILD_COMMAND"
-fi
+    local script_path
+    if ! script_path=$(realpath "$0"); then
+        handle_error "$func_name" "failed to resolve script_path"
+    fi
 
-GGEN_PATH="$BIN_DIR/$GGEN_BINARY"
-if [[ ! -f "$GGEN_PATH" ]]; then
-    handle_error "$GGEN_PATH not found" "$BUILD_COMMAND"
-fi
+    local script_dir
+    if ! script_dir=$(dirname "$script_path"); then
+        handle_error "$func_name" "failed to resolve script_dir"
+    fi
+    
+    local repo_dir
+    if ! repo_dir=$(dirname "$script_dir"); then
+        handle_error "$func_name" "failed to resolve repo_dir"
+    fi
+    
+    local bin_dir="$repo_dir/bin"
+    local build_command="cd $repo_dir; make $ggen_binary"
+    if [[ ! -d "$bin_dir" ]]; then
+        handle_error "$func_name" "$bin_dir not found" "$build_command"
+    fi
 
-echo "$GGEN_BINARY" found: "$GGEN_PATH"
+    ggen_path="$bin_dir/$ggen_binary"
+    if [[ ! -f "$ggen_path" ]]; then
+        handle_error "$func_name" "$ggen_path not found" "$build_command"
+    fi
 
-exit 0
+    log_message "$func_name" "$ggen_binary found: $ggen_path"
+
+    exit 0
+}
+
+main "$@"
