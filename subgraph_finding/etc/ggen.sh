@@ -4,7 +4,7 @@ function log_message {
     local malformed_args
     local func_name
     local message
-    if [[ $# -ne 2 ]]; then
+    if (( $# != 2 )); then
         malformed_args=1
         func_name="${FUNCNAME[0]}"
         message="Error: arguments are <function_name> <message>"        
@@ -27,18 +27,18 @@ function handle_error {
     local error_message
     local fix_message
     local have_fix=0
-    if [[ $# -eq 0 || $# -gt 3 ]]; then
+    if (( $# == 0 || $# > 3 )); then
         func_name="${FUNCNAME[0]}"
         error_message="arguments are <function_name> [error_message] [fix_message]"        
-    elif [[ $# -ge 1 ]]; then # 1 <= $# <= 3
+    elif (( $# >= 1 )); then # 1 <= $# <= 3
         func_name="$1"
 
         error_message="Someting went wrong"
-        if [[ $# -ge 2 ]]; then
+        if (( $# >= 2 )); then
             error_message="$2"
         fi
 
-        if [[ $# -eq 3 ]]; then
+        if (( $# == 3 )); then
             have_fix=1
             fix_message="$3"
         fi
