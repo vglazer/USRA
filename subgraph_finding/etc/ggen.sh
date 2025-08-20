@@ -53,7 +53,6 @@ function handle_error {
 }
 
 function main {
-    local ggen_binary="ggen"
     local func_name="${FUNCNAME[0]}"
 
     local script_path
@@ -72,6 +71,7 @@ function main {
     fi
     
     local bin_dir="$repo_dir/bin"
+    local ggen_binary="ggen"
     local build_command="cd $repo_dir; make $ggen_binary"
     if [[ ! -d "$bin_dir" ]]; then
         handle_error "$func_name" "$bin_dir not found" "$build_command"
@@ -82,7 +82,7 @@ function main {
         handle_error "$func_name" "$ggen_path not found" "$build_command"
     fi
 
-    log_message "$func_name" "$ggen_binary found: $ggen_path"
+    log_message "$func_name" "$ggen_binary found in $ggen_path"
 
     exit 0
 }
