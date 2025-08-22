@@ -14,8 +14,8 @@ function log_message {
         message="$2"
     fi
 
-    local prompt='~'
-    echo "$func_name() $prompt $message"
+    local separator='~'
+    echo "$func_name() $separator $message"
 
     if (( malformed_args )); then
         exit 1
