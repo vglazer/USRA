@@ -4,11 +4,9 @@ set -euo pipefail
 set -x
 
 script_name=$(basename "$0")
-
-unweighted_subdir="graphs/unweighted"
-
 default_seed=1
 default_compl=0
+unweighted_subdir="graphs/unweighted"
 if (( $# < 3 )); then
     cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl]
