@@ -38,7 +38,7 @@ V = 100, E = 2887
 - A total of `5` random "experiments" are performed consisting of at most `100` "moves" each
 - Every `25` moves, `4` random (as opposed to locally optimal) moves are made
 - The random seed used (for searching) is `72`
-- The vertices of any subgraphs found are then dumped to the console (`1`; `0` is used to supress dumping); since the subgraphs are induced, there is no need to list the edges explicitly. Here is the output:
+- The vertices of any subgraphs found are then dumped to the console (`1`; 0 is used to supress dumping); since the subgraphs are induced, there is no need to list the edges explicitly. Here is the output:
 
 ```
 100 11 55 0  5 100 25 4 72  1
