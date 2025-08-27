@@ -46,6 +46,11 @@ num_fixed=0
 fixed_type=0
 compl=${5:-"$default_compl"}
 
-# save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk.
+if [[ ! -d "$graph_dir" ]]; then
+    mkdir -p "$graph_dir"
+fi
 graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_dir/$graph_file")
+graph_path="$graph_dir/$graph_file"
+
+# save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path")
