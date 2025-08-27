@@ -133,7 +133,7 @@ You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`ws
 
 ## Persisting ggen output to disk
 
-Assuming you are in the top-level directory (i.e. `USRA/subgraph_finding`) and successfully followed the instructions in the [Building section](subgraph_finding#building) above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
+Assuming you are in the top-level directory (i.e. `USRA/subgraph_finding`) and successfully followed the instructions in the Building section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
