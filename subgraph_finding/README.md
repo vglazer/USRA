@@ -18,13 +18,13 @@ To build everything, just run `make` in the top-level directory. This will creat
 
 The graph search programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages, but the examples provided in the [reports](doc/README.md) should hopefully clear things up.
 
-The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
+The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method) if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
 ## Generating random graphs
 
 The typical workflow is to generate a random graph of some type using [`ggen`](doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
 
-The syntax for `ggen` is a little awkward, though, partly because it can operate on existing adjacency and incidence lists To help deal with this, there is also a restricted driver called [`ggen.sh`](etc/ggen.sh) with a more traditional sytax which only supports generating random graphs from scratch.
+The syntax for `ggen` is a little awkward, though, partly because it can operate on existing adjacency and incidence lists. To help deal with this, there is also a restricted driver called [`ggen.sh`](etc/ggen.sh) with a more traditional sytax which only supports generating random graphs from scratch.
 
 - `ggen.sh` will automatically save the graphs it generates to `graphs/unweighted`, so that you don't need to manually `grep` out the adjacency list from the `ggen` output
 - It also dumps only the stats to the console and not the adjacency matrix
