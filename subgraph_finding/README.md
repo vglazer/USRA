@@ -68,7 +68,7 @@ V = 100, E = 2887
 5 : 0 3 1 0 0 0 0 0 1 0
 ```
 
-- In addition to the subgraph vertices, this also displays the lowest objective function value attained for each experiment (`0` means a exact match), as well as a histogram of how many moves successful experiments required
+- In addition to the subgraph vertices, this also displays the lowest objective function value attained for each experiment (`0` indicates an exact match), as well as a histogram of how many moves each successful experiment required
 
 ## Building
 
