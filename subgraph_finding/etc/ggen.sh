@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+# "strict mode"
 set -euo pipefail
 
 script_name=$(basename "$0")
