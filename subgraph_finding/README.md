@@ -30,7 +30,7 @@ The typical workflow is to generate a random graph of some type using [`ggen`](d
 Unlike ggen, ggen.sh cannot operate on existing adjacency and incidence lists, but it has a more traditional syntax:
 
 - `ggen.sh` will automatically save the graphs it generates to `graphs/unweighted`, so that you don't need to manually `grep` out the adjacency list from the `ggen` output
-- It also dumps only the stats to the console and not the adjacency matrix
+- It also dumps only the stats to the console, skipping the adjacency matrix (which can be large)
 - If `graphs/unweighted` does not exist (because you didn't run `graphgen.sh` directly or via `make`), `ggen.sh` will create it
 - However, `ggen.sh` won't build `ggen` for you, so run `make` or `make ggen` before running it
 
