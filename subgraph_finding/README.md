@@ -2,48 +2,76 @@
 
 ## Overview
 
-Some 
-[combinatorial designs](https://en.wikipedia.org/wiki/Combinatorial_design) 
-lack algebraic structure and require constructive proofs
-to settle existence. The problem can be reduced to finding [induced
-subgraphs](https://en.wikipedia.org/wiki/Induced_subgraph) with a 
-prescribed edge count in various kinds of graphs. 
+Some [combinatorial designs](https://en.wikipedia.org/wiki/Combinatorial_design) lack algebraic structure and require constructive proofs to settle existence. The problem can be reduced to finding [induced subgraphs](https://en.wikipedia.org/wiki/Induced_subgraph) with a prescribed edge count in various kinds of graphs.
 
-We provide a suite of efficient 
-[stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) 
-algorithms [implemented in C](https://github.com/vglazer/USRA/tree/master/subgraph_finding/src)
-for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search)
-[metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) 
-(an alternative to simulated annealing). This work was supervised by 
-[Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
+We provide a suite of efficient [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) algorithms [implemented in C](src) for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to simulated annealing). This work was supervised by [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
 
 ## Build Instructions
 
-You will need `make` and `gcc`. To install these on Ubuntu, run
-`sudo apt-get install build-essential` in a terminal window. If you are on 
-MacOS, use `xcode-select --install` instead.
+You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on MacOS, use `xcode-select --install` instead.
 
-To build everything, just run `make` in the top-level directory. This will 
-create a `bin` subdirectory containing the various graph search programs. 
-There are no external library dependencies, so with luck everything should work out of the box. It will also run `etc/graphgen.sh` and save some sample graphs to the `graphs` subdirectory.
+To build everything, just run `make` in the top-level directory. This will create a `bin` subdirectory containing the various graph search programs. There are no external library dependencies, so with luck everything should work out of the box. It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory.
 
 `make clean` will delete both `bin` and `graphs`.
 
 ## Usage
 
-The graph search programs read from standard input (`STDIN`) and 
-write to standard output (`STDOUT`), in the style of 
-[UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). 
-There is no usage info printed to the console and no `man` pages, 
-but the examples provided in the 
-[reports](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/README.md)
-should hopefully clear things up. 
+The graph search programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages, but the examples provided in the [reports](doc/README.md) should hopefully clear things up.
 
 The syntax of `ggen` and `sub_search` if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
-## Quickstart
+## Generating random graphs
 
-The typical workflow is to generate a random graph of some type using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md#method).
+The typical workflow is to generate a random graph of some type using [`ggen`](doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
+
+The syntax for `ggen` is a little awkward, though, partly because it can operate on existing adjacency and incidence lists To help deal with this, there is also a restricted driver called [`ggen.sh`](etc/ggen.sh) with a more traditional sytax which only supports generating random graphs from scratch.
+
+- `ggen.sh` will automatically save the graphs it generates to `graphs/unweighted`, so that you don't need to manually `grep` out the adjacency list from the `ggen` output
+- It also dumps only the stats to the console and not the adjacency matrix
+- If `graphs/unweighted` does not exist (because you didn't run `graphgen.sh` directly or via `make`), `ggen.sh` will create it
+- However, `ggen.sh` won't build `ggen` for you, so run `make` or `make ggen` before running it
+
+Here is the usage info, which contains some sample commands:
+
+```
+Usage: ggen.sh graph_type v density [seed] [compl]
+
+Arguments:
+  graph_type   Type of graph to generate (2: exponential, 3: power, 4: geometric)
+  v            Number of vertices
+  density      Graph density (0 <= density <= 1000)
+  seed         Optional random seed (a positive integer), default: 1
+  compl        Optionally take the complement of the graph (0 or 1), default: 0
+
+Examples:
+  exponenital, 100  vertices,  density 600, seed 1,  don't complement: ggen.sh 2 100  600
+  exponenital, 100  vertices,  density 600, seed 2,  don't complement: ggen.sh 2 100  600 2
+  exponenital, 100  vertices,  density 600, seed 2,  take complement:  ggen.sh 2 100  600 2  1
+  power,       2500 vertices,  density 200, seed 52, take complement:  ggen.sh 3 2500 200 52 1
+  geometric,   790  vertices,  density 150, seed 1,  don't complement: ggen.sh 4 790  150 1
+
+Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
+```
+
+For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
+
+- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if it doesn't exit already
+- It will also dump the number of edges $E$, along with the degree distribution, to the console
+- In this case $E = 2975$, which makes sense because we asked for $60\%$ of the $100*(100 - 1)/2 = 4950$ possible edges to be present (density 600) and $4950 \cdot 0.6 = 2970 \approx 2975$.
+
+### Some graphs to get your started
+
+If you run [`etc/graphgen.sh`](etc/graphgen.sh) with no arguments, it will generate some (unweighted) random graphs using [`ggen`](doc/ggen.md) as well as weighted random graphs using [`wggen`](doc/wggen.md) and save them to `graphs/unweighted` and `graphs/weighted`, respectively.
+
+You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`wsub_search`](doc/wsub_search.md) experiments, like so:
+
+```
+(echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/unweighted/exponential_100.\txt) | ./bin/sub_search
+
+(echo 200 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/weighted/exponential_200.txt) | ./bin/wsub_search
+```
+
+## Advanced Usage
 
 ### Persisting ggen output to disk
 
@@ -84,16 +112,4 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
 (echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graph.txt) | ./bin/sub_search > details_exact_only.txt
 (echo 100 8 0 0  60 100 25 4 1  2; grep '\-1$' graph.txt) | ./bin/sub_search > details_max_1_edge_off.txt
 (echo 100 8 0 0  60 100 25 4 1  3; grep '\-1$' graph.txt) | ./bin/sub_search > details_max_2_edges_off.txt
-```
-
-### Some graphs to get your started
-
-If you run `etc/graphgen.sh` with no arguments, it will generate some (unweighted) random graphs using [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md) as well as weighted random graphs using [`wggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wggen.md) and save them to `graphs/unweighted` and `graphs/weighted`, respectively. 
-
-You can then use these graphs in your `sub_search` and [`wsub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/wsub_search.md) experiments, like so:
-
-```
-(echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/unweighted/exponential_100.\txt) | ./bin/sub_search
-
-(echo 200 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/weighted/exponential_200.txt) | ./bin/wsub_search
 ```
