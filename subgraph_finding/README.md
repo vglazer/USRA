@@ -4,7 +4,7 @@
 
 Some [combinatorial designs](https://en.wikipedia.org/wiki/Combinatorial_design) lack algebraic structure and require constructive proofs to settle their existence. The problem can be reduced to finding [induced subgraphs](https://en.wikipedia.org/wiki/Induced_subgraph) with a prescribed edge count in various kinds of graphs.
 
-We provide a suite of efficient [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) algorithms [implemented in C](src) for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to simulated annealing). This work was supervised by [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
+We provide a suite of efficient [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) algorithms [implemented in C](src) for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)). This work was supervised by [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
 
 ## Build Instructions
 
