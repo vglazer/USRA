@@ -33,7 +33,7 @@ V = 100, E = 2887
 63  : 6    64  : 5    65  : 5    66  : 3    67  : 2
 ```
 
-- In addition to the edge count, this shows the degree spectrum
+- In addition to the edge count `E = 2887`, this shows the degree spectrum
 - `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with `11` vertices and 11*(11 - 1)/2 = `55` edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
 - A total of `5` random "experiments" are performed consisting of at most `100` "moves" each
 - Every `25` moves, `4` random (as opposed to locally optimal) moves are made
