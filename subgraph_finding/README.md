@@ -33,11 +33,11 @@ V = 100, E = 2887
 63  : 6    64  : 5    65  : 5    66  : 3    67  : 2
 ```
 
-- `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with $11$ vertices and $11\cdot(11 - 1)/2 = 55$ edges (recall that clique-finding is an NP-hard problem)
+- `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with 11 vertices and 11*(11 - 1)/2 = 55 edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
 - A total of 5 random "experiments" are performed consisting of at most 100 "moves" each
-- Every 25 moves, 4 random moves are be made
+- Every 25 moves, 4 random (as opposed to locally optimal) moves are made
 - The random seed used (for searching) is 72
-- The vertices of any subgraphs found are dumped to the console (since the subgraphs are induced, there is no need to list the edges explicitly). Here is the output:
+- The vertices of any subgraphs found are then dumped to the console; since the subgraphs are induced, there is no need to list the edges explicitly. Here is the output:
 
 ```
 100 11 55 0  5 100 25 4 72  1
@@ -67,7 +67,7 @@ V = 100, E = 2887
 5 : 0 3 1 0 0 0 0 0 1 0
 ```
 
-## Build Instructions
+## Building
 
 You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on a Mac, use `xcode-select --install` instead.
 
@@ -128,9 +128,7 @@ You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`ws
 (echo 200 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/weighted/exponential_200.txt) | ./bin/wsub_search
 ```
 
-## Advanced Usage
-
-### Persisting ggen output to disk
+## Persisting ggen output to disk
 
 Assuming you are in the top-level repo directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 
@@ -142,7 +140,7 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
 
 `summary.txt` only shows how close `sub_search` came to finding the desired subraph in each experiment, whereas `details.txt` also contains the subgraph's vertices for experiments where it was actually found (the edges are implied, since the subgraph is induced).
 
-### Connecting ggen directly to sub_search
+## Connecting ggen directly to sub_search
 
 Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **after filtering out everything but the adjacency matrix** - and either dump the results to standard output or redirect them to a file, like so (1-step approach):
 
@@ -155,7 +153,7 @@ Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **
 
 One benefit of the 1-step approach is that you avoid having to store the graph that `ggen` generated, which may in general be large, until `sub_search` actually finds some interesting subgraphs. Once you have the vertices you will generally want the edges, too, which you can then obtain by re-running `ggen` with the same arguments as before and redirecting the output to a file. The generated graph won't change, since the output of `ggen` is deterministic for a fixed random seed.
 
-### Using sub_search as an approximation algorithm
+## Using sub_search as an approximation algorithm
 
 Finding an exact match for the specified edge count can be difficult. Depending on the use case, you may also be interested in subgraphs which are a few edges off. 
 
