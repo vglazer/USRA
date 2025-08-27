@@ -21,7 +21,7 @@ To build everything, simply run `make` with no arguments in the top-level repo d
 
 The graph programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages, alas. There are sample commands with explanations provided in the [reports](doc/README.md), though.
 
-The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method) if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
+The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method) if flexible, but a little unusual. **One thing to watch out for is that the raw output of `ggen` _cannot_ be piped directly into `sub_search`**. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
 ## Generating random graphs
 
