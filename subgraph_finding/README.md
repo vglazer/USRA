@@ -20,7 +20,7 @@ There are sample commands below as well as more detailed explanations in the [re
 
 ### What does this do?
 
-- `ggen.sh` (a wrapper around `ggen`) first generates an exponential random graph on 100 vertices with 60% of the edges present ("density" 600) using random seed 1 and saves it to disk. Here is the output:
+- `ggen.sh` (a wrapper around `ggen`) first generates an exponential random graph on `100` vertices with $60\%$ of the edges present ("density" `600`) using random seed 1 and saves it to disk. Here is the output:
 
 ```
 2 100 0 600 1  0 0  0
@@ -33,11 +33,12 @@ V = 100, E = 2887
 63  : 6    64  : 5    65  : 5    66  : 3    67  : 2
 ```
 
-- `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with 11 vertices and 11*(11 - 1)/2 = 55 edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
-- A total of 5 random "experiments" are performed consisting of at most 100 "moves" each
-- Every 25 moves, 4 random (as opposed to locally optimal) moves are made
-- The random seed used (for searching) is 72
-- The vertices of any subgraphs found are then dumped to the console; since the subgraphs are induced, there is no need to list the edges explicitly. Here is the output:
+- In addition to the edge count, this shows the degree spectrum
+- `sub_search` then searches for $11$-cliques in this graph, i.e. induced subgraphs with `11` vertices and $11\cdot(11 - 1)/2$ = `55` edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
+- A total of `5` random "experiments" are performed consisting of at most `100` "moves" each
+- Every `25` moves, `4` random (as opposed to locally optimal) moves are made
+- The random seed used (for searching) is `72`
+- The vertices of any subgraphs found are then dumped (`1`; `0` is used to supress dumping) to the console; since the subgraphs are induced, there is no need to list the edges explicitly. Here is the output:
 
 ```
 100 11 55 0  5 100 25 4 72  1
@@ -66,6 +67,8 @@ V = 100, E = 2887
 
 5 : 0 3 1 0 0 0 0 0 1 0
 ```
+
+- In addition to the subgraph vertices, this also displays the lowest objective function value attained for each experiment (`0` means a exact match), as well as a histogram of how many moves successful experiments required
 
 ## Building
 
@@ -113,7 +116,7 @@ Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
 For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
 
 - `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if necessary
-- It will also dump the number of edges $E$, along with the degree distribution, to the console
+- It will also dump the number of edges $E$, along with the degree spectrum, to the console
 - In this case $E = 2975$, which makes sense because we asked for $60\%$ of the $100*(100 - 1)/2 = 4950$ possible edges to be present (density $600$) and $4950 \cdot 0.6 = 2970 \approx 2975$.
 
 ### Some graphs to get your started
@@ -157,7 +160,7 @@ One benefit of the 1-step approach is that you avoid having to store the graph t
 
 Finding an exact match for the specified edge count can be difficult. Depending on the use case, you may also be interested in subgraphs which are a few edges off. 
 
-To include matches which are at most n edges off in the `sub_search` output (n >= 0), set the `show_cols` flag (the last input argument) to n+1: `1` means show exact matches only, `2` means include graphs off by at most 1 edge, `3` means include graphs off by at most 2 edges, and so on. Setting `show_cols` to `0` supresses vertex output altogether.
+To include matches which are at most $n$ edges off in the `sub_search` output $(n \geq 0)$, set the `show_cols` flag (the last input argument) to $n+1$: `1` means show exact matches only, `2` means include graphs off by at most $1$ edge, `3` means include graphs off by at most $2$ edges, and so on. Setting `show_cols` to `0` supresses vertex output altogether.
 
 To see this in action, compare the output of the following commands:
 
