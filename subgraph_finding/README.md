@@ -12,7 +12,7 @@ You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get in
 
 To build everything, simply run `make` with no arguments in the top-level repo directory:
 
-- This will create a `bin` subdirectory containing the various graph search programs. There are no external library dependencies, so with luck everything should work out of the box. 
+- This will create a `bin` subdirectory containing the various graph search programs. There are no external dependencies, so with luck everything should work out of the box. 
 - It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory.
 - `make clean` will delete both `bin` and `graphs`
 
