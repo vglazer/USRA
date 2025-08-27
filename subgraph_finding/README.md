@@ -13,7 +13,7 @@ You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get in
 To build everything, simply run `make` with no arguments in the top-level repo directory:
 
 - This will create a `bin` subdirectory containing the various graph search programs. There are no external dependencies, so with luck everything should work out of the box
-- It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory
+- It will also run [`etc/graphgen.sh`](etc/graphgen.sh) to generate some weighted and unweighted random graphs and save them to the `graphs` subdirectory
 - You can skip `graphgen.sh` and build individual programs with `make ggen`, `make sub_search` and so on, if you prefer
 - `make clean` will delete both `bin` and `graphs`
 
