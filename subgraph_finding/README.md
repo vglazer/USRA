@@ -31,7 +31,7 @@ Unlike ggen, ggen.sh cannot operate on existing adjacency and incidence lists, b
 
 - `ggen.sh` will automatically save the graphs it generates to `graphs/unweighted`, so that you don't need to manually `grep` out the adjacency list from the `ggen` output
 - It also dumps only the stats to the console, skipping the adjacency matrix (which can be large)
-- If `graphs/unweighted` does not exist (because you didn't run `graphgen.sh` directly or via `make`), `ggen.sh` will create it
+- If `graphs/unweighted` does not exist (because `graphgen.sh` hasn't been run), `ggen.sh` will create it
 - However, `ggen.sh` won't build `ggen` for you, so run `make` or `make ggen` before running it
 
 Here is the usage info, which contains some sample commands:
