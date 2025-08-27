@@ -1,90 +1,49 @@
 #! /usr/bin/env bash
 
-function log_message {
-    local malformed_args
-    local func_name
-    local message
-    if (( $# != 2 )); then
-        malformed_args=1
-        func_name="${FUNCNAME[0]}"
-        message="Error: arguments are <function_name> <message>"        
-    else 
-        malformed_args=0
-        func_name="$1"
-        message="$2"
-    fi
+set -euo pipefail 
+set -x
 
-    local separator='~'
-    echo "$func_name() $separator $message"
+script_dir=$(dirname "$(realpath "$0")")
+script_name=$(basename "$0")
 
-    if (( malformed_args )); then
-        exit 1
-    fi
-}
+repo_dir=$(dirname "$script_dir")
+ggen_binary="$repo_dir/bin/ggen"
+graph_dir="$repo_dir/graphs/unweighted"
 
-function handle_error {
-    local func_name
-    local error_message
-    local fix_message
-    local have_fix=0
-    if (( $# == 0 || $# > 3 )); then
-        func_name="${FUNCNAME[0]}"
-        error_message="arguments are <function_name> [error_message] [fix_message]"        
-    elif (( $# >= 1 )); then # 1 <= $# <= 3
-        func_name="$1"
+default_seed=1
+default_compl=0
+if (( $# < 3 )); then
+    cat >&2 <<EOF
+Usage: $script_name graph_type v density [seed] [compl]
 
-        error_message="Someting went wrong"
-        if (( $# >= 2 )); then
-            error_message="$2"
-        fi
+Arguments:  
+  graph_type   Type of graph to generate (2: exponential, 3: power, 4: geometric)
+  v            Number of vertices
+  density      Graph density (0 <= density <= 1000)
+  seed         Optional random seed (a positive integer), default: $default_seed
+  compl        Optionally take the complement of the graph (0 or 1), default: $default_compl
 
-        if (( $# == 3 )); then
-            have_fix=1
-            fix_message="$3"
-        fi
-    fi
+Examples:
+  exponenital, 100  vertices,  density 600, seed $default_seed,  don't complement: $script_name 2 100  600
+  exponenital, 100  vertices,  density 600, seed 2,  don't complement: $script_name 2 100  600 2
+  exponenital, 100  vertices,  density 600, seed 2,  take complement:  $script_name 2 100  600 2  1
+  power,       2500 vertices,  density 200, seed 52, take complement:  $script_name 3 2500 200 52 1
+  geometric,   790  vertices,  density 150, seed 1,  don't complement: $script_name 4 790  150 1
 
-    log_message "$func_name" "Error: $error_message"
-    if (( have_fix )); then
-        log_message "$func_name" "Fix: $fix_message"
-    fi
-    
+Graphs are saved to $graph_dir as ggen_type_v_density_seed_compl.txt
+
+EOF
     exit 1
-}
+fi
 
-function main {
-    local func_name="${FUNCNAME[0]}"
+graph_type=$1
+v=$2
+num_sets=0
+density=$3
+seed=${4:-"$default_seed"}
+num_fixed=0
+fixed_type=0
+compl=${5:-"$default_compl"}
 
-    local script_path
-    if ! script_path=$(realpath "$0"); then
-        handle_error "$func_name" "failed to resolve script_path"
-    fi
-
-    local script_dir
-    if ! script_dir=$(dirname "$script_path"); then
-        handle_error "$func_name" "failed to resolve script_dir"
-    fi
-    
-    local repo_dir
-    if ! repo_dir=$(dirname "$script_dir"); then
-        handle_error "$func_name" "failed to resolve repo_dir"
-    fi
-    
-    local bin_dir="$repo_dir/bin"
-    local ggen_binary="ggen"
-    local build_command="cd $repo_dir; make $ggen_binary"
-    if [[ ! -d "$bin_dir" ]]; then
-        handle_error "$func_name" "$bin_dir not found" "$build_command"
-    fi
-
-    ggen_path="$bin_dir/$ggen_binary"
-    if [[ ! -f "$ggen_path" ]]; then
-        handle_error "$func_name" "$ggen_path not found" "$build_command"
-    fi
-
-    log_message "$func_name" "$ggen_binary found in $ggen_path"
-
-    exit 0
-}
-
-main "$@"
+graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_dir/$graph_file")
