@@ -3,12 +3,9 @@
 set -euo pipefail 
 set -x
 
-script_dir=$(dirname "$(realpath "$0")")
 script_name=$(basename "$0")
 
-repo_dir=$(dirname "$script_dir")
-ggen_binary="$repo_dir/bin/ggen"
-graph_dir="$repo_dir/graphs/unweighted"
+unweighted_subdir="graphs/unweighted"
 
 default_seed=1
 default_compl=0
@@ -30,7 +27,7 @@ Examples:
   power,       2500 vertices,  density 200, seed 52, take complement:  $script_name 3 2500 200 52 1
   geometric,   790  vertices,  density 150, seed 1,  don't complement: $script_name 4 790  150 1
 
-Graphs are saved to $graph_dir as ggen_type_v_density_seed_compl.txt
+Graphs are saved to $unweighted_subdir as ggen_type_v_density_seed_compl.txt
 
 EOF
     exit 1
@@ -46,6 +43,11 @@ num_fixed=0
 fixed_type=0
 compl=${5:-"$default_compl"}
 
+script_dir=$(dirname "$(realpath "$0")")
+repo_dir=$(dirname "$script_dir")
+ggen_binary="$repo_dir/bin/ggen"
+
+graph_dir="$repo_dir/$unweighted_subdir"
 if [[ ! -d "$graph_dir" ]]; then
     mkdir -p "$graph_dir"
 fi
@@ -53,4 +55,4 @@ graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
 graph_path="$graph_dir/$graph_file"
 
 # save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path")
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$"
