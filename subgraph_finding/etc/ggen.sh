@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
 
-set -euo pipefail 
-set -x
+set -euo pipefail
 
 script_name=$(basename "$0")
 default_seed=1
