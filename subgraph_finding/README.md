@@ -83,7 +83,7 @@ To build everything, simply run `make` with no arguments in the top-level repo d
 
 ## Generating random graphs
 
-The typical workflow is to generate an unweighted random graph of some kind using [`ggen`](doc/ggen.md#method) &mdash; or its friendlier wrapper, [ggen.sh](etc/ggen.sh) &mdash; and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
+The typical workflow is to generate an unweighted random graph of some kind using [`ggen`](doc/ggen.md#method) &mdash; or its user-friendly wrapper, [ggen.sh](etc/ggen.sh) &mdash; and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
 
 Unlike ggen, ggen.sh cannot take adjacency or incidience lists as an input, but it has a more traditional syntax:
 
