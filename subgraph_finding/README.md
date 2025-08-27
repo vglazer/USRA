@@ -22,9 +22,9 @@ The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#
 
 ## Generating random graphs
 
-The typical workflow is to generate a random graph of some type using [`ggen`](doc/ggen.md#method) and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
+The typical workflow is to generate a random graph of some type using [`ggen`](doc/ggen.md#method) or its friendlier wrapper [ggen.sh](etc/ggen.sh) and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
 
-The syntax for `ggen` is a little awkward, though, partly because it can operate on existing adjacency and incidence lists. To help deal with this, there is also a restricted driver called [`ggen.sh`](etc/ggen.sh) with a more traditional sytax which only supports generating random graphs from scratch.
+Unlike ggen, ggen.sh cannot operate on existing adjacency and incidence lists, but it has a more traditional syntax:
 
 - `ggen.sh` will automatically save the graphs it generates to `graphs/unweighted`, so that you don't need to manually `grep` out the adjacency list from the `ggen` output
 - It also dumps only the stats to the console and not the adjacency matrix
