@@ -14,7 +14,7 @@ To build everything, simply run `make` with no arguments in the top-level repo d
 
 - This will create a `bin` subdirectory containing the various graph programs. There are no external dependencies, so everything should hopefully work out of the box
 - It will also run [`etc/graphgen.sh`](etc/graphgen.sh) to generate some weighted and unweighted random graphs and save them to the `graphs` subdirectory
-- You can skip `graphgen.sh` and build individual programs with `make ggen`, `make sub_search` and so on, if you prefer
+- If you prefer, you can skip `graphgen.sh` and build individual programs directly with `make ggen`, `make sub_search` and so on
 - `make clean` will delete both `bin` and `graphs`
 
 ## Usage
