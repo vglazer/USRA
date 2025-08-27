@@ -36,6 +36,7 @@ EOF
     exit 1
 fi
 
+# num_sets, num_fixed and fixed_type are set to 0 since ggen.sh does not support the relevant ggen functionality
 graph_type=$1
 v=$2
 num_sets=0
@@ -45,5 +46,6 @@ num_fixed=0
 fixed_type=0
 compl=${5:-"$default_compl"}
 
+# save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk.
 graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_dir/$graph_file")
