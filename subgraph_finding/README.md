@@ -34,7 +34,7 @@ V = 100, E = 2887
 ```
 
 - In addition to the edge count, this shows the degree spectrum
-- `sub_search` then searches for $11$-cliques in this graph, i.e. induced subgraphs with `11` vertices and $11\cdot(11 - 1)/2$ = `55` edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
+- `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with `11` vertices and 11*(11 - 1)/2 = `55` edges (recall that [clique-finding is an NP-hard problem](https://en.wikipedia.org/wiki/Clique_problem))
 - A total of `5` random "experiments" are performed consisting of at most `100` "moves" each
 - Every `25` moves, `4` random (as opposed to locally optimal) moves are made
 - The random seed used (for searching) is `72`
@@ -116,8 +116,8 @@ Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
 For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
 
 - `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if necessary
-- It will also dump the number of edges $E$, along with the degree spectrum, to the console
-- In this case $E = 2975$, which makes sense because we asked for $60\%$ of the $100*(100 - 1)/2 = 4950$ possible edges to be present (density $600$) and $4950 \cdot 0.6 = 2970 \approx 2975$.
+- It will also dump the number of edges E, along with the degree spectrum, to the console
+- In this case E = 2975, which makes sense because we asked for 60% of the 100*(100 - 1)/2 = 4950 possible edges to be present (density 600) and 4950*0.6 = 2970 ~ 2975.
 
 ### Some graphs to get your started
 
