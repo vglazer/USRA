@@ -115,7 +115,7 @@ Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
 
 For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
 
-- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if necessary
+- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if needed
 - It will also dump the number of edges E, along with the degree spectrum, to the console
 - In this case E = 2975, which makes sense because we asked for 60% of the 100*(100 - 1)/2 = 4950 possible edges to be present (density 600) and 4950*0.6 = 2970 ~ 2975.
 
