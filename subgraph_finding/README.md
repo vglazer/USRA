@@ -4,28 +4,26 @@
 
 Some [combinatorial designs](https://en.wikipedia.org/wiki/Combinatorial_design) lack algebraic structure and require constructive proofs to settle their existence. The problem can be reduced to finding [induced subgraphs](https://en.wikipedia.org/wiki/Induced_subgraph) with a prescribed edge count in various kinds of graphs.
 
-We provide a suite of efficient [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) algorithms [implemented in C](src) for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)). This work was supervised by [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
+This repo contains a suite of efficient [stochastic local search](https://www.researchgate.net/publication/283825846_Stochastic_Local_Search_Algorithms_An_Overview) algorithms [implemented in C](src) for doing so, based on Fred Glover's [Tabu search](https://en.wikipedia.org/wiki/Tabu_search) [metaheuristic](https://en.wikipedia.org/wiki/Metaheuristic) (an alternative to [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)). This work was supervised by [Rudi Mathon](http://www.cs.toronto.edu/dcs/people-faculty-combin.html).
+
+The two main programs are [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method). Their syntax is flexible, but a little unusual. In particular, they read all their inputs from standard input (`STDIN`) and write only to standard output (`STDOUT`), in the style of [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). **However, while ggen and sub_search are meant to be used together, the raw output of `ggen` _cannot_ be piped directly into `sub_search`**.
+
+There are sample commands below as well as more detailed explanations in the [reports](doc/README.md).
 
 ## Build Instructions
 
-You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on MacOS, use `xcode-select --install` instead.
+You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on a Mac, use `xcode-select --install` instead.
 
 To build everything, simply run `make` with no arguments in the top-level repo directory:
 
-- This will create a `bin` subdirectory containing the various graph programs. There are no external dependencies, so everything should hopefully work out of the box
+- This will create a `bin` subdirectory containing the various graph programs. There are no external dependencies, so everything should work out of the box
 - It will also run [`etc/graphgen.sh`](etc/graphgen.sh) to generate some weighted and unweighted random graphs and save them to the `graphs` subdirectory
 - If you prefer, you can skip `graphgen.sh` and build individual programs directly via `make ggen`, `make sub_search` and so on
 - `make clean` will delete both `bin` and `graphs`
 
-## Usage
-
-The graph programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages, alas. There are sample commands with explanations provided in the [reports](doc/README.md), though.
-
-The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method) if flexible, but a little unusual. **One thing to watch out for is that the raw output of `ggen` _cannot_ be piped directly into `sub_search`**. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out using e.g. `grep`.
-
 ## Generating random graphs
 
-The typical workflow is to generate an unweighted random graph of some type using [`ggen`](doc/ggen.md#method) or its friendlier wrapper [ggen.sh](etc/ggen.sh) and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
+The typical workflow is to generate an unweighted random graph of some kind using [`ggen`](doc/ggen.md#method) &mdash; or its friendlier wrapper, [ggen.sh](etc/ggen.sh) &mdash; and then look for interesting induced subgraphs in it using [`sub_search`](doc/sub_search.md#method).
 
 Unlike ggen, ggen.sh cannot take adjacency or incidience lists as an input, but it has a more traditional syntax:
 
@@ -57,13 +55,13 @@ Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
 
 For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
 
-- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if it doesn't exit already
+- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if necessary
 - It will also dump the number of edges $E$, along with the degree distribution, to the console
-- In this case $E = 2975$, which makes sense because we asked for $60\%$ of the $100*(100 - 1)/2 = 4950$ possible edges to be present (density 600) and $4950 \cdot 0.6 = 2970 \approx 2975$.
+- In this case $E = 2975$, which makes sense because we asked for $60\%$ of the $100*(100 - 1)/2 = 4950$ possible edges to be present (density $600$) and $4950 \cdot 0.6 = 2970 \approx 2975$.
 
 ### Some graphs to get your started
 
-If you run [`etc/graphgen.sh`](etc/graphgen.sh) with no arguments, it will generate some (unweighted) random graphs using [`ggen`](doc/ggen.md) as well as weighted random graphs using [`wggen`](doc/wggen.md) and save them to `graphs/unweighted` and `graphs/weighted`, respectively.
+If you run [`etc/graphgen.sh`](etc/graphgen.sh) with no arguments (either directly or via the default `make` target), it will generate some unweighted random graphs using [`ggen`](doc/ggen.md) as well as weighted random graphs using [`wggen`](doc/wggen.md) and save them to `graphs/unweighted` and `graphs/weighted`, respectively.
 
 You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`wsub_search`](doc/wsub_search.md) experiments, like so:
 
@@ -77,7 +75,7 @@ You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`ws
 
 ### Persisting ggen output to disk
 
-Assuming you are in the top-level directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
+Assuming you are in the top-level repo directory and successfully followed the instructions in the Build Instructions section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
