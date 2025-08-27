@@ -20,7 +20,7 @@ There are sample commands below as well as more detailed explanations in the [re
 
 ### What does this do?
 
-- `ggen.sh` first generates an exponential random graph on 100 vertices with 60% of the edges present ("density" 600) using random seed 1 and saves it to disk. Here is the output:
+- `ggen.sh` (a wrapper around `ggen`) first generates an exponential random graph on 100 vertices with 60% of the edges present ("density" 600) using random seed 1 and saves it to disk. Here is the output:
 
 ```
 2 100 0 600 1  0 0  0
