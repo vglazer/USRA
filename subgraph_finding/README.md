@@ -10,7 +10,7 @@ We provide a suite of efficient [stochastic local search](https://www.researchga
 
 You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on MacOS, use `xcode-select --install` instead.
 
-To build everything, just run `make` in the top-level directory. This will create a `bin` subdirectory containing the various graph search programs. There are no external library dependencies, so with luck everything should work out of the box. It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory.
+To build everything, simply run `make` in the top-level directory. This will create a `bin` subdirectory containing the various graph search programs. There are no external library dependencies, so with luck everything should work out of the box. It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory.
 
 `make clean` will delete both `bin` and `graphs`.
 
