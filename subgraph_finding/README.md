@@ -126,9 +126,9 @@ If you run [`etc/graphgen.sh`](etc/graphgen.sh) with no arguments (either direct
 You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`wsub_search`](doc/wsub_search.md) experiments, like so:
 
 ```
-(echo 100 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/unweighted/exponential_100.\txt) | ./bin/sub_search
+(echo 100 8 0 0  60 100 25 4 1  1; cat graphs/unweighted/exponential_100.\txt) | ./bin/sub_search
 
-(echo 200 8 0 0  60 100 25 4 1  1; grep '\-1$' graphs/weighted/exponential_200.txt) | ./bin/wsub_search
+(echo 200 8 0 0  60 100 25 4 1  1; cat graphs/weighted/exponential_200.txt) | ./bin/wsub_search
 ```
 
 ## Persisting ggen output to disk
