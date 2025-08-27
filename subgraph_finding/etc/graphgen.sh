@@ -53,11 +53,11 @@ function generate_graphs {
 
             local generator_retval
             if [[ "${pipe_args}" == 'true' ]]; then
-                echo "${args}" | "${generator}" > "${graphs_dir}/${output_file}"
+                echo "${args}" | "${generator}" | grep "\-1$" > "${graphs_dir}/${output_file}"
             else
                 # NB: args is deliberately left unqouted, since expansion is what we want in this case
                 # shellcheck disable=SC2086
-                "${generator}" ${args} > "${graphs_dir}/${output_file}"
+                "${generator}" ${args} | grep "\-1$" > "${graphs_dir}/${output_file}"
             fi
 
             generator_retval="$?"
