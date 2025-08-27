@@ -12,13 +12,13 @@ You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get in
 
 To build everything, simply run `make` with no arguments in the top-level repo directory:
 
-- This will create a `bin` subdirectory containing the various graph search programs. There are no external dependencies, so with luck everything should work out of the box. 
-- It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory.
+- This will create a `bin` subdirectory containing the various graph search programs. There are no external dependencies, so with luck everything should work out of the box
+- It will also run [`etc/graphgen.sh`](etc/graphgen.sh) and save some sample graphs to the `graphs` subdirectory
 - `make clean` will delete both `bin` and `graphs`
 
 ## Usage
 
-The graph search programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages, but the examples provided in the [reports](doc/README.md) should hopefully clear things up.
+The graph search programs read from standard input (`STDIN`) and write to standard output (`STDOUT`), in the style of  [UNIX filters](https://en.wikipedia.org/wiki/Filter_(software)#Unix). There is no usage info printed to the console and no `man` pages. There are sample commands with explanations provided in the [reports](doc/README.md), though.
 
 The syntax of [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/sub_search.md#method) if flexible, but a little unusual. One thing to watch out for is that *the raw output of `ggen` _cannot_ be piped directly into `sub_search`*. Everything other than the `'-1'`-terminated adjacency matrix must first be either removed manually or filtered out, which is the reason for the `grep` in the Quickstart section below.
 
