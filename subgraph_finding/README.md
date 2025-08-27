@@ -10,6 +10,63 @@ The two main programs are [`ggen`](doc/ggen.md#method) and [`sub_search`](doc/su
 
 There are sample commands below as well as more detailed explanations in the [reports](doc/README.md).
 
+## Quickstart
+
+- Clone the repo
+- `cd USRA/subgraph_finding`
+- `make ggen sub_search`
+- `etc/ggen.sh 2 100 600 1`
+- `(echo 100 11 55 0 5 100 25 4 72 1; cat graphs/unweighted/ggen_2_100_600_1_0.txt) | ./bin/sub_search`
+
+### What does this do?
+
+- `ggen.sh` first generates an exponential random graph on 100 vertices with 60% of the edges present ("density" 600) using random seed 1 and saves it to disk. Here is the output:
+
+```
+2 100 0 600 1  0 0  0
+
+V = 100, E = 2887
+
+45  : 2    46  : 1    47  : 1    48  : 1    49  : 1    50  : 3
+51  : 4    52  : 1    53  : 5    54  : 10   55  : 2    56  : 5
+57  : 5    58  : 11   59  : 12   60  : 9    61  : 5    62  : 1
+63  : 6    64  : 5    65  : 5    66  : 3    67  : 2
+```
+
+- `sub_search` then searches for 11-cliques in this graph, i.e. induced subgraphs with $11$ vertices and $11\cdot(11 - 1)/2 = 55$ edges (recall that clique-finding is an NP-hard problem)
+- A total of 5 random "experiments" are performed consisting of at most 100 "moves" each
+- Every 25 moves, 4 random moves are be made
+- The random seed used (for searching) is 72
+- The vertices of any subgraphs found are dumped to the console (since the subgraphs are induced, there is no need to list the edges explicitly). Here is the output:
+
+```
+100 11 55 0  5 100 25 4 72  1
+
+0
+
+2 5 14 18 29 40 45 69 84 85 88
+
+0
+
+14 18 20 29 40 45 47 51 54 71 88
+
+0
+
+6 14 20 27 44 45 47 48 75 79 88
+
+0
+
+2 5 14 18 29 30 40 45 84 85 88
+
+0
+
+1 6 8 19 27 45 47 51 56 75 88
+
+
+
+5 : 0 3 1 0 0 0 0 0 1 0
+```
+
 ## Build Instructions
 
 You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on a Mac, use `xcode-select --install` instead.
