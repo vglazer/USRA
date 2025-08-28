@@ -87,7 +87,7 @@ The typical workflow is to generate an unweighted random graph of some kind usin
 
 Unlike `ggen`, `ggen.sh` cannot take adjacency or incidience lists as an input, but it has a more traditional syntax:
 
-- `ggen.sh` splits `ggen` output into the stats, which is dumps to the console, and the adjacency matrix, which it saves to the `graphs/unweighted` directory
+- `ggen.sh` splits `ggen` output into the stats, which is dumps to the console, and the graph itself, which it saves to the `graphs/unweighted` directory
 - If `graphs/unweighted` does not exist (because `graphgen.sh` hasn't been run), `ggen.sh` will create it
 - However, `ggen.sh` won't build `ggen` for you, so be sure to run `make` (or `make ggen`) first
 
@@ -115,7 +115,7 @@ Graphs are saved to graphs/unweighted as ggen_type_v_density_seed_compl.txt
 
 For example, if you run `etc/ggen.sh 3 2500 200 52 1`:
 
-- `ggen.sh` will save the adjacency matrix for the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if needed
+- `ggen.sh` will save the resulting power random graph to `graphs/unweighted/ggen_3_2500_200_52_1.txt`, creating `graphs/unweighted` if needed
 - It will also dump the number of edges E, along with the degree spectrum, to the console
 - In this case E = 2975, which makes sense because we asked for 60% of the 100*(100 - 1)/2 = 4950 possible edges to be present (density 600) and 4950*0.6 = 2970 ~ 2975.
 
@@ -145,7 +145,7 @@ echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
 
 ## Connecting ggen directly to sub_search
 
-Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **after filtering out everything but the adjacency matrix** - and either dump the results to standard output or redirect them to a file, like so (1-step approach):
+Alternatively, you can pipe the output of `ggen` directly into `sub_search` - **after filtering out everything but the graph** - and either dump the results to standard output or redirect them to a file, like so (1-step approach):
 
 ```
 (echo 100 8 0 0  60 100 25 4 1  0; echo "2 100 0 600 2  0 0  0" | ./bin/ggen | grep '\-1$') | ./bin/sub_search
