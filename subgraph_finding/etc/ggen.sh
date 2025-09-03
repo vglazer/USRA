@@ -58,13 +58,13 @@ if [[ ! -d "$graph_dir" ]]; then
   exit 1
 fi
 
-signature="$graph_type-$v-$num_sets-$density-$seed-$num_fixed-$fixed_type-$compl"
+signature="$graph_type-$v-$density-$seed-$compl"
 graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
 stats_file="stats_$signature.txt"
 stats_path="$graph_dir/$stats_file"
 
 # split ggen output into two separate files, one for the stats and one for the graph itself
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
-echo "$graph_path"
-echo "$stats_path"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" | gzip > "$graph_path.gz") | grep -v "\-1$" | gzip > "$stats_path.gz"
+echo "$graph_path.gz"
+echo "$stats_path.gz"
