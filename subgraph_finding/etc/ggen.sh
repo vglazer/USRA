@@ -66,5 +66,7 @@ stats_path="$graph_dir/$stats_file"
 
 # split ggen output into two separate files, one for the stats and one for the graph itself
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
-echo "$graph_path"
+nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
+echo "$nedges"
 echo "$stats_path"
+echo "$graph_path"
