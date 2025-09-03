@@ -1,1 +1,6 @@
 .DS_Store
+subgraph_finding/bin
+subgraph_finding/graphs
+subgraph_finding/*.swp
+subgraph_finding/graph*.txt
+subgraph_finding/stats*.txt
