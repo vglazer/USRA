@@ -31,7 +31,7 @@ awk_script='
 
   { print "  " $1 " -- " $2 ";" }
 
-  END   { print "}" }
+  END { print "}" }
 '
 cat "$edges_path" | awk -F',' -v graphviz_path="$graphviz_path" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"
