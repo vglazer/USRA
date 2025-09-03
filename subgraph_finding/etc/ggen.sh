@@ -43,14 +43,17 @@ compl=${5:-"$default_compl"}
 
 script_dir=$(dirname "$(realpath "$0")")
 repo_dir=$(dirname "$script_dir")
-ggen_binary="$repo_dir/bin/ggen"
-
 graph_dir="$repo_dir/$unweighted_subdir"
 if [[ ! -d "$graph_dir" ]]; then
     mkdir -p "$graph_dir"
 fi
-graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
-graph_path="$graph_dir/$graph_file"
 
-# save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$"
+signature="$graph_type-$v-$num_sets-$density-$seed-$num_fixed-$fixed_type-$compl"
+graph_file="graph_$signature.txt"
+graph_path="$graph_dir/$graph_file"
+stats_file="stats_$signature.txt"
+stats_path="$graph_dir/$stats_file"
+
+# split ggen output into two separate files, one for the stats and one for the graph itself
+ggen_binary="$repo_dir/bin/ggen"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" | tee "$stats_path"
