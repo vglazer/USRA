@@ -4,3 +4,4 @@ subgraph_finding/graphs
 subgraph_finding/*.swp
 subgraph_finding/graph*.txt
 subgraph_finding/stats*.txt
+subgraph_finding/edges*.txt
