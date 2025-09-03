@@ -4,12 +4,16 @@
 set -euo pipefail
 
 script_name=$(basename "$0")
-if (( $# != 1 )); then
+default_sep=150
+default_width=0.05
+if (( $# < 1 || $# > 3 )); then
   cat >&2 <<EOF
-Usage: $script_name edges_file
+Usage: $script_name edges_file [sep] [width]
 
 Arguments:  
   edges_file  Path to file containing graph edges. Filename must match edges_*.txt
+  sep         Optional Graphviz sep parameter, default: $default_sep
+  width       Optional Graphviz node width (and height) parameter, default: $default_width
 
 EOF
   exit 1
@@ -27,13 +31,17 @@ else
     exit 1
 fi
 
+sep=${2:-"$default_sep"}
+width=${3:-"$default_width"}
 awk_script='
-  BEGIN { print "graph G {" 
+  BEGIN {
+    height=width;
+    print "graph G {"; 
     print "  layout=" layout ";"
-    print "  sep=\"+150,150\";"
+    print "  sep=\"+" sep "," sep "\";"
     print "  overlap=false;"
     print "  splines=true;"
-    print "  node [shape=point, width=0.05, height=0.05];"
+    print "  node [shape=point, width=" width ", height=" height "];"
     print
   }
 
@@ -42,5 +50,5 @@ awk_script='
 
   END { print "}" }
 '
-cat "$edges_path" | awk -F',' -v layout="$layout" "$awk_script" > "$graphviz_path"
+cat "$edges_path" | awk -F',' -v layout="$layout" -v sep="$sep" -v width="$width" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"
