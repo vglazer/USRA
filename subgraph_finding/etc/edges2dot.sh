@@ -29,6 +29,7 @@ fi
 awk_script='
   BEGIN { print "graph G {" }
 
+  # undirected graph
   { print "  " $1 " -- " $2 ";" }
 
   END { print "}" }
