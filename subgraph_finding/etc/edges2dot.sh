@@ -56,7 +56,7 @@ awk_script='
 
   END { 
     print "}";
-    
+
     print edge > "/dev/stderr" 
   }
 '
