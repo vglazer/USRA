@@ -37,7 +37,8 @@ script_dir=$(dirname "$(realpath "$0")")
 repo_dir=$(dirname "$script_dir")
 ggen_binary="$repo_dir/bin/ggen"
 if [[ ! -f "$ggen_binary" ]]; then
-  echo "$script_name: ggen binary $ggen_binary not found" >&2
+  echo "$script_name: ggen binary not found" >&2
+  echo "cd $repo_dir; make ggen" >&2
   exit 1
 fi
 
@@ -54,6 +55,7 @@ compl=${5:-"$default_compl"}
 graph_dir=${6:-"$default_graph_dir"}
 if [[ ! -d "$graph_dir" ]]; then
   echo "$script_name: graph directory $graph_dir does not exist" >&2
+  echo "mkdir -p $graph_dir to create it" >&2
   exit 1
 fi
 
