@@ -25,7 +25,7 @@ fi
 
 awk_script='{
 nedges += NF;
-vertex=NR - 1;
+vertex = NR-1;
 print vertex ":" $0";\n" vertex " -> " NF; 
 
 for (i = 1; i <= NF; i++) 
