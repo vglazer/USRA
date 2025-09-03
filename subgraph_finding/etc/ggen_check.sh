@@ -32,7 +32,7 @@ rm -f "$edges_path"
 awk_script='{
   nedges += NF;
   vertex = NR-1;
-  print vertex ":" $0";\n" vertex " -> " NF; 
+  print vertex " : " NF; 
 
   for (i = 1; i <= NF; i++) 
     print vertex "," $i >> edges_path 
