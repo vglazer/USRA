@@ -8,7 +8,7 @@ default_seed=1
 default_compl=0
 default_graph_dir=$(pwd)
 unweighted_subdir="graphs/unweighted"
-if (( $# < 3 )); then
+if (( $# < 3 || $$ > 6 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
 
@@ -27,7 +27,7 @@ Examples:
   power,       2500 vertices,  density 200, seed 52,  take complement: $script_name 3 2500 200 52 1 graphs
   geometric,   790  vertices,  density 150, seed 1,  don't complement: $script_name 4 790  150 1
 
-Graphs are saved to $unweighted_subdir as ggen_type_v_density_seed_compl.txt
+Graphs are saved to graph_dir as ggen_type_v_density_seed_compl.txt
 
 EOF
   exit 1
