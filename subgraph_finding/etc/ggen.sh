@@ -55,7 +55,7 @@ compl=${5:-"$default_compl"}
 graph_dir=${6:-"$default_graph_dir"}
 if [[ ! -d "$graph_dir" ]]; then
   echo "$script_name: graph directory $graph_dir does not exist" >&2
-  echo "mkdir -p $graph_dir to create it" >&2
+  echo "mkdir -p $graph_dir" >&2
   exit 1
 fi
 
