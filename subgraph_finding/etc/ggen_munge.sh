@@ -4,12 +4,12 @@
 set -euo pipefail
 
 script_name=$(basename "$0")
-if (( $# < 1 )); then
+if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_file
 
 Arguments:  
-  graph_file  Path to file containing graph to check. Filename must match graph_*.txt
+  graph_file  Path to file containing graph to munge. Filename must match graph_*.txt
 
 EOF
   exit 1
