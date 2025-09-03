@@ -16,12 +16,12 @@ There are sample commands below as well as more detailed explanations in the [re
 - `cd USRA/subgraph_finding`
 - `make ggen sub_search`
 - `mkdir -p graphs/unweighted`
-- `etc/ggen.sh 2 100 600 1 graphs/unweighted`
+- `etc/ggen.sh 2 100 600 1 0 graphs/unweighted`
 - `(echo 100 11 55 0 5 100 25 4 72 1; cat graphs/unweighted/ggen_2_100_600_1_0.txt) | ./bin/sub_search`
 
 ### What does this do?
 
-- `ggen.sh` (a wrapper around `ggen`) first generates an exponential random graph on `100` vertices with 60% of the edges present ("density" `600`) using random seed `1` and saves it to disk. Here is the output:
+- `ggen.sh` (a wrapper around `ggen`) first generates an exponential random graph on `100` vertices with 60% of the edges present ("density" `600`) using random seed `1`, without taking the complement (`0`), and saves it to the `graphs/unweighted` directory. Here is the output:
 
 ```
 2 100 0 600 1  0 0  0
