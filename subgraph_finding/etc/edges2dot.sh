@@ -43,12 +43,22 @@ awk_script='
     print "  splines=true;"
     print "  node [shape=point, width=" width ", height=" height "];"
     print
+
+    edge=0;
   }
 
-  # undirected graph
-  { print "  " $1 " -- " $2 ";" }
+  { 
+    # undirected graph
+    print "  " $1 " -- " $2 ";";
+    
+    edge++;
+  }
 
-  END { print "}" }
+  END { 
+    print "}";
+    
+    print edge > "/dev/stderr" 
+  }
 '
 cat "$edges_path" | awk -F',' -v layout="$layout" -v sep="$sep" -v width="$width" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"
