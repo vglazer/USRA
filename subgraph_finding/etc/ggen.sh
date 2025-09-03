@@ -7,8 +7,7 @@ script_name=$(basename "$0")
 default_seed=1
 default_compl=0
 default_graph_dir=$(pwd)
-unweighted_subdir="graphs/unweighted"
-if (( $# < 3 || $$ > 6 )); then
+if (( $# < 3 || $# > 6 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
 
