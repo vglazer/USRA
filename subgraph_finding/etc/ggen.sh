@@ -10,7 +10,7 @@ default_graph_dir=$(pwd)
 unweighted_subdir="graphs/unweighted"
 if (( $# < 3 )); then
   cat >&2 <<EOF
-Usage: $script_name graph_type v density [seed] [compl]
+Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
 
 Arguments:  
   graph_type   Type of graph to generate (2: exponential, 3: power, 4: geometric)
@@ -66,4 +66,6 @@ stats_file="stats_$signature.txt"
 stats_path="$graph_dir/$stats_file"
 
 # split ggen output into two separate files, one for the stats and one for the graph itself
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" | tee "$stats_path"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
+echo "$graph_path"
+echo "$stats_path"
