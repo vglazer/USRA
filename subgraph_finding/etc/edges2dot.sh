@@ -33,7 +33,6 @@ awk_script='
     print "  sep=\"+150,150\";"
     print "  overlap=false;"
     print "  splines=true;"
-    #print "  size=\"30,30\";"
     print "  node [shape=point, width=0.05, height=0.05];"
     print
   }
