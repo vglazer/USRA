@@ -15,7 +15,8 @@ There are sample commands below as well as more detailed explanations in the [re
 - Clone the repo
 - `cd USRA/subgraph_finding`
 - `make ggen sub_search`
-- `etc/ggen.sh 2 100 600 1`
+- `graphs/unweighted`
+- `etc/ggen.sh 2 100 600 1 graphs/unweighted`
 - `(echo 100 11 55 0 5 100 25 4 72 1; cat graphs/unweighted/ggen_2_100_600_1_0.txt) | ./bin/sub_search`
 
 ### What does this do?
