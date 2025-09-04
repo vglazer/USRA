@@ -58,11 +58,9 @@ awk_script='
     edge++;
   }
 
-  END { 
+  END {
     print "}";
-
     print edge > "/dev/stderr" 
-  }
-'
+  }'
 cat "$edges_path" | awk -F',' -v shape="$shape" -v layout="$layout" -v sep="$sep" -v width="$width" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"

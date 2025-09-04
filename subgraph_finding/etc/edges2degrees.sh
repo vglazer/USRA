@@ -27,8 +27,7 @@ else
     exit 1
 fi
 
-awk_script_degrees='
-{ 
+awk_script_degrees='{
   degrees[$1]++; 
   degrees[$2]++;
 } 
@@ -40,13 +39,13 @@ END {
 
 cat "$edges_path" | awk -F ',' "$awk_script_degrees" | sort -t',' -k1,1n > "$degrees_path"
 
-awk_script_counts='
-{ 
+awk_script_counts='{
   count[$2]++;
 } 
 
-END { for (key in count) 
-      print key "," count[key] 
+END {
+  for (key in count)
+    print key "," count[key]
 }'
 
 cat "$degrees_path" | awk -F ',' "$awk_script_counts" | sort -t',' -k1,1n

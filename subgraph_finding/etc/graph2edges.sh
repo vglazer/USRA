@@ -37,6 +37,8 @@ awk_script='{
     print vertex "," $i >> edges_path 
   }
 
-  END {print nedges}'
+  END {
+    print nedges
+  }'
 cat "$graph_path" | sed 's/-1//g' | awk -v edges_path="$edges_path" "$awk_script"
 echo "$edges_path"
