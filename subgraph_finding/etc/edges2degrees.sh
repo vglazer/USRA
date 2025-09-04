@@ -42,13 +42,14 @@ END {
 
 cat "$edges_path" | awk -F ',' "$awk_script_degrees" | sort -t',' -k1,1n > "$degrees_path"
 
+# compute degree counts by inverting the degrees hash
 awk_script_counts='{
-  count[$2]++;
+  counts[$2]++;
 } 
 
 END {
-  for (key in count)
-    print key "," count[key]
+  for (degree in counts)
+    print degree "," counts[degree]
 }'
 
 cat "$degrees_path" | awk -F ',' "$awk_script_counts" | sort -t',' -k1,1n > "$degrees_count_path"
