@@ -19,12 +19,12 @@ stats_path=$1
 stats_dir=$(dirname "$stats_path")
 stats_file=$(basename "$stats_path")
 if [[ $stats_file =~ ^stats_(.+).txt$ ]]; then
-    degrees_file="degrees_${BASH_REMATCH[1]}.txt"
-    degrees_path="$stats_dir/$degrees_file"
+    counts_file="counts_${BASH_REMATCH[1]}.txt"
+    counts_path="$stats_dir/$counts_file"
 else
     echo "$script_name: expected stats_file to match stats_*.txt, got $stats_file" >&2
     exit 1
 fi
 
-cat "$stats_path" | grep ':' | tr -s ' ' | sed 's/ : /,/g' | tr ' ' '\n' | grep . > "$degrees_path"
-echo "$degrees_path"
+cat "$stats_path" | grep ':' | tr -s ' ' | sed 's/ : /,/g' | tr ' ' '\n' | grep . > "$counts_path"
+echo "$counts_path"
