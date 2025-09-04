@@ -22,6 +22,9 @@ edges_file=$(basename "$edges_path")
 if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then
     degrees_file="degrees_${BASH_REMATCH[1]}.csv"
     degrees_path="$edges_dir/$degrees_file"
+
+    degrees_count_file="degrees_count_${BASH_REMATCH[1]}.csv"
+    degrees_count_path="$edges_dir/$degrees_count_file"
 else
     echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
     exit 1
@@ -48,5 +51,6 @@ END {
     print key "," count[key]
 }'
 
-cat "$degrees_path" | awk -F ',' "$awk_script_counts" | sort -t',' -k1,1n
+cat "$degrees_path" | awk -F ',' "$awk_script_counts" | sort -t',' -k1,1n > "$degrees_count_path"
 echo "$degrees_path"
+echo "$degrees_count_path"
