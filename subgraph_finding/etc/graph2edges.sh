@@ -9,7 +9,7 @@ if (( $# != 1 )); then
 Usage: $script_name graph_file
 
 Arguments:  
-  graph_file  Path to file containing graph to munge. Filename must match graph_*.txt
+  graph_file  Path to graph file. Filename must match graph_*.txt
 
 EOF
   exit 1
