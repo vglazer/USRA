@@ -13,7 +13,7 @@ if (( $# < 1 || $# > 5 )); then
 Usage: $script_name edges_file sep width shape layout
 
 Arguments:  
-  edges_file  Path to file containing graph edges. Filename must match edges_*.txt
+  edges_file  Path to file containing graph edges. Filename must match edges_*.csv
   sep         Graphviz sep parameter (150, 5), default: $default_sep
   width       Graphviz node width (and height) parameter (0.05, 0.5), default: $default_width
   shape       Graphviz node shape parameter (point, circle), default: $default_shape
@@ -27,11 +27,11 @@ edges_path=$1
 edges_dir=$(dirname "$edges_path")
 edges_file=$(basename "$edges_path")
 layout=${5:-"$default_layout"}
-if [[ $edges_file =~ ^edges_(.+).txt$ ]]; then
+if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then
     graphviz_file="${layout}_${BASH_REMATCH[1]}.dot"
     graphviz_path="$edges_dir/$graphviz_file"
 else
-    echo "$script_name: expected edges_file to match edges_*.txt, got $edges_file" >&2
+    echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
     exit 1
 fi
 sep=${2:-"$default_sep"}

@@ -19,7 +19,7 @@ stats_path=$1
 stats_dir=$(dirname "$stats_path")
 stats_file=$(basename "$stats_path")
 if [[ $stats_file =~ ^stats_(.+).txt$ ]]; then
-    counts_file="counts_${BASH_REMATCH[1]}.txt"
+    counts_file="counts_${BASH_REMATCH[1]}.csv"
     counts_path="$stats_dir/$counts_file"
 else
     echo "$script_name: expected stats_file to match stats_*.txt, got $stats_file" >&2

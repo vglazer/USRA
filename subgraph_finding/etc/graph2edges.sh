@@ -19,7 +19,7 @@ graph_path=$1
 graph_dir=$(dirname "$graph_path")
 graph_file=$(basename "$graph_path")
 if [[ $graph_file =~ ^graph_(.+).txt$ ]]; then
-    edges_file="edges_${BASH_REMATCH[1]}.txt"
+    edges_file="edges_${BASH_REMATCH[1]}.csv"
     edges_path="$graph_dir/$edges_file"
 else
     echo "$script_name: expected graph_file to match graph_*.txt, got $graph_file" >&2

@@ -9,7 +9,7 @@ if (( $# != 1 )); then
 Usage: $script_name edges_file 
 
 Arguments:  
-  edges_file  Path to file containing graph edges. Filename must match edges_*.txt
+  edges_file  Path to file containing graph edges. Filename must match edges_*.csv
 
 EOF
   exit 1
@@ -19,11 +19,11 @@ edges_path=$1
 edges_dir=$(dirname "$edges_path")
 edges_file=$(basename "$edges_path")
 layout="neato"
-if [[ $edges_file =~ ^edges_(.+).txt$ ]]; then
+if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then
     graphviz_file="${layout}_${BASH_REMATCH[1]}.dot"
     graphviz_path="$edges_dir/$graphviz_file"
 else
-    echo "$script_name: expected edges_file to match edges_*.txt, got $edges_file" >&2
+    echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
     exit 1
 fi
 
