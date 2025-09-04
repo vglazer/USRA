@@ -32,6 +32,4 @@ width=0.5
 shape="circle"
 script_dir=$(dirname "$(realpath "$0")")
 command="$script_dir/edges2dot.sh $edges_path $sep $width $shape $layout"
-$command > "$graphviz_path"
-
-echo "$graphviz_path"
+$command
