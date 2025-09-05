@@ -33,19 +33,22 @@ fi
 awk_script_degrees='{
   degrees[$1]++
   degrees[$2]++
+
+  nedges++
 } 
 
 END {
-  sum=0
+  degree_sum=0
   for (vertex in degrees) {
     degree = degrees[vertex]
-    sum += degree
+    degree_sum += degree
     
     print vertex "," degree
   }
 
-  # degrees should add up to 2*|E|
-  print sum > "/dev/stderr"
+  # degrees should sum to 2*|E|
+  print nedges > "/dev/stderr"
+  print degree_sum > "/dev/stderr"
 }'
 
 cat "$edges_path" | awk -F ',' "$awk_script_degrees" | sort -t',' -k1,1n > "$degrees_path"
