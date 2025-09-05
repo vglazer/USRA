@@ -26,5 +26,8 @@ else
     exit 1
 fi
 
+nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
+echo "$nedges"
+
 cat "$stats_path" | grep ':' | tr -s ' ' | sed 's/ : /,/g' | tr ' ' '\n' | grep . > "$counts_path"
 echo "$counts_path"
