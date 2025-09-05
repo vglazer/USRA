@@ -7,12 +7,17 @@ script_name=$(basename "$0")
 default_seed=1
 default_compl=0
 default_graph_dir=$(pwd)
+
+graph_type_to_str[2]="Exponential"
+graph_type_to_str[3]="Power"
+graph_type_to_str[4]="Geometric"
+
 if (( $# < 3 || $# > 6 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
 
 Arguments:  
-  graph_type   Type of graph to generate (2: exponential, 3: power, 4: geometric)
+  graph_type   Type of graph to generate (2: ${graph_type_to_str[2]} , 3: ${graph_type_to_str[3]}, 4: ${graph_type_to_str[4]})
   v            Number of vertices
   density      Graph density (0 <= density <= 1000)
   seed         Optional random seed (a positive integer), default: $default_seed
@@ -61,11 +66,40 @@ fi
 signature="$graph_type-$v-$density-$seed-$compl"
 graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
-stats_file="stats_$signature.txt"
-stats_path="$graph_dir/$stats_file"
+
+graph_type_to_string[2]="one"
+awk_script_degrees='
+  {
+    vertex = NR-1
+    for (i=1; i<=NF; i++) {
+      degrees[vertex]++
+      degrees[$i]++
+    }
+  }
+
+  END {
+    for (vertex in degrees) {
+      print degrees[vertex]
+    }
+  }'
+
+hist_file="hist_$signature.pdf"
+hist_path="$graph_dir/$hist_file"
+p_edge=$(echo "scale=2; $density / 1000" | bc -l)
+gnuplot_script="
+set terminal pdf monochrome;
+set title '${graph_type_to_str[$graph_type]} (|V| = $v, p = $p_edge); seed: $seed, compl: $compl';
+set xlabel 'Degree';
+set ylabel 'Frequency';
+set output '$hist_path';
+plot '-' using 1:(1.0) smooth freq with boxes notitle'
+"
 
 # split ggen output into two separate files, one for the stats and one for the graph itself
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
+stats_file="stats_$signature.txt"
+stats_path="$graph_dir/$stats_file"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" | gnuplot -e "$gnuplot_script"
+
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
 echo "$stats_path"
