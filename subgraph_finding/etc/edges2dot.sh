@@ -19,7 +19,7 @@ Arguments:
   width       Graphviz node width (and height) parameter (0.05, 0.5), default: $default_width
   shape       Graphviz node shape parameter (point, circle), default: $default_shape
   layout      Graphviz layout engine (sfdp, neato), default: $default_layout
-  splines     Graphviz splines parameter (false, true, curved, ortho), default: $default_splines
+  splines     Graphviz splines parameter (false, true, curved), default: $default_splines
 
 EOF
   exit 1
