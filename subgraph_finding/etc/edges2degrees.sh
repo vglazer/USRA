@@ -23,7 +23,7 @@ if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then
     degrees_file="degrees_${BASH_REMATCH[1]}.csv"
     degrees_path="$edges_dir/$degrees_file"
 
-    degrees_count_file="degrees_count_${BASH_REMATCH[1]}.csv"
+    degrees_count_file="degree_counts_${BASH_REMATCH[1]}.csv"
     degrees_count_path="$edges_dir/$degrees_count_file"
 else
     echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
@@ -31,13 +31,21 @@ else
 fi
 
 awk_script_degrees='{
-  degrees[$1]++; 
-  degrees[$2]++;
+  degrees[$1]++
+  degrees[$2]++
 } 
 
-END { 
-  for (vertex in degrees) 
-    print vertex "," degrees[vertex]
+END {
+  sum=0
+  for (vertex in degrees) {
+    degree = degrees[vertex]
+    sum += degree
+    
+    print vertex "," degree
+  }
+
+  # degrees should add up to 2*|E|
+  print sum > "/dev/stderr"
 }'
 
 cat "$edges_path" | awk -F ',' "$awk_script_degrees" | sort -t',' -k1,1n > "$degrees_path"
@@ -48,8 +56,9 @@ awk_script_counts='{
 } 
 
 END {
-  for (degree in counts)
+  for (degree in counts) {
     print degree "," counts[degree]
+  }
 }'
 
 cat "$degrees_path" | awk -F ',' "$awk_script_counts" | sort -t',' -k1,1n > "$degrees_count_path"

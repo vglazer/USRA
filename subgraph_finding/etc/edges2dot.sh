@@ -39,8 +39,9 @@ width=${3:-"$default_width"}
 shape=${4:-"$default_shape"}
 awk_script='
   BEGIN {
-    height=width;
-    print "graph G {"; 
+    height=width
+
+    print "graph G {"
     print "  layout=" layout ";"
     print "  sep=\"+" sep "," sep "\";"
     print "  overlap=false;"
@@ -48,19 +49,20 @@ awk_script='
     print "  node [shape=" shape ", width=" width ", height=" height "];"
     print
 
-    edge=0;
+    edge=0
   }
 
   { 
     # undirected graph
-    print "  " $1 " -- " $2 ";";
+    print "  " $1 " -- " $2 ";"
     
-    edge++;
+    edge++
   }
 
   END {
-    print "}";
-    print edge > "/dev/stderr" 
+    print "}"
+    print edge > "/dev/stderr"
   }'
+
 cat "$edges_path" | awk -F',' -v shape="$shape" -v layout="$layout" -v sep="$sep" -v width="$width" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"

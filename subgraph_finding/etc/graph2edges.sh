@@ -30,15 +30,17 @@ fi
 rm -f "$edges_path"
 
 awk_script='{
-  nedges += NF;
-  vertex = NR-1;
+  nedges += NF
+  vertex = NR-1
   
-  for (i = 1; i <= NF; i++) 
+  for (i = 1; i <= NF; i++) {
     print vertex "," $i >> edges_path 
   }
+}
 
-  END {
-    print nedges
-  }'
+END {
+  print nedges
+}'
+
 cat "$graph_path" | sed 's/-1//g' | awk -v edges_path="$edges_path" "$awk_script"
 echo "$edges_path"
