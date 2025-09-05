@@ -8,9 +8,10 @@ default_sep=150
 default_width=0.05
 default_shape="point"
 default_layout="sfdp"
-if (( $# < 1 || $# > 5 )); then
+default_splines="false"
+if (( $# < 1 || $# > 6 )); then
   cat >&2 <<EOF
-Usage: $script_name edges_file sep width shape layout
+Usage: $script_name edges_file sep width shape layout splines
 
 Arguments:  
   edges_file  Path to file containing graph edges. Filename must match edges_*.csv
@@ -18,6 +19,7 @@ Arguments:
   width       Graphviz node width (and height) parameter (0.05, 0.5), default: $default_width
   shape       Graphviz node shape parameter (point, circle), default: $default_shape
   layout      Graphviz layout engine (sfdp, neato), default: $default_layout
+  splines     Graphviz splines parameter (false, true, curved, ortho), default: $default_splines
 
 EOF
   exit 1
@@ -37,6 +39,7 @@ fi
 sep=${2:-"$default_sep"}
 width=${3:-"$default_width"}
 shape=${4:-"$default_shape"}
+splines=${6:-"$default_splines"}
 awk_script='
   BEGIN {
     height=width
@@ -45,7 +48,7 @@ awk_script='
     print "  layout=" layout ";"
     print "  sep=\"+" sep "," sep "\";"
     print "  overlap=false;"
-    print "  splines=true;"
+    print "  splines=" splines ";"
     print "  node [shape=" shape ", width=" width ", height=" height "];"
     print
 
@@ -64,5 +67,5 @@ awk_script='
     print edge > "/dev/stderr"
   }'
 
-cat "$edges_path" | awk -F',' -v shape="$shape" -v layout="$layout" -v sep="$sep" -v width="$width" "$awk_script" > "$graphviz_path"
+cat "$edges_path" | awk -F',' -v shape="$shape" -v layout="$layout" -v sep="$sep" -v width="$width" -v splines="$splines" "$awk_script" > "$graphviz_path"
 echo "$graphviz_path"
