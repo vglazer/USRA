@@ -67,13 +67,19 @@ signature="$graph_type-$v-$density-$seed-$compl"
 graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
 
-graph_type_to_string[2]="one"
 awk_script_degrees='
+  BEGIN {
+    print "graph G {" > "/dev/stderr"
+  }
+  
   {
     vertex = NR-1
     for (i=1; i<=NF; i++) {
       degrees[vertex]++
       degrees[$i]++
+
+      # undirected graph
+      print "  " vertex " -- " $i > "/dev/stderr"
     }
   }
 
@@ -81,6 +87,8 @@ awk_script_degrees='
     for (vertex in degrees) {
       print degrees[vertex]
     }
+
+    print "}" > "/dev/stderr"
   }'
 
 hist_file="hist_$signature.pdf"
@@ -98,7 +106,10 @@ plot '-' using 1:(1.0) smooth freq with boxes notitle'
 # split ggen output into two separate files, one for the stats and one for the graph itself
 stats_file="stats_$signature.txt"
 stats_path="$graph_dir/$stats_file"
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" | gnuplot -e "$gnuplot_script"
+
+plots_file="plot_$signature.pdf"
+plots_path="$graph_dir/$plots_file"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" 2> >(dot -Tpdf -o "$plots_path") | gnuplot -e "$gnuplot_script"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
