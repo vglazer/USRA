@@ -44,13 +44,12 @@ awk_script='
   BEGIN {
     height=width
 
-    print "graph G {"
-    print "  layout=" layout ";"
-    print "  sep=\"+" sep "," sep "\";"
-    print "  overlap=false;"
-    print "  splines=" splines ";"
-    print "  node [shape=" shape ", width=" width ", height=" height "];"
-    print
+    print "graph G {\n" \
+          "  layout=" layout ";\n" \
+          "  sep=\"+" sep "," sep "\";\n" \
+          "  overlap=false;\n" \
+          "  splines=" splines ";\n" \
+          "  node [shape=" shape ", width=" width ", height=" height "];\n"
 
     edge=0
   }
@@ -64,6 +63,7 @@ awk_script='
 
   END {
     print "}"
+
     print edge > "/dev/stderr"
   }'
 
