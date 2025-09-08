@@ -102,13 +102,22 @@ set output '$hist_path';
 plot '-' using 1:(1.0) smooth freq with boxes notitle'
 "
 
-# split ggen output into two separate files, one for the stats and one for the graph itself
 stats_file="stats_$signature.txt"
 stats_path="$graph_dir/$stats_file"
 
 plots_file="plot_$signature.pdf"
 plots_path="$graph_dir/$plots_file"
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" 2> >(dot -Tpdf -o "$plots_path") | gnuplot -e "$gnuplot_script"
+
+dot_file="graph_$signature.dot"
+dot_path="$graph_dir/$dot_file"
+
+# we want a pipeline that extracts the graph out of the ggen output and converts it to a dot format
+# as well as rendering it and producing a gnuplot histogram of the degree distribution
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
+  | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
+  | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" \
+  2> >(tee >(dot -Tpdf -o "$plots_path") "$dot_path") \
+  | gnuplot -e "$gnuplot_script"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
