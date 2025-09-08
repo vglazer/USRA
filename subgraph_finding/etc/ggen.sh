@@ -67,24 +67,9 @@ signature="$graph_type-$v-$density-$seed-$compl"
 graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
 
-# arbitrary treshold based on what "looks good" on my machine
-if (( v > 15 )); then
-  large_graph=1
-else
-  large_graph=0
-fi
-
 awk_script_degrees='
   BEGIN {
     print "graph G {" > "/dev/stderr"
-
-    if (large_graph) {
-      print "  layout=sfdp;\n" \
-            "  sep=\"+150,150\";\n" \
-            "  overlap=false;\n" \
-            "  splines=false;\n" \
-            "  node [shape=point, width=0.05, height=0.05];" > "/dev/stderr"
-    }
   }
   
   {
@@ -123,7 +108,7 @@ stats_path="$graph_dir/$stats_file"
 
 plots_file="plot_$signature.pdf"
 plots_path="$graph_dir/$plots_file"
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk -v large_graph="$large_graph" "$awk_script_degrees" 2> >(dot -Tpdf -o "$plots_path") | gnuplot -e "$gnuplot_script"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" 2> >(dot -Tpdf -o "$plots_path") | gnuplot -e "$gnuplot_script"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
