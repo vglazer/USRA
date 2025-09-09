@@ -16,21 +16,14 @@ EOF
 fi
 
 edges_path=$1
-edges_dir=$(dirname "$edges_path")
-edges_file=$(basename "$edges_path")
-layout="neato"
-if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then
-    graphviz_file="${layout}_${BASH_REMATCH[1]}.dot"
-    graphviz_path="$edges_dir/$graphviz_file"
-else
-    echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
-    exit 1
-fi
 
+# these settings work well for "small" graphs
 sep=5
 width=0.5
 shape="circle"
+layout="neato"
 splines="true"
+
 script_dir=$(dirname "$(realpath "$0")")
 command="$script_dir/edges2dot.sh $edges_path $sep $width $shape $layout $splines"
 $command
