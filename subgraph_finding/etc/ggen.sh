@@ -3,15 +3,13 @@
 # "strict mode"
 set -euo pipefail
 
-script_name=$(basename "$0")
-default_seed=1
-default_compl=0
-default_graph_dir=$(pwd)
-
 graph_type_to_str[2]="exponential"
 graph_type_to_str[3]="power"
 graph_type_to_str[4]="geometric"
 
+script_name=$(basename "$0")
+default_seed=1
+default_compl=0
 if (( $# < 3 || $# > 6 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
@@ -27,9 +25,9 @@ Arguments:
 Examples:
   exponential, 100  vertices,  density 600, seed $default_seed,  don't complement: $script_name 2 100  600
   exponential, 100  vertices,  density 600, seed 2,  don't complement: $script_name 2 100  600 2
-  exponential, 100  vertices,  density 600, seed 2,   take complement: $script_name 2 100  600 2  1
-  power,       2500 vertices,  density 200, seed 52,  take complement: $script_name 3 2500 200 52 1 graphs
-  geometric,   790  vertices,  density 150, seed 1,  don't complement: $script_name 4 790  150 1
+  exponential, 100  vertices,  density 600, seed 2,  take complement:  $script_name 2 100  600 2  1
+  power,       2500 vertices,  density 200, seed 42, take complement:  $script_name 3 2500 200 42 1 graphs
+  geometric,   790  vertices,  density 150, seed 42, don't complement: $script_name 4 790  150 42
 
 Graphs are saved to graph_dir as ggen_type_v_density_seed_compl.txt
 
@@ -46,16 +44,7 @@ if [[ ! -f "$ggen_binary" ]]; then
   exit 1
 fi
 
-# num_sets, num_fixed and fixed_type are set to 0 since ggen.sh does not support the relevant ggen functionality
-graph_type=$1
-v=$2
-num_sets=0
-density=$3
-seed=${4:-"$default_seed"}
-num_fixed=0
-fixed_type=0
-compl=${5:-"$default_compl"}
-
+default_graph_dir=$(pwd)
 graph_dir=${6:-"$default_graph_dir"}
 if [[ ! -d "$graph_dir" ]]; then
   echo "$script_name: graph directory $graph_dir does not exist" >&2
@@ -63,11 +52,39 @@ if [[ ! -d "$graph_dir" ]]; then
   exit 1
 fi
 
+graph_type=$1
+v=$2
+density=$3
+seed=${4:-"$default_seed"}
+compl=${5:-"$default_compl"}
 signature="$graph_type-$v-$density-$seed-$compl"
+
+hist_file="hist_$signature.pdf"
+hist_path="$graph_dir/$hist_file"
+
+graph_type_str="${graph_type_to_str[$graph_type]}"
+gnuplot_script="
+set terminal pdf monochrome;
+set title '$graph_type_str (v = $v, density = $density); seed: $seed, compl: $compl';
+set xlabel 'Degree';
+set ylabel 'Frequency';
+set output '$hist_path';
+plot '-' using 1:(1.0) smooth freq with boxes notitle
+"
+
 graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
 
-awk_script_degrees='
+stats_file="stats_$signature.txt"
+stats_path="$graph_dir/$stats_file"
+
+plots_file="plot_$signature.pdf"
+plots_path="$graph_dir/$plots_file"
+
+dot_file="graph_$signature.dot"
+dot_path="$graph_dir/$dot_file"
+
+awk_script='
   BEGIN {
     print "graph G {" > "/dev/stderr"
   }
@@ -91,35 +108,22 @@ awk_script_degrees='
     print "}" > "/dev/stderr"
   }'
 
-hist_file="hist_$signature.pdf"
-hist_path="$graph_dir/$hist_file"
-gnuplot_script="
-set terminal pdf monochrome;
-set title '${graph_type_to_str[$graph_type]} (v = $v, density = $density); seed: $seed, compl: $compl';
-set xlabel 'Degree';
-set ylabel 'Frequency';
-set output '$hist_path';
-plot '-' using 1:(1.0) smooth freq with boxes notitle
-"
-
-stats_file="stats_$signature.txt"
-stats_path="$graph_dir/$stats_file"
-
-plots_file="plot_$signature.pdf"
-plots_path="$graph_dir/$plots_file"
-
-dot_file="graph_$signature.dot"
-dot_path="$graph_dir/$dot_file"
-
 # we want a pipeline that extracts the graph out of the ggen output and converts it to a dot format
-# as well as rendering it and producing a gnuplot histogram of the degree distribution
+# as well as rendering it and producing a gnuplot histogram of the degree distribution.
+# num_sets, num_fixed and fixed_type are set to 0 since ggen.sh does not support the relevant ggen functionality
+num_sets=0
+num_fixed=0
+fixed_type=0
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
   | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
-  | grep "\-1$" | sed 's/-1//g' | awk "$awk_script_degrees" \
+  | grep "\-1$" | sed 's/-1//g' | awk "$awk_script" \
   2> >(tee >(dot -Tpdf -o "$plots_path") "$dot_path") \
-  | gnuplot -e "$gnuplot_script"
+  | gnuplot -e "$gnuplot_script" 2> /dev/null
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
 echo "$stats_path"
 echo "$graph_path"
+echo "$dot_path"
+echo "$plots_path"
+echo "$hist_path"
