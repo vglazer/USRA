@@ -36,6 +36,7 @@ else
     echo "$script_name: expected edges_file to match edges_*.csv, got $edges_file" >&2
     exit 1
 fi
+
 sep=${2:-"$default_sep"}
 width=${3:-"$default_width"}
 shape=${4:-"$default_shape"}
@@ -50,21 +51,19 @@ awk_script='
           "  overlap=false;\n" \
           "  splines=" splines ";\n" \
           "  node [shape=" shape ", width=" width ", height=" height "];\n"
-
-    edge=0
   }
 
   { 
     # undirected graph
     print "  " $1 " -- " $2 ";"
     
-    edge++
+    nedges++
   }
 
   END {
     print "}"
 
-    print edge > "/dev/stderr"
+    print nedges > "/dev/stderr"
   }'
 
 cat "$edges_path" | awk -F',' -v shape="$shape" -v layout="$layout" -v sep="$sep" -v width="$width" -v splines="$splines" "$awk_script" > "$graphviz_path"
