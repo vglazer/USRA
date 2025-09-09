@@ -89,6 +89,14 @@ awk_script='
     has_edges = 0
 
     print "graph G {" > "/dev/stderr"
+
+    if (large_graph) {
+      print "  layout=sfdp;\n" \
+            "  sep=\"+150,150\";\n" \
+            "  overlap=false;\n" \
+            "  splines=false;\n" \
+            "  node [shape=point, width=0.05, height=0.05];\n" > "/dev/stderr"
+    }
   }
   
   {
@@ -117,6 +125,13 @@ awk_script='
     print "}" > "/dev/stderr"
   }'
 
+# an arbitrary threshold selected based on what "looks reasonable" on my machine
+if (( v > 20 )); then
+  large_graph=1
+else
+  large_graph=0
+fi
+
 # we want a pipeline that extracts the graph out of the ggen output and converts it to a dot format
 # as well as rendering it and producing a gnuplot histogram of the degree distribution.
 # num_sets, num_fixed and fixed_type are set to 0 since ggen.sh does not support the relevant ggen functionality
@@ -125,7 +140,7 @@ num_fixed=0
 fixed_type=0
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
   | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
-  | grep "\-1$" | sed 's/-1//g' | awk "$awk_script" \
+  | grep "\-1$" | sed 's/-1//g' | awk -v large_graph="$large_graph" "$awk_script" \
   2> >(tee >(dot -Tpdf -o "$plots_path") "$dot_path") \
   | gnuplot -e "$gnuplot_script" 2> /dev/null
 
