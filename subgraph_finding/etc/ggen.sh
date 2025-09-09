@@ -8,18 +8,18 @@ default_seed=1
 default_compl=0
 default_graph_dir=$(pwd)
 
-graph_type_to_str[2]="Exponential"
-graph_type_to_str[3]="Power"
-graph_type_to_str[4]="Geometric"
+graph_type_to_str[2]="exponential"
+graph_type_to_str[3]="power"
+graph_type_to_str[4]="geometric"
 
 if (( $# < 3 || $# > 6 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_type v density [seed] [compl] [graph_dir]
 
 Arguments:  
-  graph_type   Type of graph to generate (2: ${graph_type_to_str[2]} , 3: ${graph_type_to_str[3]}, 4: ${graph_type_to_str[4]})
+  graph_type   Type of graph to generate (2: ${graph_type_to_str[2]}, 3: ${graph_type_to_str[3]}, 4: ${graph_type_to_str[4]})
   v            Number of vertices
-  density      Graph density (0 <= density <= 1000)
+  density      Graph density (0 <= density <= 1000, density 500 means that 50% of the edges are present)
   seed         Optional random seed (a positive integer), default: $default_seed
   compl        Optionally take the complement of the graph (0 or 1), default: $default_compl
   graph_dir    Directory to write graphs and stats to, default: current working directory
