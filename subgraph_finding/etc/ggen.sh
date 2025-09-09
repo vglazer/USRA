@@ -86,12 +86,16 @@ dot_path="$graph_dir/$dot_file"
 
 awk_script='
   BEGIN {
+    has_edges = 0
+
     print "graph G {" > "/dev/stderr"
   }
   
   {
     vertex = NR-1
     for (i=1; i<=NF; i++) {
+      has_edges = 1
+
       degrees[vertex]++
       degrees[$i]++
 
@@ -101,8 +105,13 @@ awk_script='
   }
 
   END {
-    for (vertex in degrees) {
-      print degrees[vertex]
+    if (has_edges) {
+      for (vertex in degrees) {
+        print degrees[vertex]
+      }
+    } else {
+      # No edges, so all vertices have degree 0
+      print 0
     }
 
     print "}" > "/dev/stderr"
