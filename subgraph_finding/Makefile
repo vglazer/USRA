@@ -4,29 +4,29 @@ APPS=sub_search asub_search wsub_search reg_search ereg_search ggen wggen
 
 all: $(APPS) graphs
 
-sub_search: src/sub_search.c make_bin_dir
+sub_search: src/sub_search.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-asub_search: src/asub_search.c make_bin_dir
+asub_search: src/asub_search.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-wsub_search: src/wsub_search.c make_bin_dir
+wsub_search: src/wsub_search.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-reg_search: src/reg_search.c make_bin_dir
+reg_search: src/reg_search.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-ereg_search: src/ereg_search.c make_bin_dir
+ereg_search: src/ereg_search.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-ggen: src/ggen.c make_bin_dir
+ggen: src/ggen.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-wggen: src/wggen.c make_bin_dir
+wggen: src/wggen.c bin_dir
 	$(CC) $(CCFLAGS) $< -o bin/$@
 
-.PHONY: make_bin_dir
-make_bin_dir:
+.PHONY: bin_dir
+bin_dir:
 	mkdir -p bin
 
 .PHONY: graphs
