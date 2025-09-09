@@ -99,7 +99,7 @@ set title '${graph_type_to_str[$graph_type]} (v = $v, density = $density); seed:
 set xlabel 'Degree';
 set ylabel 'Frequency';
 set output '$hist_path';
-plot '-' using 1:(1.0) smooth freq with boxes notitle'
+plot '-' using 1:(1.0) smooth freq with boxes notitle
 "
 
 stats_file="stats_$signature.txt"
