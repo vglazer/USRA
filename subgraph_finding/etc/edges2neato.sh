@@ -18,12 +18,12 @@ fi
 edges_path=$1
 
 # these settings work well for "small" graphs
-sep=5
-width=0.5
-shape="circle"
 layout="neato"
+sep=5
 splines="true"
+shape="circle"
+width=0.5
 
 script_dir=$(dirname "$(realpath "$0")")
-command="$script_dir/edges2dot.sh $edges_path $sep $width $shape $layout $splines"
+command="$script_dir/edges2dot.sh $edges_path $layout $sep $splines $shape $width"
 $command
