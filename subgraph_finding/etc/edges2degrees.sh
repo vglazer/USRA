@@ -57,7 +57,9 @@ END {
   }
 
   # degrees should sum to 2*|E|
-  print nedges > "/dev/stderr"
+  if (nedges) {
+    print nedges > "/dev/stderr"
+  }
   print degree_sum > "/dev/stderr"
 }'
 

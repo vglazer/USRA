@@ -64,7 +64,9 @@ awk_script='
   END {
     print "}"
 
-    print nedges > "/dev/stderr"
+    if (nedges) {
+      print nedges > "/dev/stderr"
+    }
   }'
 
 cat "$edges_path" | awk -F',' -v layout="$layout" -v sep="$sep" -v splines="$splines" -v shape="$shape" -v width="$width" "$awk_script" > "$graphviz_path"
