@@ -110,13 +110,18 @@ awk_script='
       degrees[$i]++
 
       # undirected graph
-      print "  " vertex " -- " $i > "/dev/stderr"
+      print "  " vertex " -- " $i ";" > "/dev/stderr"
     }
   }
 
   END {
     for (vertex in degrees) {
-      print degrees[vertex]
+      degree = degrees[vertex]
+      print degree
+
+      if (!degree) {
+        print "  " vertex ";" > "/dev/stderr"
+      }
     }
 
     print "}" > "/dev/stderr"
