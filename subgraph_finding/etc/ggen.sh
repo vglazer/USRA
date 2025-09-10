@@ -88,7 +88,9 @@ dot_path="$graph_dir/$dot_file"
 
 awk_script='
   BEGIN {
-    has_edges = 0
+    for (i = 0; i < v; i++) {
+      degrees[i] = 0
+    }
 
     print "graph G {" > "/dev/stderr"
 
@@ -103,9 +105,7 @@ awk_script='
   
   {
     vertex = NR-1
-    for (i=1; i<=NF; i++) {
-      has_edges = 1
-
+    for (i = 1; i <= NF; i++) {
       degrees[vertex]++
       degrees[$i]++
 
@@ -115,13 +115,8 @@ awk_script='
   }
 
   END {
-    if (has_edges) {
-      for (vertex in degrees) {
-        print degrees[vertex]
-      }
-    } else {
-      # No edges, so all vertices have degree 0
-      print 0
+    for (vertex in degrees) {
+      print degrees[vertex]
     }
 
     print "}" > "/dev/stderr"
@@ -142,9 +137,9 @@ num_fixed=0
 fixed_type=0
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
   | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
-  | grep "\-1$" | sed 's/-1//g' | awk -v large_graph="$large_graph" "$awk_script" \
+  | grep "\-1$" | sed 's/-1//g' | awk -v v="$v" -v large_graph="$large_graph" "$awk_script" \
   2> >(tee >(dot -Tpdf -o "$plots_path") "$dot_path") \
-  | gnuplot -e "$gnuplot_script" 2> /dev/null
+  | gnuplot -e "$gnuplot_script"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
