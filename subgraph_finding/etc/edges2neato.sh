@@ -4,18 +4,20 @@
 set -euo pipefail
 
 script_name=$(basename "$0")
-if (( $# != 1 )); then
+if (( $# != 2 )); then
   cat >&2 <<EOF
-Usage: $script_name edges_file 
+Usage: $script_name v edges_file
 
-Arguments:  
+Arguments:
+  v           Number of vertices
   edges_file  Path to file containing graph edges. Filename must match edges_*.csv
 
 EOF
   exit 1
 fi
 
-edges_path=$1
+v=$1
+edges_path=$2
 
 # these settings work well for "small" graphs
 layout="neato"
@@ -25,5 +27,5 @@ shape="circle"
 width=0.5
 
 script_dir=$(dirname "$(realpath "$0")")
-command="$script_dir/edges2dot.sh $edges_path $layout $sep $splines $shape $width"
+command="$script_dir/edges2dot.sh $v $edges_path $layout $sep $splines $shape $width"
 $command

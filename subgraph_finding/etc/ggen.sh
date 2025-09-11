@@ -19,8 +19,8 @@ Arguments:
   v            Number of vertices
   density      Graph density (0 <= density <= 1000, density 500 means that 50% of the edges are present)
   seed         Optional random seed (a positive integer), default: $default_seed
-  compl        Optionally take the complement of the graph (0 or 1), default: $default_compl
-  graph_dir    Directory to write graphs and stats to, default: current working directory
+  compl        Optional complementation flag (0 or 1), default: $default_compl
+  graph_dir    Optional directory to write graphs and stats to, default: current working directory
 
 Examples:
   exponential, 100  vertices,  density 600, seed $default_seed,  don't complement: $script_name 2 100  600
