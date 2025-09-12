@@ -1,38 +1,37 @@
-CC=gcc
-CFLAGS=-ansi -pedantic -Wall -Werror -O3 -march=native
-APPS=sub_search asub_search wsub_search reg_search ereg_search ggen wggen
+.PHONY: all clean
+
+CC = gcc
+CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
+APPS = bin/sub_search bin/asub_search bin/wsub_search bin/reg_search bin/ereg_search bin/ggen bin/wggen
 
 all: $(APPS) graphs
 
-sub_search: src/sub_search.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin:
+	mkdir -p $@
 
-asub_search: src/asub_search.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/sub_search: src/sub_search.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-wsub_search: src/wsub_search.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/asub_search: src/asub_search.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-reg_search: src/reg_search.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/wsub_search: src/wsub_search.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-ereg_search: src/ereg_search.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/reg_search: src/reg_search.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-ggen: src/ggen.c bin_dir
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/ereg_search: src/ereg_search.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-wggen: src/wggen.c bin_dir
-	$(CC) $(CCFLAGS) $< -o bin/$@
+bin/ggen: src/ggen.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: bin_dir
-bin_dir:
-	mkdir -p bin
+bin/wggen: src/wggen.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: graphs
 graphs:
 	etc/graphgen.sh
 
-.PHONY: clean
 clean:
 	rm -rf bin graphs
