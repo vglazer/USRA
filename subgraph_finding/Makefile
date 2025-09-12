@@ -2,9 +2,17 @@
 
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
-APPS = bin/sub_search bin/asub_search bin/wsub_search bin/reg_search bin/ereg_search bin/ggen bin/wggen
+APPS = sub_search asub_search wsub_search reg_search ereg_search ggen wggen
 
 all: $(APPS) graphs
+
+sub_search: bin/sub_search
+asub_search: bin/asub_search
+wsub_search: bin/wsub_search
+reg_search: bin/reg_search
+ereg_search: bin/ereg_search
+ggen: bin/ggen
+wggen: bin/wggen
 
 bin:
 	mkdir -p $@
