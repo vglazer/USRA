@@ -14,7 +14,7 @@ There are sample commands below as well as more detailed explanations in the [re
 
 - Clone the repo
 - `cd USRA/subgraph_finding`
-- `make bin/ggen bin/sub_search`
+- `make ggen sub_search`
 - `mkdir -p graphs/unweighted`
 - `etc/ggen.sh 2 100 600 1 0 graphs/unweighted`
 - `(echo 100 11 55 0 5 100 25 4 72 1; cat graphs/unweighted/ggen_2_100_600_1_0.txt) | ./bin/sub_search`
@@ -79,7 +79,7 @@ To build everything, simply run `make` with no arguments in the top-level direct
 
 - This will create a `bin` subdirectory containing the various graph programs. There are no external dependencies, so everything should work out of the box
 - It will also run [`etc/graphgen.sh`](etc/graphgen.sh) to generate some weighted and unweighted random graphs and save them to the `graphs` subdirectory
-- If you prefer, you can skip `graphgen.sh` and build individual programs directly via `make bin/ggen`, `make bin/sub_search` and so on
+- If you prefer, you can skip `graphgen.sh` and build individual programs directly via `make ggen`, `make sub_search` and so on
 - `make clean` will delete both `bin` and `graphs`
 
 ## Generating random graphs
@@ -90,7 +90,7 @@ Unlike `ggen`, `ggen.sh` cannot take adjacency or incidience lists as an input, 
 
 - `ggen.sh` splits `ggen` output into the stats, which is dumps to the console, and the graph itself, which it saves to the `graphs/unweighted` directory
 - If `graphs/unweighted` does not exist (because `graphgen.sh` hasn't been run), `ggen.sh` will create it
-- However, `ggen.sh` won't build `ggen` for you, so be sure to run `make` (or `make bin/ggen`) first
+- However, `ggen.sh` won't build `ggen` for you, so be sure to run `make` (or `make ggen`) first
 
 Here is the usage info, which contains some sample commands:
 
