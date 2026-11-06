@@ -141,9 +141,9 @@ switch constrtype
     dper(1) = minmod(d(1), nder*s(1));
     dper(n) = minmod(d(n), nder*s(n-1));
 
-    dper(2)   = sign(d(2))  *min([abs(d(2)), nder*abs(s(1)), nder*abs(s(2))]);
-    dper(n-1) = sign(d(n-1))*min([abs(d(n-1)), ...
-                                  nder*abs(s(n-2)), nder*abs(s(n-1))]);
+    % The MP constraint must be used next to the endpoints [Huynh, section 5]
+    dper(2)   = minmod(d(2),   nder*minmod(s(1), s(2)));
+    dper(n-1) = minmod(d(n-1), nder*minmod(s(n-2), s(n-1)));
     t = minmod(s(2) + dmin(1)*(x(3) - x(2)), s(3) + dmin(2)*(x(3) - x(4)));
     tmax = sign(t)*max(nder*abs(smin(2)), (nder/2)*abs(t)); 
     dper(3)   = minmod(d(3),  tmax);
@@ -157,8 +157,10 @@ switch constrtype
     for k = 4:n-3
         p1 = s(k-1) + dmin(k-2)*(x(k) - x(k-1));
         p2 = s(k)   + dmin(k-1)*(x(k) - x(k+1));
-        q1 = s(k-1) - h(k-1)*minmod(ds(k-2) + emin(k-3)*(x(k-1) - x(k-2)), ...
-                                    ds(k-1) + emin(k-2)*(x(k-1) - x(k+1)));
+        % q1 and q2 are the slopes at x(k) of the cubics on [x(k-1), x(k)]
+        % and [x(k), x(k+1)] [Huynh, (4.8a,b)]
+        q1 = s(k-1) + h(k-1)*minmod(ds(k-2) + emin(k-3)*(x(k)   - x(k-2)), ...
+                                    ds(k-1) + emin(k-2)*(x(k)   - x(k+1)));
         q2 = s(k)   - h(k)  *minmod(ds(k-1) + emin(k-2)*(x(k)   - x(k-1)), ...
                                     ds(k)   + emin(k-1)*(x(k)   - x(k+2))); 
         t  = minmod(p1,p2); tt = minmod(q1,q2); 
