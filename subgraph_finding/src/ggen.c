@@ -40,6 +40,7 @@
 */
 
 /* header files */
+#include <stdarg.h>
 #include <stdio.h> 
 #include <stdlib.h>
 
@@ -59,6 +60,50 @@
 /* generate a pseudorandom number between 0 and bound - 1 */
 #define RAND(bound) (((seed = (seed * 65539L) & 017777777777L) / 7) % (bound))
 
+/* print an error message to stderr and exit */
+static void die(const char *format, ...) {
+    va_list args;
+
+    va_start(args, format);
+    vfprintf(stderr, format, args);
+    va_end(args);
+    fprintf(stderr, "\n");
+    exit(EXIT_FAILURE);
+}
+
+/* allocate memory, exiting if none is available */
+static void *xmalloc(size_t size) {
+    void *p = malloc(size);
+
+    if (p == NULL && size > 0) die("out of memory");
+    return p;
+}
+
+static void *xcalloc(size_t count, size_t size) {
+    void *p = calloc(count, size);
+
+    if (p == NULL && count > 0 && size > 0) die("out of memory");
+    return p;
+}
+
+/* read an integer, exiting on end of input or a non-integer */
+static int read_int(void) {
+    int x;
+
+    if (scanf("%d", &x) != 1) 
+        die("unexpected end of input or non-integer input");
+    return x;
+}
+
+/* read a vertex in the range [0, v), or the -1 terminator if allow_end is set */
+static int read_vertex(int v, int allow_end) {
+    int x = read_int();
+
+    if (allow_end && x == -1) return x;
+    if (x < 0 || x >= v) die("vertex %d is out of range [0, %d)", x, v);
+    return x;
+}
+
 /* main program */
 int main(void) {
     int v, e, graph_type, density, num_sets, compl, num_fixed, num_rest, 
@@ -67,31 +112,48 @@ int main(void) {
     char **adj = NULL;
 
     /* input parameters */
-    scanf("%d%d%d%d%ld%d%d%d", &graph_type, &v, &num_sets, &density, &seed, 
-          &num_fixed, &fixed_type, &compl);
+    if (scanf("%d%d%d%d%ld%d%d%d", &graph_type, &v, &num_sets, &density, 
+              &seed, &num_fixed, &fixed_type, &compl) != 8)
+        die("expected 8 integer parameters: graph_type v num_sets density "
+            "seed num_fixed fixed_type compl");
 
     /* echo parameters */
     printf("%d %d %d %d %ld  %d %d  %d\n", graph_type, v, num_sets, density, 
            seed, num_fixed, fixed_type, compl);
 
-    /* a zero seed makes RAND return 0 forever; negative seeds are not valid */
-    if ((graph_type == RAND_EXP || graph_type == RAND_POW || 
-         graph_type == RAND_GEO) && seed <= 0) {
-        fprintf(stderr, "seed must be a positive integer, got %ld\n", seed);
-        exit(EXIT_FAILURE);
+    /* validate parameters */
+    if (graph_type < ADJ_LIST || graph_type > RAND_GEO)
+        die("%d is not a valid graph type", graph_type);
+    if (v < 0) die("number of vertices must be non-negative, got %d", v);
+    if (graph_type == RAND_EXP || graph_type == RAND_POW || 
+        graph_type == RAND_GEO) {
+        if (density < 0 || density > 1000)
+            die("density must be between 0 and 1000, got %d", density);
+        /* a zero seed makes RAND return 0 forever */
+        if (seed <= 0) die("seed must be a positive integer, got %ld", seed);
+    } else if (graph_type == INC_LIST && density < 0) {
+        die("density (intersection size) must be non-negative, got %d", 
+            density);
     }
+    if (num_fixed < 0) 
+        die("number of fixed vertices must be non-negative, got %d", num_fixed);
+    if (num_fixed > 0 && fixed_type != 1 && fixed_type != -1 && 
+        fixed_type != 2 && fixed_type != -2 && fixed_type != 3)
+        die("%d is not a valid fixed type", fixed_type);
+    if (compl != 0 && compl != 1) 
+        die("complementation flag must be 0 or 1, got %d", compl);
 
     /* allocate memory */
     if (graph_type != INC_LIST || num_sets >= 0) {
-        adj = malloc(v * sizeof(char *));
-        for (i = 0; i < v; i++) adj[i] = calloc(v, 1);
+        adj = xmalloc(v * sizeof(char *));
+        for (i = 0; i < v; i++) adj[i] = xcalloc(v, 1);
     }
 
     /* form adjacency matrix */
     if (graph_type == ADJ_LIST) { /* adjacency list */
         for (i = 0; i < v; i++) 
             for (;;) {
-                scanf("%d", &vert);
+                vert = read_vertex(v, 1);
                 if (vert == -1) break;
                 adj[i][vert] = adj[vert][i] = 1;
             }      
@@ -101,19 +163,20 @@ int main(void) {
 
         /* allocate memory */
         sign = num_sets; if (num_sets < 0) num_sets = -num_sets;
-        inc = malloc(num_sets * sizeof(char *));
-        for (i = 0; i < num_sets; i++) inc[i] = calloc(v, 1);
+        inc = xmalloc(num_sets * sizeof(char *));
+        for (i = 0; i < num_sets; i++) inc[i] = xcalloc(v, 1);
         
         /* form incidence matrix */
         for (i = 0; i < num_sets; i++) 
             for (;;) {
-                scanf("%d", &vert); if (vert == -1) break; inc[i][vert] = 1;
+                vert = read_vertex(v, 1); if (vert == -1) break; 
+                inc[i][vert] = 1;
             }      
         
         /* form adjacency matrix */
         if (sign > 0) { /* primal */
             /* allocate memory */
-            curr_set = malloc(num_sets * sizeof(int));
+            curr_set = xmalloc(num_sets * sizeof(int));
 
             /* form adjacency matrix */
             for (i = 0; i < v; i++) {
@@ -129,9 +192,9 @@ int main(void) {
 
         } else { /* dual */
             /* allocate memory */
-            adj = malloc(num_sets * sizeof(char *));
-            for (i = 0; i < num_sets; i++) adj[i] = calloc(num_sets, 1);
-            curr_set = malloc(v * sizeof(int));
+            adj = xmalloc(num_sets * sizeof(char *));
+            for (i = 0; i < num_sets; i++) adj[i] = xcalloc(num_sets, 1);
+            curr_set = xmalloc(v * sizeof(int));
             
             /* form adjacency matrix */
             for (i = 0; i < num_sets; i++) {
@@ -163,7 +226,7 @@ int main(void) {
         int *rand_perm;
 
         /* allocate memory */
-        rand_perm = malloc(v * sizeof(int));
+        rand_perm = xmalloc(v * sizeof(int));
         
         l = density * (v - 1) / (2000 - density);
         for (i = 0; i < v - l; i++) {
@@ -182,8 +245,8 @@ int main(void) {
         int *x_coords, *y_coords;
 
         /* allocate memory */
-        x_coords = malloc(v * sizeof(int));
-        y_coords = malloc(v * sizeof(int));
+        x_coords = xmalloc(v * sizeof(int));
+        y_coords = xmalloc(v * sizeof(int));
 
         for (i = 0; i < v; i++) {
             x_coords[i] = RAND(SCALE); y_coords[i] = RAND(SCALE);
@@ -199,9 +262,8 @@ int main(void) {
         /* deallocate memory */
         free(x_coords); free(y_coords);
 
-    } else { /* error */
-        printf("%d is not a valid graph type\n", graph_type);
-        exit(EXIT_FAILURE);
+    } else { /* error; unreachable, since graph_type was validated above */
+        die("%d is not a valid graph type", graph_type);
     }
 
     /* process graph, if desired */
@@ -209,14 +271,20 @@ int main(void) {
         int *fixed_verts, *rest_verts, *sub_verts;
         char *fixed_charac;
 
+        if (num_fixed > v) 
+            die("%d fixed vertices requested, but the graph has only %d "
+                "vertices", num_fixed, v);
+
         /* allocate memory */
-        fixed_verts = malloc(num_fixed * sizeof(int));
-        rest_verts = malloc((num_rest = v - num_fixed) * sizeof(int));
-        fixed_charac = calloc(v, 1); 
+        fixed_verts = xmalloc(num_fixed * sizeof(int));
+        rest_verts = xmalloc((num_rest = v - num_fixed) * sizeof(int));
+        fixed_charac = xcalloc(v, 1); 
 
         /* input fixed vertices */
         for (i = 0; i < num_fixed; i++) { 
-            scanf("%d", &vert); fixed_verts[i] = vert; fixed_charac[vert] = 1;
+            vert = read_vertex(v, 0);
+            if (fixed_charac[vert]) die("fixed vertex %d is listed twice", vert);
+            fixed_verts[i] = vert; fixed_charac[vert] = 1;
         }
         for (i = k = 0; i < v; i++) 
             if (!fixed_charac[i]) rest_verts[k++] = i;
@@ -235,8 +303,8 @@ int main(void) {
             char *box_charac;
 
             /* allocate memory */
-            curr_set = malloc(v * sizeof(int));
-            box_charac = calloc(v, 1);
+            curr_set = xmalloc(v * sizeof(int));
+            box_charac = xcalloc(v, 1);
 
             /* store vertices adjacent to the first fixed vertex */
             vert = fixed_verts[0]; if (fixed_type > 0) l = 0; else l = 1;
@@ -278,9 +346,8 @@ int main(void) {
             temp = num_fixed; sub_verts = fixed_verts;
         
         /* error */
-        } else {
-            printf("%d is not a valid fixed type\n", fixed_type);
-            exit(EXIT_FAILURE);
+        } else { /* unreachable, since fixed_type was validated above */
+            die("%d is not a valid fixed type", fixed_type);
         }
 
         /* output subgraph vertices */
@@ -294,8 +361,8 @@ int main(void) {
             char **sub_adj;
 
             /* allocate memory */
-            sub_adj = malloc(temp * sizeof(char *));
-            for (i = 0; i < temp; i++) sub_adj[i] = calloc(temp, 1);
+            sub_adj = xmalloc(temp * sizeof(char *));
+            for (i = 0; i < temp; i++) sub_adj[i] = xcalloc(temp, 1);
         
             /* fill in adjacencies */
             for (i = 0; i < temp; i++) {
@@ -326,7 +393,7 @@ int main(void) {
     printf("\nV = %d, E = %d\n", v, e);
 
     /* compute degrees and output degree spectrum */
-    curr_set = calloc(v, sizeof(int));
+    curr_set = xcalloc(v, sizeof(int));
     for (i = 0; i < v; i++) {
         for (j = temp = 0; j < v; j++)
             if (j != i && adj[i][j] != compl) temp++;
