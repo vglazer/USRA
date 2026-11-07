@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 # "strict mode"
 set -euo pipefail
@@ -18,7 +18,13 @@ EOF
 fi
 
 v=$1
+
 edges_path=$2
+if [[ ! -f "$edges_path" ]]; then
+  echo "$edges_path does not exist" >&2
+  exit 1
+fi
+
 edges_dir=$(dirname "$edges_path")
 edges_file=$(basename "$edges_path")
 if [[ $edges_file =~ ^edges_(.+).csv$ ]]; then

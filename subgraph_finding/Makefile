@@ -1,4 +1,4 @@
-.PHONY: all clean graphs
+.PHONY: all clean graphs sub_search asub_search wsub_search reg_search ereg_search ggen wggen
 
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
@@ -9,31 +9,31 @@ all: $(APPS) graphs
 bin:
 	mkdir -p $@
 
-bin/sub_search: src/sub_search.c bin
+bin/sub_search: src/sub_search.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 sub_search: bin/sub_search
 
-bin/asub_search: src/asub_search.c bin
+bin/asub_search: src/asub_search.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 asub_search: bin/asub_search
 
-bin/wsub_search: src/wsub_search.c bin
+bin/wsub_search: src/wsub_search.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 wsub_search: bin/wsub_search
 
-bin/reg_search: src/reg_search.c bin
+bin/reg_search: src/reg_search.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 reg_search: bin/reg_search
 
-bin/ereg_search: src/ereg_search.c bin
+bin/ereg_search: src/ereg_search.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 ereg_search: bin/ereg_search
 
-bin/ggen: src/ggen.c bin
+bin/ggen: src/ggen.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 ggen: bin/ggen
 
-bin/wggen: src/wggen.c bin
+bin/wggen: src/wggen.c | bin
 	$(CC) $(CFLAGS) $< -o $@
 wggen: bin/wggen
 

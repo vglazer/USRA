@@ -8,7 +8,7 @@ if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_file
 
-Arguments:  
+Arguments:
   graph_file  Path to graph file. Filename must match graph_*.txt
 
 EOF
@@ -16,6 +16,11 @@ EOF
 fi
 
 graph_path=$1
+if [[ ! -f "$graph_path" ]]; then
+  echo "$graph_path does not exist" >&2
+  exit 1
+fi
+
 graph_dir=$(dirname "$graph_path")
 graph_file=$(basename "$graph_path")
 if [[ $graph_file =~ ^graph_(.+).txt$ ]]; then

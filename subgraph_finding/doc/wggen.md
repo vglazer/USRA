@@ -17,7 +17,7 @@ simplest kind, in fact), and cannot manipulate existing ones.
 
 Unlike in `ggen`, command line arguments are used for input; the output
 is written to standard output as before, however. The input parameters are
-the number of vertices (`v`), the desired density (`density`) and the random seed to be used (`seed`).
+the number of vertices (`v`), the desired density (`density`) and the random seed to be used (`seed`, a positive integer).
 
 First, the total number of edges corresponding to the desired density is
 computed from the definition (i.e. `e = v * (v - 1) * d / 200`). Then, the
@@ -29,6 +29,8 @@ with a total weight of `v * (v - 1) / 2` is extremely unlikely to be complete
 (because many edges will no doubt be hit multiple times, leading to weights
 greater than 1). A graph with density `100 * n` will essentially have `n` times the
 total weight of the unit weight complete graph on the same number of vertices.
+Weights are stored as `char`s (here and in `wsub_search`), so `wggen` exits with
+an error if any edge weight would exceed 127, i.e. if the density is very high.
 
 ## DATA STRUCTURES
 

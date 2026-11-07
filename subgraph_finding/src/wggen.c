@@ -4,9 +4,13 @@
    is output); the weights are encoded as follows: if the ith row of the 
    adjacency list contains entry x, then {i, (x % v)} is an edge with weight 
    (x / v) + 1 
+
+   weights are stored as chars, both here and in wsub_search, so no weight
+   may exceed CHAR_MAX
 */
 
 /* header files */
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -21,19 +25,40 @@ int main(int argc, char *argv[]) {
 
     /* parse command line arguments */
     if (argc != 4) { 
-        printf("usage: %s [ number of vertices ] [ density ] [ seed ] \n", 
-               argv[0]);
+        fprintf(stderr, "usage: %s [ number of vertices ] [ density ] [ seed ] \n", 
+                argv[0]);
         exit(EXIT_FAILURE);
-    } else { v = atoi(argv[1]); d = atoi(argv[2]); seed = atoi(argv[3]); }
+    } else { v = atoi(argv[1]); d = atoi(argv[2]); seed = atol(argv[3]); }
+
+    /* validate arguments; a zero seed makes RAND return 0 forever, so the
+       search for k != j below would never terminate */
+    if (v < 1 || d < 0 || seed <= 0) {
+        fprintf(stderr, "%s: need v >= 1, density >= 0 and seed >= 1, "
+                "got %d %d %ld\n", argv[0], v, d, seed);
+        exit(EXIT_FAILURE);
+    }
+
+    /* compute the total weight in floating point, since v * (v - 1) * d
+       overflows an int for large graphs */
+    if ((double) v * (v - 1) * d / 200 > INT_MAX) {
+        fprintf(stderr, "%s: total weight v * (v - 1) * density / 200 "
+                "exceeds %d\n", argv[0], INT_MAX);
+        exit(EXIT_FAILURE);
+    }
 
     /* allocate memory */
     adj = malloc(v * sizeof(char *));
     for (i = 0; i < v; i++) adj[i] = calloc(v, 1);
 
     /* generate random graph */
-    e = v * (v - 1) * d / 200;
+    e = (int) ((double) v * (v - 1) * d / 200);
     for (i = 0; i < e; i++) { 
         j = RAND(v); for (;;) { k = RAND(v); if (k != j) break; }
+        if (adj[j][k] == CHAR_MAX) {
+            fprintf(stderr, "%s: edge weight exceeds %d; lower the density\n",
+                    argv[0], CHAR_MAX);
+            exit(EXIT_FAILURE);
+        }
         adj[j][k]++; adj[k][j]++;
     }
 
@@ -46,5 +71,7 @@ int main(int argc, char *argv[]) {
     printf("\nV = %d, E = %d\n", v, e);
        
     /* deallocate memory and exit */
-    for (i = 0; i < v; i++) free(adj[i]); free(adj); exit(EXIT_SUCCESS);
+    for (i = 0; i < v; i++) free(adj[i]);
+    free(adj);
+    exit(EXIT_SUCCESS);
 }

@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 # "strict mode"
 set -euo pipefail
@@ -8,7 +8,7 @@ if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name graphviz_file
 
-Arguments:  
+Arguments:
   graphviz_file  Path to file containing Graphviz graph description. Filename must match *.dot
 
 EOF
@@ -16,6 +16,11 @@ EOF
 fi
 
 graphviz_path=$1
+if [[ ! -f "$graphviz_path" ]]; then
+  echo "$graphviz_path does not exist" >&2
+  exit 1
+fi
+
 graphviz_dir=$(dirname "$graphviz_path")
 graphviz_file=$(basename "$graphviz_path")
 if [[ $graphviz_file =~ ^(.+).dot$ ]]; then

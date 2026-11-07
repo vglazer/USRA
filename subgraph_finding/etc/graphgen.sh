@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# make a generator failure, not just grep's exit status, determine the result of each pipeline below
+set -o pipefail
+
 # Run the given generator utility to produce random graphs on disk in accordance with
 # the specified input file 
 # 
@@ -39,17 +42,13 @@ function generate_graphs {
                 continue
             fi
 
-            # collapse multiple spaces to a single space; this too complex for ${variable//search/replace}
-            local munged_line
-            # shellcheck disable=SC2001
-            munged_line=$(echo "${line}" | sed 's/ \+/ /gp')
-
-            # the last token is the output file. everything else is a generator argument
+            # the last token is the output file. everything else is a generator argument.
+            # awk splits on runs of whitespace, so multiple spaces need no special handling
             local args
-            args=$(echo "${munged_line}" | awk '{ $NF=""; print $0 }')
+            args=$(echo "${line}" | awk '{ $NF=""; print $0 }')
             
             local output_file
-            output_file=$(echo "${munged_line}" | awk '{ print $NF }')
+            output_file=$(echo "${line}" | awk '{ print $NF }')
 
             local generator_retval
             if [[ "${pipe_args}" == 'true' ]]; then

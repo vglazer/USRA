@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 # "strict mode"
 set -euo pipefail
@@ -27,5 +27,4 @@ shape="circle"
 width=0.5
 
 script_dir=$(dirname "$(realpath "$0")")
-command="$script_dir/edges2dot.sh $v $edges_path $layout $sep $splines $shape $width"
-$command
+"$script_dir/edges2dot.sh" "$v" "$edges_path" "$layout" "$sep" "$splines" "$shape" "$width"
