@@ -12,7 +12,7 @@
    v          | number of vertices (adjacency lists) or symbols (incidence lists)
    num_sets   | number of sets (incidence lists only, negative for dual)
    density    | graph density (random graphs only)
-   seed       | random seed, a non-negative integer
+   seed       | random seed, a positive integer (random graphs only)
    num_fixed  | number of fixed vertices, if any
    fixed_type | one of five fixed types, see below
    compl      | complementation flag
@@ -73,6 +73,13 @@ int main(void) {
     /* echo parameters */
     printf("%d %d %d %d %ld  %d %d  %d\n", graph_type, v, num_sets, density, 
            seed, num_fixed, fixed_type, compl);
+
+    /* a zero seed makes RAND return 0 forever; negative seeds are not valid */
+    if ((graph_type == RAND_EXP || graph_type == RAND_POW || 
+         graph_type == RAND_GEO) && seed <= 0) {
+        fprintf(stderr, "seed must be a positive integer, got %ld\n", seed);
+        exit(EXIT_FAILURE);
+    }
 
     /* allocate memory */
     if (graph_type != INC_LIST || num_sets >= 0) {
@@ -240,7 +247,7 @@ int main(void) {
             for (i = 1; i < num_fixed; i++) 
                 for (j = 0; j < k; j++) 
                     if (adj[fixed_verts[i]][curr_set[j]] == l)
-                        curr_set[j--] = curr_set[--k];;
+                        curr_set[j--] = curr_set[--k];
             
             /* Sort the vertices in ascending order */
             for (i = 0; i < k; i++) box_charac[curr_set[i]] = 1;
@@ -278,7 +285,8 @@ int main(void) {
 
         /* output subgraph vertices */
         printf("\n%d\n", temp);
-        for (i = 0; i < temp; i++) printf(" %d", sub_verts[i]); printf("\n");
+        for (i = 0; i < temp; i++) printf(" %d", sub_verts[i]);
+        printf("\n");
         printf("\n");
 
         /* form new adjacency matrix */
@@ -299,7 +307,8 @@ int main(void) {
             }
 
             /* deallocate memory */
-            for (i = 0; i < v; i++) free(adj[i]); free(adj);        
+            for (i = 0; i < v; i++) free(adj[i]);
+            free(adj);
             adj = sub_adj; v = temp;
         }
     
@@ -319,7 +328,8 @@ int main(void) {
     /* compute degrees and output degree spectrum */
     curr_set = calloc(v, sizeof(int));
     for (i = 0; i < v; i++) {
-        for (j = temp = 0; j < v; j++) if (adj[i][j]) temp++; 
+        for (j = temp = 0; j < v; j++)
+            if (j != i && adj[i][j] != compl) temp++;
         curr_set[temp]++;
     }
     for (i = j = 0; i < v; i++) {
@@ -329,7 +339,8 @@ int main(void) {
     printf("\n");
 
     /* deallocate memory */ 
-    for (i = 0; i < v; i++) free(adj[i]); free(adj); free(curr_set);
+    for (i = 0; i < v; i++) free(adj[i]);
+    free(adj); free(curr_set);
     
     exit(EXIT_SUCCESS);
 }

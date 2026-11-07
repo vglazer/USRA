@@ -57,6 +57,16 @@ v=$2
 density=$3
 seed=${4:-"$default_seed"}
 compl=${5:-"$default_compl"}
+
+die() {
+  echo "$script_name: $*" >&2
+  exit 1
+}
+[[ $graph_type =~ ^[234]$ ]] || die "graph_type must be 2, 3 or 4, got '$graph_type'"
+[[ $v =~ ^[1-9][0-9]*$ ]] || die "v must be a positive integer, got '$v'"
+[[ $density =~ ^[0-9]+$ ]] && (( density <= 1000 )) || die "density must be an integer between 0 and 1000, got '$density'"
+[[ $seed =~ ^[1-9][0-9]*$ ]] || die "seed must be a positive integer, got '$seed'"
+[[ $compl =~ ^[01]$ ]] || die "compl must be 0 or 1, got '$compl'"
 signature="$graph_type-$v-$density-$seed-$compl"
 
 hist_file="hist_$signature.pdf"
@@ -86,20 +96,22 @@ plots_path="$graph_dir/$plots_file"
 dot_file="graph_$signature.dot"
 dot_path="$graph_dir/$dot_file"
 
+# reads the '-1'-stripped adjacency list; writes the graph in DOT format to dot_path
+# and one degree per vertex to stdout
 awk_script='
   BEGIN {
     for (i = 0; i < v; i++) {
       degrees[i] = 0
     }
 
-    print "graph G {" > "/dev/stderr"
+    print "graph G {" > dot_path
 
     if (large_graph) {
       print "  layout=sfdp;\n" \
             "  sep=\"+150,150\";\n" \
             "  overlap=false;\n" \
             "  splines=false;\n" \
-            "  node [shape=point, width=0.05, height=0.05];\n" > "/dev/stderr"
+            "  node [shape=point, width=0.05, height=0.05];\n" > dot_path
     }
   }
   
@@ -110,7 +122,7 @@ awk_script='
       degrees[$i]++
 
       # undirected graph
-      print "  " vertex " -- " $i ";" > "/dev/stderr"
+      print "  " vertex " -- " $i ";" > dot_path
     }
   }
 
@@ -120,11 +132,11 @@ awk_script='
       print degree
 
       if (!degree) {
-        print "  " vertex ";" > "/dev/stderr"
+        print "  " vertex ";" > dot_path
       }
     }
 
-    print "}" > "/dev/stderr"
+    print "}" > dot_path
   }'
 
 # an arbitrary threshold selected based on what "looks reasonable" on my machine
@@ -134,17 +146,22 @@ else
   large_graph=0
 fi
 
-# we want a pipeline that extracts the graph out of the ggen output and converts it to a dot format
-# as well as rendering it and producing a gnuplot histogram of the degree distribution.
+# run ggen once, saving its raw output, then derive every output file from it in sequence,
+# so that each file is complete before the next step (or the caller) reads it.
 # num_sets, num_fixed and fixed_type are set to 0 since ggen.sh does not support the relevant ggen functionality
 num_sets=0
 num_fixed=0
 fixed_type=0
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
-  | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
-  | grep "\-1$" | sed 's/-1//g' | awk -v v="$v" -v large_graph="$large_graph" "$awk_script" \
-  2> >(tee >(dot -Tpdf -o "$plots_path") "$dot_path") \
-  | gnuplot -e "$gnuplot_script"
+raw_path=$(mktemp)
+trap 'rm -f "$raw_path"' EXIT
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | "$ggen_binary" > "$raw_path"
+
+grep -- '-1$' "$raw_path" > "$graph_path"
+grep -v -- '-1$' "$raw_path" > "$stats_path"
+
+degrees=$(sed 's/-1//g' "$graph_path" | awk -v v="$v" -v large_graph="$large_graph" -v dot_path="$dot_path" "$awk_script")
+gnuplot -e "$gnuplot_script" <<< "$degrees"
+dot -Tpdf -o "$plots_path" "$dot_path"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"

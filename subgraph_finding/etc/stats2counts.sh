@@ -29,5 +29,6 @@ fi
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
 
-cat "$stats_path" | grep ':' | tr -s ' ' | sed 's/ : /,/g' | tr ' ' '\n' | grep . > "$counts_path"
+# entries look like "45  : 2    " or, for degrees >= 1000, "1159: 1    "
+grep ':' "$stats_path" | sed -E 's/ *: */:/g' | tr -s ' ' '\n' | grep . | tr ':' ',' > "$counts_path"
 echo "$counts_path"

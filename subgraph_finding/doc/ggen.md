@@ -28,7 +28,7 @@ standard output. The input parameters are:
    v          | number of vertices (adjacency lists) or symbols (incidence lists)
    num_sets   | number of sets (incidence lists only)
    density    | graph density (random graphs only)
-   seed       | random seed, a non-negative integer
+   seed       | random seed, a positive integer (random graphs only)
    num_fixed  | number of fixed vertices, if any
    fixed_type | one of five fixed types, see below
    compl      | complementation flag
